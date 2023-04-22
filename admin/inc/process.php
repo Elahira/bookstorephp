@@ -17,12 +17,12 @@ if(isset($_POST['add-category'])){
 		header('location: ../categories.php?error=Category Name require');
 	}
 	else{
-		$query = "INSERT INTO `category`(`cate_name`) VALUES ('$cat_name')";
-		if(mysqli_query($conn, $query)){
-			echo "<script>alert('Add category success! Category has been added.');window.location='../categories.php'</script>";
+		$query = "INSERT INTO theloai VALUES ('$cat_name')";
+		if($conn ->query($query)){
+			echo "<script>alert('Thêm thể loại thành công!');window.location='../categories.php'</script>";
 		}
 		else{
-			echo "<script>alert('Add category fail! Some error has occurred.');window.location='../categories.php'</script>";
+			echo "<script>alert('Thêm thể loại thất bại!');window.location='../categories.php'</script>";
 		}
 	}
 }
@@ -37,57 +37,13 @@ if(isset($_POST['edit-category'])){
 		header("location: ../categories.php?editerror=Category Name require&edit=$edit_id");
 	}
 	else{
-		$query = "UPDATE `category` SET `cate_name` = '$edit_cat_name' WHERE `ID` = '$edit_id';";
+		$query = "UPDATE theloai SET Tenloai = '$edit_cat_name' WHERE Idloai = '$edit_id';";
 		//UPDATE `categories` SET `cat_id` = '888', `cat_name` = 'hellop' WHERE `categories`.`cat_id` = 4;
 		if(mysqli_query($conn, $query)){
-			echo "<script>alert('Edit category success! Category has been edited.');window.location='../categories.php'</script>";
+			echo "<script>alert('Sửa thể loại thành công!');window.location='../categories.php'</script>";
 		}
 		else{
-			echo "<script>alert('Edit category fail! Some error has occurred.');window.location='../categories.php'</script>";
-		}
-	}
-}
-
-
-//////////////////////// ADD SUB-CATEGORY //////////////////////
-
-if(isset($_POST['add-subcategory'])){
-	$cat_id = $_POST['categories'];
-	$subcat_name = $_POST['subcat-name'];
-	if(empty($subcat_name)){
-		header('location: ../sub-categories.php?error=Sub-Category Name require');
-	}
-	else{
-		$query = "INSERT INTO `subcategory`(`cate_id`, `subcate_name`) VALUES ('$cat_id', '$subcat_name')";
-		//$query_id = "INSERT INTO `categories` (`cat_id`) VALUES ('$cat_id')";
-		//$query_name = "INSERT INTO `categories` (`cat_name`) VALUES ('$cat_name')";
-		if(mysqli_query($conn, $query)){
-			echo "<script>alert('Add sub-category success! Sub-category has been added.');window.location='../sub-category.php'</script>";
-		}
-		else{
-			echo "<script>alert('Add sub-category fail! Some error has occurred.');window.location='../sub-category.php'</script>";
-		}
-	}
-}
-
-//////////////////////// EDIT SUB-CATEGORY //////////////////////
-
-if(isset($_POST['edit-subcategory'])){
-	$edit_catid = $_POST['editcategories'];
-	$edit_subid = $_GET['edit_subcategory'];
-	$edit_subcat_name = $_POST['edit-subcat-name'];
-	
-	if(empty($edit_subcat_name)){
-		header("location: ../sub-categories.php?editerror=Sub-Category Name require&edit=$edit_subid");
-	}
-	else{
-		$query_edit = "UPDATE `subcategory` SET `subcate_name` = '$edit_subcat_name', `cate_id`= '$edit_catid' WHERE `subcate_id` = '$edit_subid';";
-		//UPDATE `categories` SET `cat_id` = '888', `cat_name` = 'hellop' WHERE `categories`.`cat_id` = 4;
-		if(mysqli_query($conn, $query_edit)){
-			echo "<script>alert('Edit sub-category success! Sub-category has been edited.');window.location='../sub-categories.php'</script>";
-		}
-		else{
-			echo "<script>alert('Edit sub-category fail! Some error has occurred.');window.location='../sub-categories.php'</script>";
+			echo "<script>alert('Sửa thể loại thất bại!');window.location='../categories.php'</script>";
 		}
 	}
 }
