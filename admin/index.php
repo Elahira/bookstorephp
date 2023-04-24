@@ -34,7 +34,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-1">
                             <div class="card-body">
-                                <h3 class="card-title text-white">Sản phẩm</h3>
+                                <h3 class="card-title text-white">Sách</h3>
                                 <div class="d-inline-block">
                                     <?php
                                     $query_pro = "SELECT * FROM sanpham WHERE StatusSP ='1'";
@@ -42,7 +42,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                     if ($res_pro->num_rows > 0) {
                                         $count_pro = $res_pro->num_rows;
                                     } else {
-                                        $count_pro = "Không có sản phẩm";
+                                        $count_pro = "Không có sách";
                                     }
                                     ?>
                                     <h2 class="text-white"><?php echo $count_pro ?></h2>
@@ -206,9 +206,9 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                 $query = $query = "SELECT * FROM hoadon hd 
 				LEFT JOIN taikhoan tk ON hd.Idtk = tk.Idtk
 				LEFT JOIN users u ON u.Idtk = tk.Idtk ORDER BY hd.Idhd desc;";
-                $run = mysqli_query($conn, $query);
+                $run = $conn ->query($query);
                 if (mysqli_num_rows($run) > 0) {
-                    while ($row = mysqli_fetch_array($run)) {
+                    while ($row = $run ->fetch_array()) {
                         $hd_id = $row['Idhd'];
                         $email = $row['Mail'];
                         $phonenumber = $row['Sdt'];

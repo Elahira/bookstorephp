@@ -1,5 +1,5 @@
 <?php require_once('inc/top.php'); ?>
-<title>Categories</title>
+<title>Phân loại sách</title>
 <?php
 if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 	$del_id = $_GET['del'];

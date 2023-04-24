@@ -92,11 +92,6 @@
                         </a>
                     </li>
 					<li>
-                        <a href="./account.php">
-                            <i class="fa fa-user-circle-o"></i> <span class="nav-text">Tài khoản</span>
-                        </a>
-                    </li>
-					<li>
                         <a href="./users.php">
                         <i class="fa fa-user"></i> <span class="nav-text">Người dùng</span>
                         </a>
