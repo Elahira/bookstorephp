@@ -72,7 +72,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                 </div>
                 <a href="addproduct.php"><button style="margin-bottom: 20px" class='btn btn-primary'><span style="margin-right: 10px">Thêm sách mới</span><i class="fa fa-plus"></i></button></a>
                 <div class="table-responsive">
-                  <table id="table-order" class="table table-bordered table-striped table-hover" style="width: 1600px;">
+                  <table id="table-order" class="table table-bordered table-striped table-hover" style="width: 1500px;">
                     <thead>
                       <tr>
                         <th style="width: 5%;">Mã sách</th>
@@ -90,7 +90,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                         <th style="width: 5%;">Số trang</th>
                         <th style="width: 5%;">Mô tả</th>
                         <th style="width: 5%;">Sửa</th>
-                        <th style="width: 5%;">Xóa</th>
+                        <th style="width: 5%;">Xóa/Ẩn</th>
                       </tr>
                     </thead>
                     <tbody id="table-order-body">
@@ -217,7 +217,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  <p><?php echo $pro_desc ?></p>
+                                  <div style="white-space: pre-wrap;"><?php echo $pro_desc ?></div>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>

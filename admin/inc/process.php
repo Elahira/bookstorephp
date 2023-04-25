@@ -17,7 +17,7 @@ if(isset($_POST['add-category'])){
 		header('location: ../categories.php?error=Category Name require');
 	}
 	else{
-		$query = "INSERT INTO theloai VALUES ('$cat_name')";
+		$query = "INSERT INTO theloai(Tenloai) VALUES ('$cat_name')";
 		if($conn ->query($query)){
 			echo "<script>alert('Thêm thể loại thành công!');window.location='../categories.php'</script>";
 		}
@@ -34,16 +34,55 @@ if(isset($_POST['edit-category'])){
 	$edit_cat_name = $_POST['edit-cat-name'];
 	
 	if(empty($edit_cat_name)){
-		header("location: ../categories.php?editerror=Category Name require&edit=$edit_id");
+		header("location: ../publisher.php?editerror=Category Name require&edit=$edit_id");
 	}
 	else{
 		$query = "UPDATE theloai SET Tenloai = '$edit_cat_name' WHERE Idloai = '$edit_id';";
-		//UPDATE `categories` SET `cat_id` = '888', `cat_name` = 'hellop' WHERE `categories`.`cat_id` = 4;
-		if(mysqli_query($conn, $query)){
-			echo "<script>alert('Sửa thể loại thành công!');window.location='../categories.php'</script>";
+		if($conn ->query($query)){
+			echo "<script>alert('Sửa thành công!');window.location='../categories.php'</script>";
 		}
 		else{
-			echo "<script>alert('Sửa thể loại thất bại!');window.location='../categories.php'</script>";
+			echo "<script>alert('Sửa thất bại!');window.location='../categories.php'</script>";
+		}
+	}
+}
+
+//////////////////////// ADD PUBLISHER //////////////////////
+
+if(isset($_POST['add-publisher'])){
+	$pub_id = $_POST['pub-id'];
+	$pub_name = $_POST['pub-name'];
+	
+	if(empty($pub_name)){
+		header('location: ../publisher.php?error=Publisher Name require');
+	}
+	else{
+		$query = "INSERT INTO nhaphathanh(Tennph) VALUES ('$pub_name')";
+		if($conn ->query($query)){
+			echo "<script>alert('Thêm nhà phát hành thành công!');window.location='../publisher.php'</script>";
+		}
+		else{
+			echo "<script>alert('Thêm nhà phát hành thất bại!');window.location='../publisher.php'</script>";
+		}
+	}
+}
+
+//////////////////////// EDIT PUBLISHER //////////////////////
+
+if(isset($_POST['edit-publisher'])){
+	$edit_id = $_GET['edit_publisher'];
+	$edit_pub_name = $_POST['edit-pub-name'];
+	
+	if(empty($edit_pub_name)){
+		header("location: ../publisher.php?editerror=Publisher Name require&edit=$edit_id");
+	}
+	else{
+		$query = "UPDATE nhaphathanh SET Tennph = '$edit_pub_name' WHERE Idnph = '$edit_id';";
+		if($conn ->query($query)){
+			echo "<script>alert('Sửa thành công!');window.location='../publisher.php'</script>";
+		}
+		else{
+			echo "<script>alert('Sửa thất bại!');window.location='../publisher.php'</script>";
 		}
 	}
 }
@@ -135,38 +174,50 @@ if(isset($_POST['add-user'])){
 //////////////////////// EDIT PRODUCT //////////////////////
 
 if(isset($_POST['edit-product'])){
-	$edit_pro_id = $_GET['edit_product'];
-  	$pro_name = $_POST['e-pro-name'];
+	$pro_id = $_POST['e-pro-id'];
+	$pro_name = $_POST['e-pro-name'];
+	$pro_author = $_POST['e-pro-author'];
+	$pro_illu = $_POST['e-pro-illu'];
+	$pro_trans = $_POST['e-pro-trans'];
+	$pro_cover = $_POST['e-pro-cover'];
+	$pro_pages = $_POST['e-pro-pages'];
   	$pro_price = $_POST['e-pro-price'];
   	$pro_sale = $_POST['e-pro-sale'];
   	$pro_newprice = $pro_price - ($pro_price*($pro_sale/100));
-  	$pro_subcate = $_POST['e-pro-subcate'];
-  	$pro_des = $_POST['e-pro-des']; 
-  
-  	$file = $_FILES['image']['tmp_name'];
+  	$pro_pub = $_POST['e-pro-pub'];
+  	$pro_cat = $_POST['e-pro-cat'];
+  	$pro_des = $_POST['e-pro-des'];
+
+ 	$file = $_FILES['image']['tmp_name'];
     if($file!="") {
         $image_check = getimagesize($_FILES['image']['tmp_name']);
 		$image = file_get_contents ($_FILES['image']['tmp_name']);
 		$image_name = $_FILES['image']['name'];
-		$update_query = "UPDATE `product` SET `pname`='$pro_name',`price`='$pro_price',`sale`='$pro_sale',`new_price`='$pro_newprice',`subcate_id`='$pro_subcate',`descr`='$pro_des',`img`='$image_name' WHERE `pid` = '$edit_pro_id';";
+		$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des', `Img`='$image_name' WHERE `Idsp` = '$pro_id';";
     } else {
-		$update_query = "UPDATE `product` SET `pname`='$pro_name',`price`='$pro_price',`sale`='$pro_sale',`new_price`='$pro_newprice',`subcate_id`='$pro_subcate',`descr`='$pro_des' WHERE `pid` = '$edit_pro_id';";
+		$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des' WHERE `Idsp` = '$pro_id';";
     }
-	if(mysqli_query($conn, $update_query)){
-		echo "<script>alert('Edit product success! Product has been edited.');window.location='../products.php'</script>";
+	if($conn ->query($update_query)){
+		echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
 	}
 	else{
-		echo "<script>alert('Edit product fail! Some error has occurred.');window.location='../products.php'</script>";
+		echo "<script>alert('Sửa thất bại!');window.location='../products.php'</script>";
 	}
 }
 //////////////////////// ADD PRODUCT //////////////////////
 
-if(isset($_POST['add-product1'])){
-	$add_pro_names = $_POST['add-pro-names'];
+if(isset($_POST['add-product'])){
+	$add_pro_name = $_POST['add-pro-name'];
+	$add_pro_author = $_POST['add-pro-author'];
+	$add_pro_illu = $_POST['add-pro-illu'];
+	$add_pro_trans = $_POST['add-pro-trans'];
+	$add_pro_cover = $_POST['add-pro-cover'];
+	$add_pro_pages = $_POST['add-pro-pages'];
   	$add_pro_price = $_POST['add-pro-price'];
   	$add_pro_sale = $_POST['add-pro-sale'];
   	$add_pro_newprice = $add_pro_price - ($add_pro_price*($add_pro_sale/100));
-  	$add_pro_subcate = $_POST['add-pro-subcate'];
+  	$add_pro_pub = $_POST['add-pro-pub'];
+  	$add_pro_cat = $_POST['add-pro-cat'];
   	$add_pro_des = $_POST['add-pro-des'];
 
  	$file = $_FILES['image']['tmp_name'];
@@ -174,15 +225,14 @@ if(isset($_POST['add-product1'])){
 	$image = file_get_contents ($_FILES['image']['tmp_name']);
 	$image_name = $_FILES['image']['name'];
 	  
-	$insert_pro = "INSERT INTO `product`( `pname`, `price`, `sale`, `new_price`, `subcate_id`, `descr`, `img`) VALUES ('$add_pro_names','$add_pro_price','$add_pro_sale','$add_pro_newprice','$add_pro_subcate','$add_pro_des','$image_name');";	
+	$insert_pro = "INSERT INTO sanpham( `Tensp`, `Tacgia`, `Minhhoa`, `Dichgia`, `Loaibia`, `Sotrang`, `Giasp`, `Giamgia`, `Giamoi`, `Idloai`, `Idnph`, `Mota`, `Img`, `StatusSP`) 
+	VALUES ('$add_pro_name', '$add_pro_author', '$add_pro_illu', '$add_pro_trans', '$add_pro_cover', '$add_pro_pages', '$add_pro_price','$add_pro_sale','$add_pro_newprice','$add_pro_cat', '$add_pro_pub', '$add_pro_des', '$image_name' , '1');";	
 	
-	if(mysqli_query($conn, $insert_pro)){
-		echo "<script>alert('Add product success! Product has been added.');window.location='../products.php'</script>";
+	if($conn ->query($insert_pro)){
+		echo "<script>alert('Thêm sách mới thành công!');window.location='../products.php'</script>";
 	}
 	else{
-		echo "<script>alert('Add product fail! Some error has occurred.');window.location='../products.php'</script>";
+		echo "<script>alert('Thêm sách mới thất bại!');window.location='../products.php'</script>";
 	}
 	
 }
-
-?>

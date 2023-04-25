@@ -83,7 +83,7 @@
                     </li>
 					<li>
                         <a href="./products.php">
-                            <i class="fa fa-book"></i><span class="nav-text">Sản phẩm</span>
+                            <i class="fa fa-book"></i><span class="nav-text">Sách</span>
                         </a>
                     </li>
                     <li>

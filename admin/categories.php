@@ -73,9 +73,9 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 										<form action="inc/process.php?edit_category=<?php echo $edit_id ?>" method="post">
 											<div class="form-group">
 												<label for="category">Tên thể loại mới:*</label>
-												<input type="text" placeholder="Edit Category Name" class="form-control" name="edit-cat-name" value="<?php echo $edit_name; ?>" required>
+												<input type="text" placeholder="Tên thể loại..." class="form-control" name="edit-cat-name" value="<?php echo $edit_name; ?>" required>
 											</div>
-											<input type="submit" value="Edit Category" name="edit-category" class="btn btn-primary">
+											<input type="submit" value="Sửa" name="edit-category" class="btn btn-primary">
 										</form>
 									</div>
 								</div>
