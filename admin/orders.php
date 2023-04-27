@@ -6,8 +6,8 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
     $del_detail = "DELETE FROM chitiethoadon WHERE Idhd = '$del_id'";
     $del_query = "DELETE FROM hoadon WHERE Idhd = '$del_id'";
     //$del_run
-    if ($conn ->query($del_detail)) {
-        if ($conn ->query($del_query)){
+    if ($conn->query($del_detail)) {
+        if ($conn->query($del_query)) {
             echo "<script>alert('Xóa đơn hàng thành công!');window.history.back();</script>";
         } else {
             echo "<script>alert('Xóa đơn hàng thất bại!');window.history.back();</script>";
@@ -71,6 +71,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                             <th>Tên khách hàng</th>
                                                             <th>Địa chỉ</th>
                                                             <th>Ngày mua</th>
+                                                            <th>Ngày giao</th>
                                                             <th>Tình trạng</th>
                                                             <th>Chi tiết đơn hàng</th>
                                                             <th>Xóa</th>
@@ -81,7 +82,8 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                         $query = "SELECT * FROM hoadon hd 
                                                         LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
                                                         LEFT JOIN users u ON u.Idtk = tk.Idtk
-                                                        WHERE hd.statusHD < 3";
+                                                        WHERE hd.statusHD < 3
+                                                        ORDER BY hd.statusHD ASC";
                                                         $run = $conn->query($query);
                                                         if ($run->num_rows > 0) {
                                                             while ($row = $run->fetch_array()) {
@@ -89,6 +91,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                                 $name = $row['Ten'];
                                                                 $address = $row['Diachi'];
                                                                 $ngay_mua = $row['Ngaymua'];
+                                                                $ngay_nhan = $row['Ngaynhan'];
                                                                 $hd_status = $row['StatusHD'];
                                                         ?>
                                                                 <tr>
@@ -96,7 +99,8 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                                     <td><?php echo $name ?></td>
                                                                     <td><?php echo $address ?></td>
                                                                     <td><?php echo $ngay_mua ?></td>
-                                                                    <td><a href="index.php?upstatus=<?php echo $hd_id ?>&status=<?php echo $hd_status ?>">
+                                                                    <td><?php echo $ngay_nhan ?></td>
+                                                                    <td><a href="orders.php?upstatus=<?php echo $hd_id ?>&status=<?php echo $hd_status ?>">
                                                                             <?php
                                                                             if ($hd_status == '1') {
                                                                             ?>
@@ -137,9 +141,9 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                     $query = $query = "SELECT * FROM hoadon hd 
 				LEFT JOIN taikhoan tk ON hd.Idtk = tk.Idtk
 				LEFT JOIN users u ON u.Idtk = tk.Idtk ORDER BY hd.Idhd desc;";
-                    $run = mysqli_query($conn, $query);
-                    if (mysqli_num_rows($run) > 0) {
-                        while ($row = mysqli_fetch_array($run)) {
+                    $run = $conn->query($query);
+                    if ($run->num_rows > 0) {
+                        while ($row = $run->fetch_array()) {
                             $hd_id = $row['Idhd'];
                             $email = $row['Mail'];
                             $phonenumber = $row['Sdt'];
@@ -237,6 +241,8 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- del order -->
                             <div class="modal fade" id="exampleModal<?php echo $hd_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">

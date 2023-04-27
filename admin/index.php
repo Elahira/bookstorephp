@@ -115,7 +115,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                     }
                                     ?>
                                     <h2 class="text-white"><?php echo $count_users ?></h2>
-                                    <a href="./orders.php">
+                                    <a href="./users.php">
                                         <p class="text-white mb-0">Xem chi tiết...</p>
                                     </a>
                                 </div>
@@ -150,7 +150,8 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                     $query = "SELECT * FROM hoadon hd 
                                                         LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
                                                         LEFT JOIN users u ON u.Idtk = tk.Idtk
-                                                        WHERE hd.statusHD < 3";
+                                                        WHERE hd.statusHD < 3
+                                                        ORDER BY hd.StatusHD ASC";
                                                     $run = $conn->query($query);
                                                     if ($run->num_rows > 0) {
                                                         while ($row = $run->fetch_array()) {
@@ -306,6 +307,8 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- del order -->
                         <div class="modal fade" id="exampleModal<?php echo $hd_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">

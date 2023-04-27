@@ -4,9 +4,10 @@
 if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 	$del_id = $_GET['del'];
 	$del_query = "DELETE FROM theloai WHERE Idloai = '$del_id'";
-	if ($conn->query($del_query)) {
+	try{
+		$conn->query($del_query);
 		echo "<script>alert('Xóa thể loại thành công!');window.location='./categories.php'</script>";
-	} else {
+	}catch(Exception $e){
 		echo "<script>alert('Xóa thể loại thất bại!');window.location='./categories.php'</script>";
 	}
 }
