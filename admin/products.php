@@ -1,6 +1,21 @@
 <?php require_once('inc/top.php'); ?>
 <title>Sách</title>
 <?php
+
+if (isset($_GET['search'])) {
+  $searchkey = $_GET['search'];
+  $query = "SELECT * from sanpham sp
+  LEFT JOIN theloai tl on tl.Idloai = sp.Idloai
+  LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph 
+  where sp.StatusSP < 2 and CONCAT(Idsp,Tensp,Tacgia,Minhhoa,Dichgia,Tennph,Tenloai,Giasp,Giamgia,Giamoi,Loaibia,Sotrang) LIKE '%$searchkey%'
+  order by sp.Idsp asc";
+} else {
+  $query = "SELECT * from sanpham sp
+  LEFT JOIN theloai tl on tl.Idloai = sp.Idloai
+  LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph 
+  where sp.StatusSP < 2 order by sp.Idsp asc";
+}
+
 if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
   $del_id = $_GET['del'];
   $status = $_GET['status'];
@@ -21,7 +36,7 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
     if ($conn->query($upstatus_query)) {
       echo "<script>alert('Do sách này đã có người mua, nên sách này sẽ bị ẩn đi.');window.history.back();</script>";
     } else {
-      echo "<script>alert('Cập nhật tình trạng thái sách thất bại.');window.location='./products.php'</script>";
+      echo "<script>alert('Cập nhật trạng thái sách thất bại.');window.location='./products.php'</script>";
     }
   }
 }
@@ -31,9 +46,9 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
   $status_new = $status + 1;
   $upstatus_query = "UPDATE sanpham SET StatusSP = '$status_new' WHERE Idsp = '$upstatus'";
   if ($conn->query($upstatus_query)) {
-    echo "<script>alert('Cập nhật tình trạng thái sách thành công.');window.location='./products.php'</script>";
+    echo "<script>alert('Cập nhật trạng thái sách thành công.');window.location='./products.php'</script>";
   } else {
-    echo "<script>alert('Cập nhật tình trạng thái sách thất bại.');window.location='./products.php'</script>";
+    echo "<script>alert('Cập nhật trạng thái sách thất bại.');window.location='./products.php'</script>";
   }
 }
 ?>
@@ -70,6 +85,15 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                 <div class="card-title">
                   <h3>Sách</h3>
                 </div>
+                <div class="pb-3">
+                  <form action="" method="get">
+                    <div class="input-group">
+                      <input type="search" name="search" class="form-control rounded" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="search-addon" 
+                      value="<?php if(isset($_GET['search'])) {echo $_GET['search'];} ?>"/>
+                      <button type="submit" class="btn btn-outline-primary">search</button>
+                    </div>
+                  </form>
+                </div>
                 <a href="addproduct.php"><button style="margin-bottom: 20px" class='btn btn-primary'><span style="margin-right: 10px">Thêm sách mới</span><i class="fa fa-plus"></i></button></a>
                 <div class="table-responsive">
                   <table id="table-order" class="table table-bordered table-striped table-hover" style="width: 1500px;">
@@ -95,10 +119,6 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                     </thead>
                     <tbody id="table-order-body">
                       <?php
-                      $query = "SELECT * from sanpham sp
-                    LEFT JOIN theloai tl on tl.Idloai = sp.Idloai
-                    LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph 
-                    where sp.StatusSP < 2 order by sp.Idsp asc";
                       $run = $conn->query($query);
                       if ($run->num_rows > 0) {
                         while ($row = $run->fetch_array()) {

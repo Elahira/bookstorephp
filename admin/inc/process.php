@@ -10,7 +10,6 @@ if (!isset($_SESSION['usernameadmin'])) {
 //////////////////////// ADD CATEGORY //////////////////////
 
 if (isset($_POST['add-category'])) {
-	$cat_id = $_POST['cat-id'];
 	$cat_name = $_POST['cat-name'];
 
 	if (empty($cat_name)) {
@@ -46,7 +45,6 @@ if (isset($_POST['edit-category'])) {
 //////////////////////// ADD PUBLISHER //////////////////////
 
 if (isset($_POST['add-publisher'])) {
-	$pub_id = $_POST['pub-id'];
 	$pub_name = $_POST['pub-name'];
 
 	if (empty($pub_name)) {

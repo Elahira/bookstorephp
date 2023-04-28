@@ -47,22 +47,22 @@
 
                                     <div class="form-group">
                                         <label for="products">Minh họa:*</label>
-                                        <input type="text" class="form-control" name="add-pro-illu" required>
+                                        <input type="text" class="form-control" name="add-pro-illu">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="products">Dịch giả:*</label>
-                                        <input type="text" class="form-control" name="add-pro-trans" required>
+                                        <input type="text" class="form-control" name="add-pro-trans">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="products">Loại bìa:*</label>
-                                        <input type="text" class="form-control" name="add-pro-cover" required>
+                                        <input type="text" class="form-control" name="add-pro-cover">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="products">Số trang:*</label>
-                                        <input type="text" class="form-control" name="add-pro-pages" required>
+                                        <input type="text" class="form-control" name="add-pro-pages">
                                     </div>
 
                                     <div class="form-group">

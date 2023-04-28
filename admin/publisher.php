@@ -1,14 +1,24 @@
 <?php require_once('inc/top.php'); ?>
 <title>Nhà phát hành</title>
 <?php
+//search
+if (isset($_GET['search'])) {
+    $searchkey = $_GET['search'];
+    $query = "SELECT * FROM nhaphathanh 
+    where CONCAT(Idnph,Tennph) LIKE '%$searchkey%'
+    order by Idnph asc";
+} else {
+    $query = "SELECT * FROM nhaphathanh order by Idnph asc";
+}
+
+//del
 if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
     $del_id = $_GET['del'];
     $del_query = "DELETE FROM nhaphathanh WHERE Idnph = '$del_id'";
-    try{
+    try {
         $conn->query($del_query);
         echo "<script>alert('Xóa nhà phát hành thành công!');window.location='./publisher.php'</script>";
-    }
-    catch(Exception $e){
+    } catch (Exception $e) {
         echo "<script>alert('Xóa nhà phát hành thất bại!');window.location='./publisher.php'</script>";
     }
 }
@@ -92,6 +102,16 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
                                 <div class="card-title">
                                     <h3>Nhà phát hành</h3>
                                 </div>
+                                <div class="pb-3">
+                                    <form action="" method="get">
+                                        <div class="input-group">
+                                            <input type="search" name="search" class="form-control rounded" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="search-addon" value="<?php if (isset($_GET['search'])) {
+                                                                                                                                                                                                    echo $_GET['search'];
+                                                                                                                                                                                                } ?>" />
+                                            <button type="submit" class="btn btn-outline-primary">search</button>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped table-hover">
                                         <thead>
@@ -104,7 +124,6 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = "SELECT * FROM nhaphathanh order by Idnph asc";
                                             $run = $conn->query($query);
                                             if ($run->num_rows > 0) {
                                                 while ($row = $run->fetch_array()) {

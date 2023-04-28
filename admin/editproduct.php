@@ -70,22 +70,22 @@
 
                                             <div class="form-group">
                                                 <label for="products">Minh họa:*</label>
-                                                <input type="text" value="<?php echo $pro_illu ?>" class="form-control" name="e-pro-illu" required>
+                                                <input type="text" value="<?php echo $pro_illu ?>" class="form-control" name="e-pro-illu">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="products">Dịch giả:*</label>
-                                                <input type="text" value="<?php echo $pro_trans ?>" class="form-control" name="e-pro-trans" required>
+                                                <input type="text" value="<?php echo $pro_trans ?>" class="form-control" name="e-pro-trans">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="products">Loại bìa:*</label>
-                                                <input type="text" value="<?php echo $pro_cover ?>" class="form-control" name="e-pro-cover" required>
+                                                <input type="text" value="<?php echo $pro_cover ?>" class="form-control" name="e-pro-cover">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="products">Số trang:*</label>
-                                                <input type="text" value="<?php echo $pro_pages ?>" class="form-control" name="e-pro-pages" required>
+                                                <input type="text" value="<?php echo $pro_pages ?>" class="form-control" name="e-pro-pages">
                                             </div>
 
                                             <div class="form-group">

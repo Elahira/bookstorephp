@@ -1,6 +1,21 @@
 <?php require_once('inc/top.php'); ?>
 <title>Đơn hàng</title>
 <?php
+if (isset($_GET['search'])) {
+    $searchkey = $_GET['search'];
+    $query = "SELECT * FROM hoadon hd 
+    LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
+    LEFT JOIN users u ON u.Idtk = tk.Idtk
+    WHERE hd.statusHD < 3 AND CONCAT(Idhd,Ten,Diachi,Ngaymua,Ngaynhan) LIKE '%$searchkey%'
+    ORDER BY hd.statusHD ASC";
+} else {
+    $query = "SELECT * FROM hoadon hd 
+    LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
+    LEFT JOIN users u ON u.Idtk = tk.Idtk
+    WHERE hd.statusHD < 3
+    ORDER BY hd.statusHD ASC";
+}
+
 if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
     $del_id = $_GET['del'];
     $del_detail = "DELETE FROM chitiethoadon WHERE Idhd = '$del_id'";
@@ -63,6 +78,16 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title">Đơn hàng mới</h4>
+                                            <div class="pb-3">
+                                                <form action="" method="get">
+                                                    <div class="input-group">
+                                                        <input type="search" name="search" class="form-control rounded" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="search-addon" value="<?php if (isset($_GET['search'])) {
+                                                                                                                                                                                                                echo $_GET['search'];
+                                                                                                                                                                                                            } ?>" />
+                                                        <button type="submit" class="btn btn-outline-primary">search</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                             <div class="table-responsive">
                                                 <table class="table header-border">
                                                     <thead>
@@ -79,11 +104,6 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $query = "SELECT * FROM hoadon hd 
-                                                        LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
-                                                        LEFT JOIN users u ON u.Idtk = tk.Idtk
-                                                        WHERE hd.statusHD < 3
-                                                        ORDER BY hd.statusHD ASC";
                                                         $run = $conn->query($query);
                                                         if ($run->num_rows > 0) {
                                                             while ($row = $run->fetch_array()) {

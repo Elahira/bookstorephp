@@ -47,9 +47,6 @@
                                         </li>
                                         
                                         <hr class="my-2">
-                                        <li>
-                                            <a href="page-lock.php"><i class="icon-lock"></i> <span>Lock Screen</span></a>
-                                        </li>
                                         <li><a href="page-logout.php"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
