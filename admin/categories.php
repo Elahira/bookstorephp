@@ -3,7 +3,7 @@
 <?php
 //search
 if (isset($_GET['search'])) {
-    $searchkey = $_GET['search'];
+	$searchkey = $_GET['search'];
 	$query = "SELECT * FROM theloai
 	where CONCAT(Idloai,Tenloai) LIKE '%$searchkey%'
 	order by Idloai asc";
@@ -15,10 +15,10 @@ if (isset($_GET['search'])) {
 if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 	$del_id = $_GET['del'];
 	$del_query = "DELETE FROM theloai WHERE Idloai = '$del_id'";
-	try{
+	try {
 		$conn->query($del_query);
 		echo "<script>alert('Xóa thể loại thành công!');window.location='./categories.php'</script>";
-	}catch(Exception $e){
+	} catch (Exception $e) {
 		echo "<script>alert('Xóa thể loại thất bại!');window.location='./categories.php'</script>";
 	}
 }
@@ -68,33 +68,8 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 								</form>
 							</div>
 						</div>
-						<?php
-						if (isset($_GET['edit'])) {
-							$edit_id = $_GET['edit'];
-							$get_cat_id = "SELECT * from theloai where Idloai = '$edit_id'";
-							$run_edit_id = $conn->query($get_cat_id);
-							if ($run_edit_id->num_rows > 0) {
-								$row_edit_id = $run_edit_id->fetch_array();
-								$edit_name = $row_edit_id['Tenloai'];
-						?>
-								<div class="card">
-									<div class="card-body">
-										<div class="card-title">
-											<h4>Sửa thể loại</h4>
-										</div>
-										<form action="inc/process.php?edit_category=<?php echo $edit_id ?>" method="post">
-											<div class="form-group">
-												<label for="category">Tên thể loại mới:*</label>
-												<input type="text" placeholder="Tên thể loại..." class="form-control" name="edit-cat-name" value="<?php echo $edit_name; ?>" required>
-											</div>
-											<input type="submit" value="Sửa" name="edit-category" class="btn btn-primary">
-										</form>
-									</div>
-								</div>
-						<?php
-							}
-						}
-						?>
+						<div class="card" id="output"></div>
+
 					</div>
 					<div class="col-lg-7 col-md-12">
 						<div class="card">
@@ -103,15 +78,15 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 									<h3>Thể loại</h3>
 								</div>
 								<div class="pb-3">
-                                    <form action="" method="get">
-                                        <div class="input-group">
-                                            <input type="search" name="search" class="form-control rounded" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="search-addon" value="<?php if (isset($_GET['search'])) {
-                                                                                                                                                                                                    echo $_GET['search'];
-                                                                                                                                                                                                } ?>" />
-                                            <button type="submit" class="btn btn-outline-primary">search</button>
-                                        </div>
-                                    </form>
-                                </div>
+									<form action="" method="get">
+										<div class="input-group">
+											<input type="search" name="search" class="form-control rounded" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="search-addon" value="<?php if (isset($_GET['search'])) {
+																																																	echo $_GET['search'];
+																																																} ?>" />
+											<button type="submit" class="btn btn-outline-primary">search</button>
+										</div>
+									</form>
+								</div>
 								<div class="table-responsive">
 									<table class="table table-bordered table-striped table-hover">
 										<thead>
@@ -133,9 +108,28 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 													<tr>
 														<td><?php echo $cat_id ?></td>
 														<td><?php echo $cat_name ?></td>
-														<td><a href="categories.php?edit=<?php echo $cat_id ?>"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a></td>
+														<td><button type="button" id="editcat<?php echo $cat_id ?>" class="btn btn-primary" value="<?php echo $cat_id ?>"><i class="fa fa-pencil"></i></button></td>
+														<script>
+															$(document).ready(function() {
+																$('#editcat<?php echo $cat_id ?>').click(function() {
+																	var edit = $(this).val();
+																	$.ajax({
+																		method: 'GET',
+																		url: 'cate-edit.php',
+																		data: {
+																			edit: edit
+																		},
+																		success: function(data) {
+																			$('#output').html(data);
+																		}
+																	});
+																})
+															});
+														</script>
 														<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal<?php echo $cat_id ?>"><i class="fa fa-close"></i></button></td>
 													</tr>
+
+													<!-- del categories -->
 													<div class="modal fade" id="exampleModal<?php echo $cat_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 														<div class="modal-dialog" role="document">
 															<div class="modal-content">
@@ -173,6 +167,7 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 					</div>
 				</div>
 			</div>
+
 			<!-- #/ container -->
 		</div>
 		<!--**********************************

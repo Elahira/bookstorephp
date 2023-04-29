@@ -2,7 +2,7 @@
         Scripts
     ***********************************-->
 
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
@@ -32,22 +32,6 @@
 <!-- jQuery UI library -->
 	<link rel="stylesheet" href="plugins/jqueryui/css/jquery-ui-1-12-1.css">
 	<script src="plugins/jqueryui/js/jquery-ui-1-12-1.js"></script>
-<script>
-$(function() {
-    $("#searchproduct").autocomplete({
-        source: "search.php",
-		minLength: 1,
-		select: function(event, ui){
-			event.preventDefault();
-			var pro_id = ui.item.id;
-			alert(pro_id);
-			//$('#searchproduct').val(ui.item.id);
-			//alert(pro_id);
-			//window.location="./index.php";
-		}
-    });
-});
-</script>
 </body>
 
 </html>

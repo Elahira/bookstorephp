@@ -68,33 +68,7 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
                                 </form>
                             </div>
                         </div>
-                        <?php
-                        if (isset($_GET['edit'])) {
-                            $edit_id = $_GET['edit'];
-                            $get_pub_id = "SELECT * from nhaphathanh where Idnph = '$edit_id'";
-                            $run_edit_id = $conn->query($get_pub_id);
-                            if ($run_edit_id->num_rows > 0) {
-                                $row_edit_id = $run_edit_id->fetch_array();
-                                $edit_name = $row_edit_id['Tennph'];
-                        ?>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title">
-                                            <h4>Sửa nhà phát hành</h4>
-                                        </div>
-                                        <form action="inc/process.php?edit_publisher=<?php echo $edit_id ?>" method="post">
-                                            <div class="form-group">
-                                                <label for="publisher">Tên nhà phát hành mới:*</label>
-                                                <input type="text" placeholder="Nhà phát hành..." class="form-control" name="edit-pub-name" value="<?php echo $edit_name; ?>" required>
-                                            </div>
-                                            <input type="submit" value="Sửa" name="edit-publisher" class="btn btn-primary">
-                                        </form>
-                                    </div>
-                                </div>
-                        <?php
-                            }
-                        }
-                        ?>
+                        <div class="card" id="output"></div>
                     </div>
                     <div class="col-lg-7 col-md-12">
                         <div class="card">
@@ -133,9 +107,28 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
                                                     <tr>
                                                         <td><?php echo $pub_id ?></td>
                                                         <td><?php echo $pub_name ?></td>
-                                                        <td><a href="publisher.php?edit=<?php echo $pub_id ?>"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a></td>
+                                                        <td><button type="button" id="editpub<?php echo $pub_id ?>" class="btn btn-primary" value="<?php echo $pub_id ?>"><i class="fa fa-pencil"></i></button></td>
+                                                        <script>
+															$(document).ready(function() {
+																$('#editpub<?php echo $pub_id ?>').click(function() {
+																	var edit = $(this).val();
+																	$.ajax({
+																		method: 'GET',
+																		url: 'pub-edit.php',
+																		data: {
+																			edit: edit
+																		},
+																		success: function(data) {
+																			$('#output').html(data);
+																		}
+																	});
+																})
+															});
+														</script>
                                                         <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal<?php echo $pub_id ?>"><i class="fa fa-close"></i></button></td>
                                                     </tr>
+
+                                                    <!-- del publisher -->
                                                     <div class="modal fade" id="exampleModal<?php echo $pub_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">

@@ -43,6 +43,9 @@ if(isset($_SESSION['usernameadmin'])){
     <!-- Date picker plugins css -->
     <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    
+    <script src="./js/jquery-3.6.4.min.js"></script>
+
 <style>
 	.box{
 		padding: 0;	
