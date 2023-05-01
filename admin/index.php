@@ -126,78 +126,43 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Đơn hàng mới</h4>
-                                        <div class="table-responsive">
-                                            <table class="table header-border">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Mã đơn</th>
-                                                        <th>Tên khách hàng</th>
-                                                        <th>Địa chỉ</th>
-                                                        <th>Ngày mua</th>
-                                                        <th>Tình trạng</th>
-                                                        <th>Chi tiết đơn hàng</th>
-                                                        <th>Xóa</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $query = "SELECT * FROM hoadon hd 
-                                                        LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
-                                                        LEFT JOIN users u ON u.Idtk = tk.Idtk
-                                                        WHERE hd.statusHD < 3
-                                                        ORDER BY hd.StatusHD ASC";
-                                                    $run = $conn->query($query);
-                                                    if ($run->num_rows > 0) {
-                                                        while ($row = $run->fetch_array()) {
-                                                            $hd_id = $row['Idhd'];
-                                                            $name = $row['Ten'];
-                                                            $address = $row['Diachi'];
-                                                            $ngay_mua = $row['Ngaymua'];
-                                                            $hd_status = $row['StatusHD'];
-                                                    ?>
-                                                            <tr>
-                                                                <td><?php echo $hd_id ?></td>
-                                                                <td><?php echo $name ?></td>
-                                                                <td><?php echo $address ?></td>
-                                                                <td><?php echo $ngay_mua ?></td>
-                                                                <td><a href="index.php?upstatus=<?php echo $hd_id ?>&status=<?php echo $hd_status ?>">
-                                                                        <?php
-                                                                        if ($hd_status == '1') {
-                                                                        ?>
-                                                                            <button type="button" class="btn btn-info">Chuẩn bị hàng</button>
-                                                                        <?php
-                                                                        }
-                                                                        if ($hd_status == '2') {
-                                                                        ?>
-                                                                            <button type="button" class="btn btn-danger">Đang giao</button>
-                                                                        <?php
-                                                                        }
-                                                                        if ($hd_status == '3') {
-                                                                        ?>
-                                                                            <button type="button" class="btn btn-success" style="color:#fff;" disabled>Đã giao</button>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </a></td>
-                                                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong<?php echo $hd_id ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
-                                                                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal<?php echo $hd_id ?>"><i class="fa fa-trash-o"></i></button></td>
-                                                            </tr>
-                                                    <?php
-                                                        }
-                                                    } else {
-                                                        echo "Hiện tại không có đơn hàng";
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    Đơn hàng mới
+                                </div>
+                                <div class="pb-3">
+                                    <div class="input-group">
+                                        <input type="search" id="search" name="search" class="form-control rounded" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="search-addon" />
+                                        <button type="submit" id="btn-search" class="btn btn-outline-primary">search</button>
                                     </div>
                                 </div>
+                                <script>
+                                    function fetchdata() {
+                                        var search = $('#search').val();
+                                        $.ajax({
+                                            method: 'GET',
+                                            url: 'orders-table.php',
+                                            data: {
+                                                search: search
+                                            },
+                                            success: function(data) {
+                                                $('#data-output').html(data);
+                                            }
+                                        });
+                                    }
+
+                                    $('#search').keypress(function() {
+                                        fetchdata();
+                                    });
+                                    $('#btn-search').click(function() {
+                                        fetchdata();
+                                    });
+                                    $(document).ready(function() {
+                                        fetchdata();
+                                    });
+                                </script>
+                                <div class="table-responsive" id="data-output"></div>
                             </div>
                         </div>
                     </div>
@@ -206,9 +171,9 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                 $query = $query = "SELECT * FROM hoadon hd 
 				LEFT JOIN taikhoan tk ON hd.Idtk = tk.Idtk
 				LEFT JOIN users u ON u.Idtk = tk.Idtk ORDER BY hd.Idhd desc;";
-                $run = $conn ->query($query);
+                $run = $conn->query($query);
                 if (mysqli_num_rows($run) > 0) {
-                    while ($row = $run ->fetch_array()) {
+                    while ($row = $run->fetch_array()) {
                         $hd_id = $row['Idhd'];
                         $email = $row['Mail'];
                         $phonenumber = $row['Sdt'];
@@ -254,9 +219,9 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                     LEFT JOIN hoadon hd ON hd.Idhd = cthd.Idhd 
                                                     LEFT JOIN sanpham sp ON sp.Idsp = cthd.Idsp 
                                                     WHERE cthd.Idhd = '$hd_id'";
-                                                    $rundetail = $conn -> query($querydetail);
-                                                    if ($rundetail ->num_rows > 0) {
-                                                        while ($rowdetail = $rundetail ->fetch_array()) {
+                                                    $rundetail = $conn->query($querydetail);
+                                                    if ($rundetail->num_rows > 0) {
+                                                        while ($rowdetail = $rundetail->fetch_array()) {
                                                             $pro_img = $rowdetail['Img'];
                                                             $pro_name = $rowdetail['Tensp'];
                                                             $pro_quantity = $rowdetail['Soluong'];
@@ -294,7 +259,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                         <th></th>
                                                         <th></th>
                                                         <th style="color: #ea5774;">Tổng:</th>
-                                                        <th style="color: #ea5774;">$ <?php echo $total_price + 5?></th>
+                                                        <th style="color: #ea5774;">$ <?php echo $total_price + 5 ?></th>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -313,10 +278,13 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h3 class="modal-title" id="exampleModalLabel<?php echo $hd_id ?>" style="margin: auto;">
-                                        <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9C11.25 8.58579 11.5858 8.25 12 8.25Z" fill="#FC820A"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0052 4.45201C10.8464 2.83971 13.1536 2.83971 13.9948 4.45201L20.5203 16.9592C21.3019 18.4572 20.2151 20.25 18.5255 20.25H5.47447C3.78487 20.25 2.69811 18.4572 3.47966 16.9592L10.0052 4.45201ZM12.6649 5.14586C12.3845 4.60842 11.6154 4.60842 11.335 5.14586L4.80953 17.6531C4.54902 18.1524 4.91127 18.75 5.47447 18.75H18.5255C19.0887 18.75 19.4509 18.1524 19.1904 17.6531L12.6649 5.14586Z" fill="#FC820A"></path><path d="M12 17.25C12.6213 17.25 13.125 16.7463 13.125 16.125C13.125 15.5037 12.6213 15 12 15C11.3787 15 10.875 15.5037 10.875 16.125C10.875 16.7463 11.3787 17.25 12 17.25Z" fill="#FC820A"></path>
-                                        </svg>
-                                        Xóa đơn hàng</h3>
+                                            <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9C11.25 8.58579 11.5858 8.25 12 8.25Z" fill="#FC820A"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0052 4.45201C10.8464 2.83971 13.1536 2.83971 13.9948 4.45201L20.5203 16.9592C21.3019 18.4572 20.2151 20.25 18.5255 20.25H5.47447C3.78487 20.25 2.69811 18.4572 3.47966 16.9592L10.0052 4.45201ZM12.6649 5.14586C12.3845 4.60842 11.6154 4.60842 11.335 5.14586L4.80953 17.6531C4.54902 18.1524 4.91127 18.75 5.47447 18.75H18.5255C19.0887 18.75 19.4509 18.1524 19.1904 17.6531L12.6649 5.14586Z" fill="#FC820A"></path>
+                                                <path d="M12 17.25C12.6213 17.25 13.125 16.7463 13.125 16.125C13.125 15.5037 12.6213 15 12 15C11.3787 15 10.875 15.5037 10.875 16.125C10.875 16.7463 11.3787 17.25 12 17.25Z" fill="#FC820A"></path>
+                                            </svg>
+                                            Xóa đơn hàng
+                                        </h3>
                                     </div>
                                     <div class="modal-body" style="margin: auto;">
                                         <h6 style="font-family: Roboto,Helvetica,Arial,sans-serif; font-size:16px;">Bạn có chắc muốn xóa đơn hàng này không?</h6>

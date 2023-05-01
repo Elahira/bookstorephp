@@ -12,7 +12,7 @@ else if(isset($_POST['login'])){
 	$username = $_POST['username'];
 	$password = $_POST['password'];		
 
-	$check_query = "select * from taikhoan where Username = '$username'";
+	$check_query = "SELECT * from taikhoan where Username = '$username' and StatusTK = '1'";
 	$check_run = $conn -> query($check_query);
 
 	if($check_run -> num_rows > 0){

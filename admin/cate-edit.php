@@ -20,15 +20,33 @@ if (isset($_GET['edit'])) {
             <div class="card-title">
                 <h4>Sửa thể loại</h4>
             </div>
-            <form action="inc/process.php?edit_category=<?php echo $edit_id ?>" method="post">
+            <form id="frm-edit" method="post">  
                 <div class="form-group">
                     <label for="category">Tên thể loại mới:*</label>
-                    <input type="text" placeholder="Tên thể loại..." class="form-control" name="edit-cat-name" value="<?php echo $edit_name; ?>" required>
+                    <input type="text" placeholder="Tên thể loại..." id="edit-cat-name" class="form-control" name="edit-cat-name" value="<?php echo $edit_name; ?>" required>
                 </div>
-                <input type="submit" value="Sửa" name="edit-category" class="btn btn-primary">
+                <input type="button" id="btn-edit" value="Sửa" name="edit-category" class="btn btn-primary">
             </form>
         </div>
+        <script> 
+            $('#btn-edit').click(function() {
+                var edit_id = <?php echo $edit_id; ?>;
+                var edit_name = $('#edit-cat-name').val();
+                $.ajax({
+                    method: 'POST',
+                    url: 'inc/process.php',
+                    data: {
+                        edit_category: edit_id,
+                        edit_cat_name: edit_name
+                    },
+                    success: function(response) {
+                        alert(response);
+                        fetchdata();
+                    }
+                });
 
+            });
+        </script>
 <?php
     }
 }

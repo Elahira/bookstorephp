@@ -9,35 +9,35 @@ if (!isset($_SESSION['usernameadmin'])) {
 
 //////////////////////// ADD CATEGORY //////////////////////
 
-if (isset($_POST['add-category'])) {
-	$cat_name = $_POST['cat-name'];
+if (isset($_POST['add_cat_name'])) {
+	$cat_name = $_POST['add_cat_name'];
 
 	if (empty($cat_name)) {
 		header('location: ../categories.php?error=Category Name require');
 	} else {
 		$query = "INSERT INTO theloai(Tenloai) VALUES ('$cat_name')";
 		if ($conn->query($query)) {
-			echo "<script>alert('Thêm thể loại thành công!');window.location='../categories.php'</script>";
+			echo "Thêm thể loại thành công!";
 		} else {
-			echo "<script>alert('Thêm thể loại thất bại!');window.location='../categories.php'</script>";
+			echo "Thêm thể loại thất bại!";
 		}
 	}
 }
 
 //////////////////////// EDIT CATEGORY //////////////////////
 
-if (isset($_POST['edit-category'])) {
-	$edit_id = $_GET['edit_category'];
-	$edit_cat_name = $_POST['edit-cat-name'];
+if (isset($_POST['edit_cat_name'])) {
+	$edit_id = $_POST['edit_category'];
+	$edit_cat_name = $_POST['edit_cat_name'];
 
 	if (empty($edit_cat_name)) {
 		header("location: ../publisher.php?editerror=Category Name require&edit=$edit_id");
 	} else {
 		$query = "UPDATE theloai SET Tenloai = '$edit_cat_name' WHERE Idloai = '$edit_id';";
 		if ($conn->query($query)) {
-			echo "<script>alert('Sửa thành công!');window.location='../categories.php'</script>";
+			echo "Sửa thể loại thành công!";
 		} else {
-			echo "<script>alert('Sửa thất bại!');window.location='../categories.php'</script>";
+			echo "Sửa thể loại thành công!";
 		}
 	}
 }
