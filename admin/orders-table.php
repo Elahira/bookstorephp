@@ -45,7 +45,9 @@ ORDER BY hd.statusHD ASC";
                     <td><?php echo $address ?></td>
                     <td><?php echo $ngay_mua ?></td>
                     <td><?php echo $ngay_nhan ?></td>
-                    <td><a href="orders.php?upstatus=<?php echo $hd_id ?>&status=<?php echo $hd_status ?>">
+                    <td><a class="upstatus">
+                            <p hidden id="hd-id"><?php echo $hd_id; ?></p>
+                            <p hidden id="status"><?php echo $hd_status ?></p>
                             <?php
                             if ($hd_status == '1') {
                             ?>
@@ -64,6 +66,7 @@ ORDER BY hd.statusHD ASC";
                             }
                             ?>
                         </a></td>
+
                     <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong<?php echo $hd_id ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
                     <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal<?php echo $hd_id ?>"><i class="fa fa-trash-o"></i></button></td>
                 </tr>
@@ -75,3 +78,22 @@ ORDER BY hd.statusHD ASC";
         ?>
     </tbody>
 </table>
+<script>
+    $('.upstatus').click(function() {
+        var hd_id = $('#hd-id').text();
+        var status = $('#status').text();
+        $.ajax({
+            method: 'GET',
+            url: 'inc/process.php',
+            data: {
+                upstatus: hd_id,
+                status: status
+            },
+            success: function(response) {
+                alert(response);
+                fetchdata();
+            }
+        });
+        return false;
+    });
+</script>

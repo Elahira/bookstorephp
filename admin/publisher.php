@@ -49,13 +49,30 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
                                 <div class="card-title">
                                     <h4>Thêm nhà phát hành</h4>
                                 </div>
-                                <form action="inc/process.php" method="post">
+                                <form id="frm-add" method="post">
                                     <div class="form-group">
                                         <label for="publisher">Tên nhà phát hành:*</label>
-                                        <input type="text" placeholder="Tên nhà phát hành..." class="form-control" name="pub-name" required>
+                                        <input type="text" placeholder="Tên nhà phát hành..." class="form-control" id="pub-name" required>
                                     </div>
                                     <input type="submit" value="Thêm" name="add-publisher" class="btn btn-primary">
                                 </form>
+                                <script>
+                                    $('#frm-add').submit(function() {
+                                        var add_name = $('#pub-name').val();
+                                        $.ajax({
+                                            method: 'POST',
+                                            url: 'inc/process.php',
+                                            data: {
+                                                add_pub_name: add_name
+                                            },
+                                            success: function(response) {
+                                                alert(response);
+                                                fetchdata();
+                                            }
+                                        });
+                                        return false;
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div class="card" id="output"></div>
@@ -74,28 +91,28 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
                                 </div>
                                 <script>
                                     function fetchdata() {
-										var search = $('#search').val();
-										$.ajax({
-											method: 'GET',
-											url: 'pub-table.php',
-											data: {
-												search: search
-											},
-											success: function(data) {
-												$('#data-output').html(data);
-											}
-										});
-									}
+                                        var search = $('#search').val();
+                                        $.ajax({
+                                            method: 'GET',
+                                            url: 'pub-table.php',
+                                            data: {
+                                                search: search
+                                            },
+                                            success: function(data) {
+                                                $('#data-output').html(data);
+                                            }
+                                        });
+                                    }
 
-									$('#search').keypress(function() {
-										fetchdata();
-									});
-									$('#btn-search').click(function() {
-										fetchdata();
-									});
-									$(document).ready(function() {
-										fetchdata();
-									});
+                                    $('#search').keypress(function() {
+                                        fetchdata();
+                                    });
+                                    $('#btn-search').click(function() {
+                                        fetchdata();
+                                    });
+                                    $(document).ready(function() {
+                                        fetchdata();
+                                    });
                                 </script>
                                 <div class="table-responsive" id="data-output"></div>
                             </div>

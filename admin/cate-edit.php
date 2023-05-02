@@ -20,16 +20,16 @@ if (isset($_GET['edit'])) {
             <div class="card-title">
                 <h4>Sửa thể loại</h4>
             </div>
-            <form id="frm-edit" method="post">  
+            <form id="frm-edit" method="post">
                 <div class="form-group">
                     <label for="category">Tên thể loại mới:*</label>
                     <input type="text" placeholder="Tên thể loại..." id="edit-cat-name" class="form-control" name="edit-cat-name" value="<?php echo $edit_name; ?>" required>
                 </div>
-                <input type="button" id="btn-edit" value="Sửa" name="edit-category" class="btn btn-primary">
+                <input type="submit" value="Sửa" name="edit-category" class="btn btn-primary">
             </form>
         </div>
-        <script> 
-            $('#btn-edit').click(function() {
+        <script>
+            $('#frm-edit').submit(function() {
                 var edit_id = <?php echo $edit_id; ?>;
                 var edit_name = $('#edit-cat-name').val();
                 $.ajax({
@@ -44,7 +44,7 @@ if (isset($_GET['edit'])) {
                         fetchdata();
                     }
                 });
-
+                return false;
             });
         </script>
 <?php

@@ -54,10 +54,10 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 										<label for="category">Tên thể loại:*</label>
 										<input type="text" id="cat-name" placeholder="Tên thể loại..." class="form-control" name="cat-name" required>
 									</div>
-									<input type="button" id="btn-add" value="Thêm" name="add-category" class="btn btn-primary">
+									<input type="submit" value="Thêm" name="add-category" class="btn btn-primary">
 								</form>
 								<script>
-									$('#btn-add').click(function() {
+									$('#frm-add').submit(function() {
 										var add_name = $('#cat-name').val();
 										$.ajax({
 											method: 'POST',
@@ -70,7 +70,7 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 												fetchdata();
 											}
 										});
-
+										return false;
 									});
 								</script>
 							</div>

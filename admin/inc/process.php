@@ -26,7 +26,7 @@ if (isset($_POST['add_cat_name'])) {
 
 //////////////////////// EDIT CATEGORY //////////////////////
 
-if (isset($_POST['edit_cat_name'])) {
+if (isset($_POST['edit_category'])) {
 	$edit_id = $_POST['edit_category'];
 	$edit_cat_name = $_POST['edit_cat_name'];
 
@@ -44,35 +44,35 @@ if (isset($_POST['edit_cat_name'])) {
 
 //////////////////////// ADD PUBLISHER //////////////////////
 
-if (isset($_POST['add-publisher'])) {
-	$pub_name = $_POST['pub-name'];
+if (isset($_POST['add_pub_name'])) {
+	$pub_name = $_POST['add_pub_name'];
 
 	if (empty($pub_name)) {
 		header('location: ../publisher.php?error=Publisher Name require');
 	} else {
 		$query = "INSERT INTO nhaphathanh(Tennph) VALUES ('$pub_name')";
 		if ($conn->query($query)) {
-			echo "<script>alert('Thêm nhà phát hành thành công!');window.location='../publisher.php'</script>";
+			echo "Thêm nhà phát hành thành công!";
 		} else {
-			echo "<script>alert('Thêm nhà phát hành thất bại!');window.location='../publisher.php'</script>";
+			echo "Thêm nhà phát hành thất bại!";
 		}
 	}
 }
 
 //////////////////////// EDIT PUBLISHER //////////////////////
 
-if (isset($_POST['edit-publisher'])) {
-	$edit_id = $_GET['edit_publisher'];
-	$edit_pub_name = $_POST['edit-pub-name'];
+if (isset($_POST['edit_publisher'])) {
+	$edit_id = $_POST['edit_publisher'];
+	$edit_pub_name = $_POST['edit_pub_name'];
 
 	if (empty($edit_pub_name)) {
 		header("location: ../publisher.php?editerror=Publisher Name require&edit=$edit_id");
 	} else {
 		$query = "UPDATE nhaphathanh SET Tennph = '$edit_pub_name' WHERE Idnph = '$edit_id';";
 		if ($conn->query($query)) {
-			echo "<script>alert('Sửa thành công!');window.location='../publisher.php'</script>";
+			echo "Sửa thành công!";
 		} else {
-			echo "<script>alert('Sửa thất bại!');window.location='../publisher.php'</script>";
+			echo "Sửa thất bại!";
 		}
 	}
 }
@@ -197,4 +197,17 @@ if (isset($_POST['add-product'])) {
 	} else {
 		echo "<script>alert('Thêm sách mới thất bại!');window.location='../products.php'</script>";
 	}
+}
+
+
+if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
+    $upstatus = $_GET['upstatus'];
+    $status = $_GET['status'];
+    $status_new = $status + 1;
+    $upstatus_query = "UPDATE hoadon SET StatusHD = '$status_new' WHERE Idhd = '$upstatus'";
+    if ($conn->query($upstatus_query)) {
+        echo "Cập nhật tình trạng đơn hàng thành công.";
+    } else {
+        echo "Cập nhật tình trạng đơn hàng thất bại.";
+    }
 }

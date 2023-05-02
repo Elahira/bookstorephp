@@ -23,9 +23,9 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
     $status_new = $status + 1;
     $upstatus_query = "UPDATE hoadon SET StatusHD = '$status_new' WHERE Idhd = '$upstatus'";
     if ($conn->query($upstatus_query)) {
-        echo "<script>alert('Cập nhật tình trạng đơn hàng thành công.');window.history.back();</script>";
+        echo "Cập nhật tình trạng đơn hàng thành công.";
     } else {
-        echo "<script>alert('Cập nhật tình trạng đơn hàng thất bại.');window.history.back();</script>";
+        echo "Cập nhật tình trạng đơn hàng thất bại.";
     }
 }
 ?>
