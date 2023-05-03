@@ -14,7 +14,7 @@ if(isset($_SESSION['usernameadmin'])){
 		$info_name = $info_row['Ten'];
         $info_address = $info_row['Diachi'];
 		$info_email = $info_row['Mail'];
-		$info_phonenumber = $info_row['Sdt'];
+		$info_phone = $info_row['Sdt'];
 		$info_id = $info_row['Idtk'];
 	}
 }

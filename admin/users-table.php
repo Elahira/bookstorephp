@@ -144,9 +144,7 @@ ORDER BY tk.Idtk asc;";
                         </div>
                     </div>
                 </div>
-
         <?php
-
             }
         } else {
             echo "Người dùng: 0";

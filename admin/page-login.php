@@ -24,6 +24,7 @@ else if(isset($_POST['login'])){
 			if($db_role_id == 1){
 				session_start();
 				$_SESSION['usernameadmin'] = $db_username;
+				
 				header('location: index.php');	
 			}
 			else{

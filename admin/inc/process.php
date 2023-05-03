@@ -199,10 +199,10 @@ if (isset($_POST['add-product'])) {
 	}
 }
 
-
-if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
-    $upstatus = $_GET['upstatus'];
-    $status = $_GET['status'];
+//////////////////////// UPSTATUS ORDER //////////////////////
+if (isset($_GET['hd_upstatus']) and isset($_SESSION['usernameadmin'])) {
+    $upstatus = $_GET['hd_upstatus'];
+    $status = $_GET['hd_status'];
     $status_new = $status + 1;
     $upstatus_query = "UPDATE hoadon SET StatusHD = '$status_new' WHERE Idhd = '$upstatus'";
     if ($conn->query($upstatus_query)) {

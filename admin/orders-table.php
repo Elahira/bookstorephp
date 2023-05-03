@@ -45,9 +45,9 @@ ORDER BY hd.statusHD ASC";
                     <td><?php echo $address ?></td>
                     <td><?php echo $ngay_mua ?></td>
                     <td><?php echo $ngay_nhan ?></td>
-                    <td><a class="upstatus">
+                    <td><a class="hd_upstatus">
                             <p hidden id="hd-id"><?php echo $hd_id; ?></p>
-                            <p hidden id="status"><?php echo $hd_status ?></p>
+                            <p hidden id="hd_status"><?php echo $hd_status ?></p>
                             <?php
                             if ($hd_status == '1') {
                             ?>
@@ -79,15 +79,15 @@ ORDER BY hd.statusHD ASC";
     </tbody>
 </table>
 <script>
-    $('.upstatus').click(function() {
+    $('.hd_upstatus').click(function() {
         var hd_id = $('#hd-id').text();
-        var status = $('#status').text();
+        var hd_status = $('#hd_status').text();
         $.ajax({
             method: 'GET',
             url: 'inc/process.php',
             data: {
-                upstatus: hd_id,
-                status: status
+                hd_upstatus: hd_id,
+                hd_status: hd_status
             },
             success: function(response) {
                 alert(response);

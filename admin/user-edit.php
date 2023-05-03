@@ -52,7 +52,6 @@
                                         $user_username = $row['Username'];
                                         $user_password = $row['Password'];
                                 ?>
-
                                         <form action="./inc/process.php?edit_user=<?php echo $user_id ?>" method="POST" enctype="multipart/form-data">
 
                                             <div class="form-group row">
