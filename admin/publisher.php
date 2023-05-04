@@ -90,29 +90,31 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
                                     </div>
                                 </div>
                                 <script>
-                                    function fetchdata() {
+                                    function fetchdata(page) {
                                         var search = $('#search').val();
                                         $.ajax({
                                             method: 'GET',
                                             url: 'pub-table.php',
                                             data: {
-                                                search: search
+                                                search: search,
+                                                page: page
                                             },
                                             success: function(data) {
                                                 $('#data-output').html(data);
                                             }
                                         });
                                     }
-
-                                    $('#search').keypress(function() {
-                                        fetchdata();
-                                    });
-                                    $('#btn-search').click(function() {
-                                        fetchdata();
-                                    });
-                                    $(document).ready(function() {
-                                        fetchdata();
-                                    });
+                                    fetchdata();
+									$('#search').keypress(function() {
+										fetchdata();
+									});
+									$('#btn-search').click(function() {
+										fetchdata();
+									});
+									$(document).on("click",".page-item",function(){
+										var page = $(this).attr("id");
+										fetchdata(page);
+									});
                                 </script>
                                 <div class="table-responsive" id="data-output"></div>
                             </div>

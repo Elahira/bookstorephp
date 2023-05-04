@@ -4,18 +4,18 @@ if(!isset($_SESSION['usernameadmin'])){
 	header('location: page-login.php');
 }
 if(isset($_SESSION['usernameadmin'])){
-	$info_username = $_SESSION['usernameadmin'];
-	$info_query = "select * from taikhoan tk left join users u on tk.Idtk = u.Idtk  where Username = '$info_username'";
+	$info_id = $_SESSION['usernameadmin'];
+	$info_query = "select * from taikhoan tk left join users u on tk.Idtk = u.Idtk  where tk.Idtk = '$info_id'";
 	$info_run = $conn->query($info_query);
 	
 	if($info_run -> num_rows > 0){
 		$info_row = $info_run -> fetch_array();
+        $info_username = $info_row['Username'];
 		$info_password = $info_row['Password'];
 		$info_name = $info_row['Ten'];
         $info_address = $info_row['Diachi'];
 		$info_email = $info_row['Mail'];
 		$info_phone = $info_row['Sdt'];
-		$info_id = $info_row['Idtk'];
 	}
 }
 ?>

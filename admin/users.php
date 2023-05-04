@@ -60,28 +60,30 @@ if (isset($_GET['lockon']) and isset($_SESSION['usernameadmin'])) {
                                 </div>
                             </div>
                             <script>
-                                function fetchdata() {
+                                function fetchdata(page) {
                                     var search = $('#search').val();
                                     $.ajax({
                                         method: 'GET',
                                         url: 'users-table.php',
                                         data: {
-                                            search: search
+                                            search: search,
+                                            page: page
                                         },
                                         success: function(data) {
                                             $('#data-output').html(data);
                                         }
                                     });
                                 }
-
+                                fetchdata();
                                 $('#search').keypress(function() {
                                     fetchdata();
                                 });
                                 $('#btn-search').click(function() {
                                     fetchdata();
                                 });
-                                $(document).ready(function() {
-                                    fetchdata();
+                                $(document).on("click", ".page-item", function() {
+                                    var page = $(this).attr("id");
+                                    fetchdata(page);
                                 });
                             </script>
                             <a href='user-add.php'>

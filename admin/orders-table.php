@@ -6,12 +6,32 @@ if (!isset($_SESSION['usernameadmin'])) {
     header('location: ../page-login.php');
 }
 
+$pages = 0;
+$limit = 8;
 $searchkey = $_GET['search'];
+
+if (isset($_GET['page'])) {
+    $pages = $_GET['page'];
+}else{
+    $pages = 1;
+}
+$start = ($pages - 1) * $limit;
+
 $query = "SELECT * FROM hoadon hd 
 LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
 LEFT JOIN users u ON u.Idtk = tk.Idtk
 WHERE CONCAT(Idhd,Ten,Diachi,Ngaymua,Ngaynhan) LIKE '%$searchkey%'
 ORDER BY hd.statusHD ASC";
+
+$querypage = "SELECT * FROM hoadon hd 
+LEFT JOIN taikhoan tk ON tk.Idtk = hd.Idtk 
+LEFT JOIN users u ON u.Idtk = tk.Idtk
+ORDER BY hd.statusHD ASC
+LIMIT $start, $limit";
+
+$run_page = $conn->query($querypage);
+$num_row_page = $run_page->num_rows;
+$total_pages = ceil($num_row_page / $limit);
 
 ?>
 <table class="table table-bordered table-striped table-hover">
@@ -78,6 +98,49 @@ ORDER BY hd.statusHD ASC";
         ?>
     </tbody>
 </table>
+
+<div class="page-info">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <?php
+            if ($pages > 1) {
+                $previous = $pages - 1;
+            ?>
+                <li class="page-item" id="<?php echo $previous ?>"><a class="page-link">Previous</a></li>
+            <?php
+            } else {
+            ?>
+                <li class="page-item disable"><a class="page-link">Previous</a></li>
+            <?php
+            }
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $active_class = "";
+                if ($i == $pages) {
+                    $active_class = "active";
+                }
+            ?>
+                <li class="page-item <?php echo $active_class ?>" id="<?php echo $i ?>"><a class="page-link"><?php echo $i ?></a></li>
+            <?php
+            }
+            ?>
+            <?php
+            if ($pages < $total_pages) {
+                $pages++; {
+            ?>
+                    <li class="page-item" id="<?php echo $pages ?>"><a class="page-link">Next</a></li>
+
+                <?php
+                }
+            } else {
+                ?>
+                <li class="page-item disable"><a class="page-link">Next</a></li>
+            <?php
+            }
+            ?>
+        </ul>
+    </nav>
+</div>
+
 <script>
     $('.hd_upstatus').click(function() {
         var hd_id = $('#hd-id').text();

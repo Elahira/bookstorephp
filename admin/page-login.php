@@ -17,13 +17,14 @@ else if(isset($_POST['login'])){
 
 	if($check_run -> num_rows > 0){
 		$row = $check_run -> fetch_array();
+		$db_id = $row['Idtk'];
 		$db_username = $row['Username'];
 		$db_password = $row['Password'];				
 		$db_role_id = $row['Idrole'];				
 		if($username == $db_username && $password == $db_password){
 			if($db_role_id == 1){
 				session_start();
-				$_SESSION['usernameadmin'] = $db_username;
+				$_SESSION['usernameadmin'] = $db_id;
 				
 				header('location: index.php');	
 			}

@@ -6,15 +6,36 @@ if (!isset($_SESSION['usernameadmin'])) {
     header('location: ../page-login.php');
 }
 
+$pages = 0;
+$limit = 8;
 $searchkey = $_GET['search'];
+
+if (isset($_GET['page'])) {
+    $pages = $_GET['page'];
+}else{
+    $pages = 1;
+}
+$start = ($pages - 1) * $limit;
+
 $query = "SELECT * from sanpham sp
 LEFT JOIN theloai tl on tl.Idloai = sp.Idloai
 LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph 
 where sp.StatusSP < 2 and CONCAT(Idsp,Tensp,Tacgia,Minhhoa,Dichgia,Tennph,Tenloai,Giasp,Giamgia,Giamoi,Loaibia,Sotrang) LIKE '%$searchkey%'
+order by sp.Idsp asc
+LIMIT $start, $limit";
+
+$querypage = "SELECT * from sanpham sp
+LEFT JOIN theloai tl on tl.Idloai = sp.Idloai
+LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph
+where sp.StatusSP < 2
 order by sp.Idsp asc";
 
+$run_page = $conn->query($querypage);
+$num_row_page = $run_page->num_rows;
+$total_pages = ceil($num_row_page / $limit);
+
 ?>
-<table id="table-order" class="table table-bordered table-striped table-hover" style="width: 1500px;">
+<table id="table-order" class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
             <th style="width: 5%;">Mã sách</th>
@@ -58,7 +79,7 @@ order by sp.Idsp asc";
         ?>
                 <tr>
                     <td><?php echo $pro_id ?></td>
-                    <td><img src="./product-img/<?php echo $pro_img ?>" alt="" style="width:100%" ; /></td>
+                    <td><img src="./product-img/<?php echo $pro_img ?>" alt="" style="width:100%" /></td>
                     <td><?php echo $pro_name ?></td>
                     <td><?php echo $pro_cat ?></td>
                     <td><?php echo $pro_pub ?></td>
@@ -171,3 +192,45 @@ order by sp.Idsp asc";
         ?>
     </tbody>
 </table>
+
+<div class="page-info">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <?php
+            if ($pages > 1) {
+                $previous = $pages - 1;
+            ?>
+                <li class="page-item" id="<?php echo $previous ?>"><a class="page-link">Previous</a></li>
+            <?php
+            } else {
+            ?>
+                <li class="page-item disable"><a class="page-link">Previous</a></li>
+            <?php
+            }
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $active_class = "";
+                if ($i == $pages) {
+                    $active_class = "active";
+                }
+            ?>
+                <li class="page-item <?php echo $active_class ?>" id="<?php echo $i ?>"><a class="page-link"><?php echo $i ?></a></li>
+            <?php
+            }
+            ?>
+            <?php
+            if ($pages < $total_pages) {
+                $pages++; {
+            ?>
+                    <li class="page-item" id="<?php echo $pages ?>"><a class="page-link" >Next</a></li>
+
+                <?php
+                }
+            } else {
+                ?>
+                <li class="page-item disable"><a class="page-link">Next</a></li>
+            <?php
+            }
+            ?>
+        </ul>
+    </nav>
+</div>

@@ -69,29 +69,31 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                     </div>
                                 </div>
                                 <script>
-                                    function fetchdata() {
-                                    var search = $('#search').val();
-                                    $.ajax({
-                                        method: 'GET',
-                                        url: 'orders-table.php',
-                                        data: {
-                                            search: search
-                                        },
-                                        success: function(data) {
-                                            $('#data-output').html(data);
-                                        }
+                                    function fetchdata(page) {
+                                        var search = $('#search').val();
+                                        $.ajax({
+                                            method: 'GET',
+                                            url: 'orders-table.php',
+                                            data: {
+                                                search: search,
+                                                page: page
+                                            },
+                                            success: function(data) {
+                                                $('#data-output').html(data);
+                                            }
+                                        });
+                                    }
+                                    fetchdata();
+                                    $('#search').keypress(function() {
+                                        fetchdata();
                                     });
-                                }
-
-                                $('#search').keypress(function() {
-                                    fetchdata();
-                                });
-                                $('#btn-search').click(function() {
-                                    fetchdata();
-                                });
-                                $(document).ready(function() {
-                                    fetchdata();
-                                });
+                                    $('#btn-search').click(function() {
+                                        fetchdata();
+                                    });
+                                    $(document).on("click", ".page-item", function() {
+                                        var page = $(this).attr("id");
+                                        fetchdata(page);
+                                    });
                                 </script>
                                 <div class="table-responsive" id="data-output"></div>
                             </div>
