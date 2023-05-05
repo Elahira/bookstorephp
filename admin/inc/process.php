@@ -11,11 +11,12 @@ if (!isset($_SESSION['usernameadmin'])) {
 
 if (isset($_POST['add_cat_name'])) {
 	$cat_name = $_POST['add_cat_name'];
+	$subcat_id = $_POST['add_subcat_id'];
 
 	if (empty($cat_name)) {
 		header('location: ../categories.php?error=Category Name require');
 	} else {
-		$query = "INSERT INTO theloai(Tenloai) VALUES ('$cat_name')";
+		$query = "INSERT INTO theloai(Tenloai, Idpl) VALUES ('$cat_name','$subcat_id')";
 		if ($conn->query($query)) {
 			echo "Thêm thể loại thành công!";
 		} else {
@@ -28,12 +29,48 @@ if (isset($_POST['add_cat_name'])) {
 
 if (isset($_POST['edit_category'])) {
 	$edit_id = $_POST['edit_category'];
+	$edit_subcat_id = $_POST['edit_subcat_id'];
 	$edit_cat_name = $_POST['edit_cat_name'];
 
 	if (empty($edit_cat_name)) {
-		header("location: ../publisher.php?editerror=Category Name require&edit=$edit_id");
+		header("location: ../categories.php?editerror=Category Name require&edit=$edit_id");
 	} else {
-		$query = "UPDATE theloai SET Tenloai = '$edit_cat_name' WHERE Idloai = '$edit_id';";
+		$query = "UPDATE theloai SET Tenloai = '$edit_cat_name', Idpl = '$edit_subcat_id' WHERE Idloai = '$edit_id';";
+		if ($conn->query($query)) {
+			echo "Sửa thể loại thành công!";
+		} else {
+			echo "Sửa thể loại thành công!";
+		}
+	}
+}
+
+//////////////////////// ADD SUBCATEGORY //////////////////////
+
+if (isset($_POST['add_cat_name'])) {
+	$subcat_name = $_POST['add_subcat_name'];
+
+	if (empty($subcat_name)) {
+		header('location: ../subcategories.php?error=Category Name require');
+	} else {
+		$query = "INSERT INTO phanloai(Tenphanloai) VALUES ('$subcat_name')";
+		if ($conn->query($query)) {
+			echo "Thêm phân loại thành công!";
+		} else {
+			echo "Thêm phân loại thất bại!";
+		}
+	}
+}
+
+//////////////////////// EDIT SUBCATEGORY //////////////////////
+
+if (isset($_POST['edit_subcategory'])) {
+	$edit_id = $_POST['edit_subcategory'];
+	$edit_subcat_name = $_POST['edit_subcat_name'];
+
+	if (empty($edit_cat_name)) {
+		header("location: ../subcategories.php?editerror=Category Name require&edit=$edit_id");
+	} else {
+		$query = "UPDATE phanloai SET Tenphanloai = '$edit_subcat_name' WHERE Idpl = '$edit_id';";
 		if ($conn->query($query)) {
 			echo "Sửa thể loại thành công!";
 		} else {
