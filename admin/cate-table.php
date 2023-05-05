@@ -19,12 +19,14 @@ if (isset($_GET['page'])) {
 
 $start = ($pages - 1) * $limit;
 
-$query = "SELECT * FROM theloai 
-where CONCAT(Idloai,Tenloai) LIKE '%$searchkey%' 
+$query = "SELECT * FROM theloai tl
+join phanloai pl on pl.Idpl = tl.Idpl 
+where CONCAT(Idloai,Tenloai,Tenphanloai) LIKE '%$searchkey%' 
 order by Idloai asc
 LIMIT $start, $limit";
 
-$querypage = "SELECT * FROM theloai 
+$querypage = "SELECT * FROM theloai tl
+join phanloai pl on pl.Idpl = tl.Idpl
 order by Idloai asc";
 
 $run_page = $conn->query($querypage);
@@ -37,6 +39,7 @@ $total_pages = ceil($num_row_page / $limit);
         <tr>
             <th>Mã thể loại</th>
             <th>Tên thể loại</th>
+            <th>Tên phân loại</th>
             <th>Sửa</th>
             <th>Xóa</th>
         </tr>
@@ -48,10 +51,12 @@ $total_pages = ceil($num_row_page / $limit);
             while ($row = $run->fetch_array()) {
                 $cat_id = $row['Idloai'];
                 $cat_name = $row['Tenloai'];
+                $subcat_name = $row['Tenphanloai'];
         ?>
                 <tr>
                     <td><?php echo $cat_id ?></td>
                     <td><?php echo $cat_name ?></td>
+                    <td><?php echo $subcat_name ?></td>
                     <td><button type="button" id="editcat<?php echo $cat_id ?>" class="btn btn-primary" value="<?php echo $cat_id ?>"><i class="fa fa-pencil"></i></button></td>
                     <script>
                         $(document).ready(function() {

@@ -92,7 +92,7 @@ $total_pages = ceil($num_row_page / $limit);
                             </div>
                             <div class="modal-footer" style="margin: auto;">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
-                                <a href="categories.php?del=<?php echo $subcat_id ?>"><button type="button" class="btn btn-outline-danger">Xác nhận</button></a>
+                                <a href="subcate.php?del=<?php echo $subcat_id ?>"><button type="button" class="btn btn-outline-danger">Xác nhận</button></a>
                             </div>
                         </div>
                     </div>

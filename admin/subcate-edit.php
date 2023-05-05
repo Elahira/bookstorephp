@@ -22,10 +22,10 @@ if (isset($_GET['edit'])) {
             </div>
             <form id="frm-edit" method="post">
                 <div class="form-group">
-                    <label for="category">Tên phân loại mới:*</label>
-                    <input type="text" placeholder="Tên thể loại..." id="edit-cat-name" class="form-control" name="edit-cat-name" value="<?php echo $edit_name; ?>" required>
+                    <label for="subcategory">Tên phân loại mới:*</label>
+                    <input type="text" placeholder="Tên phân loại..." id="edit-subcat-name" class="form-control" name="edit-subcat-name" value="<?php echo $edit_name; ?>" required>
                 </div>
-                <input type="submit" value="Sửa" name="edit-category" class="btn btn-primary">
+                <input type="submit" value="Sửa" name="edit-subcategory" class="btn btn-primary">
             </form>
         </div>
         <script>

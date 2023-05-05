@@ -51,8 +51,8 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 								</div>
 								<form id="frm-add" method="post">
 									<div class="form-group">
-										<label for="subcategory">Tên thể loại:*</label>
-										<input type="text" id="subcat-name" placeholder="Tên thể loại..." class="form-control" name="subcat-name" required>
+										<label for="subcategory">Tên phân loại:*</label>
+										<input type="text" id="subcat-name" placeholder="Tên phân loại..." class="form-control" name="subcat-name" required>
 									</div>
 									<input type="submit" value="Thêm" name="add-category" class="btn btn-primary">
 								</form>

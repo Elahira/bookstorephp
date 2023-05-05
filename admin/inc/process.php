@@ -46,7 +46,7 @@ if (isset($_POST['edit_category'])) {
 
 //////////////////////// ADD SUBCATEGORY //////////////////////
 
-if (isset($_POST['add_cat_name'])) {
+if (isset($_POST['add_subcat_name'])) {
 	$subcat_name = $_POST['add_subcat_name'];
 
 	if (empty($subcat_name)) {
@@ -63,18 +63,18 @@ if (isset($_POST['add_cat_name'])) {
 
 //////////////////////// EDIT SUBCATEGORY //////////////////////
 
-if (isset($_POST['edit_subcategory'])) {
+if (isset($_POST['edit_subcat_name'])) {
 	$edit_id = $_POST['edit_subcategory'];
 	$edit_subcat_name = $_POST['edit_subcat_name'];
 
-	if (empty($edit_cat_name)) {
-		header("location: ../subcategories.php?editerror=Category Name require&edit=$edit_id");
+	if (empty($edit_subcat_name)) {
+		header("location: ../subcategories.php?editerror=subcategory Name require&edit=$edit_id");
 	} else {
 		$query = "UPDATE phanloai SET Tenphanloai = '$edit_subcat_name' WHERE Idpl = '$edit_id';";
 		if ($conn->query($query)) {
-			echo "Sửa thể loại thành công!";
+			echo "Sửa phân loại thành công!";
 		} else {
-			echo "Sửa thể loại thành công!";
+			echo "Sửa phân loại thành công!";
 		}
 	}
 }

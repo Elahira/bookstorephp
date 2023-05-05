@@ -1,5 +1,5 @@
 <?php require_once('inc/top.php'); ?>
-<title>Phân loại sách</title>
+<title>Thể loại sách</title>
 <?php
 //del
 if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
@@ -51,6 +51,28 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 								</div>
 								<form id="frm-add" method="post">
 									<div class="form-group">
+										<label for="subcategory">Tên phân loại:*</label>
+										<div class="box">
+											<select name="subcat" id="subcat-id">
+												<?php
+												$query = "SELECT * from phanloai order by Idpl asc";
+												$run = $conn->query($query);
+												if ($run->num_rows > 0) {
+													while ($row = $run->fetch_array()) {
+														$subcat_id = $row['Idpl'];
+														$subcat_name = $row['Tenphanloai'];
+												?>
+														<option value="<?php echo $subcat_id ?>"><?php echo $subcat_id ?>. <?php echo $subcat_name ?></option>
+												<?php
+													}
+												} else {
+													echo "Không tìm thấy phân loại";
+												}
+												?>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
 										<label for="category">Tên thể loại:*</label>
 										<input type="text" id="cat-name" placeholder="Tên thể loại..." class="form-control" name="cat-name" required>
 									</div>
@@ -59,11 +81,13 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 								<script>
 									$('#frm-add').submit(function() {
 										var add_name = $('#cat-name').val();
+										var add_subcat = $('#subcat-id').val();
 										$.ajax({
 											method: 'POST',
 											url: 'inc/process.php',
 											data: {
-												add_cat_name: add_name
+												add_cat_name: add_name,
+												add_subcat_id: add_subcat
 											},
 											success: function(response) {
 												alert(response);
@@ -111,7 +135,7 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 									$('#btn-search').click(function() {
 										fetchdata();
 									});
-									$(document).on("click",".page-item",function(){
+									$(document).on("click", ".page-item", function() {
 										var page = $(this).attr("id");
 										fetchdata(page);
 									});

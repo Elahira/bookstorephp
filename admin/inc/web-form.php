@@ -74,6 +74,11 @@
                     </li>
                     <li class="nav-label">Apps</li>
                     <li>
+                        <a href="./subcate.php">
+                            <i class="fa fa-th-large"></i> <span class="nav-text">Phân loại</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="./categories.php">
                             <i class="fa fa-tags"></i> <span class="nav-text">Thể loại</span>
                         </a>

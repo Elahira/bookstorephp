@@ -43,6 +43,29 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-2">
                             <div class="card-body">
+                                <h3 class="card-title text-white">Phân loại</h3>
+                                <div class="d-inline-block">
+                                    <?php
+                                    $query_subcat = "SELECT * FROM phanloai";
+                                    $res_subcat = $conn->query($query_subcat);
+                                    if ($res_subcat->num_rows > 0) {
+                                        $count_subcat = $res_subcat->num_rows;
+                                    } else {
+                                        $count_subcat = "Không có phân loại";
+                                    }
+                                    ?>
+                                    <h2 class="text-white"><?php echo $count_subcat ?></h2>
+                                    <a href="./subcate.php">
+                                        <p class="text-white mb-0">Xem chi tiết...</p>
+                                    </a>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-th-large"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradient-2">
+                            <div class="card-body">
                                 <h3 class="card-title text-white">Thể loại</h3>
                                 <div class="d-inline-block">
                                     <?php
