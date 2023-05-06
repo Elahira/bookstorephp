@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 28, 2023 lúc 12:05 PM
+-- Thời gian đã tạo: Th5 06, 2023 lúc 09:21 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.2.0
 
@@ -92,6 +92,30 @@ INSERT INTO `nhaphathanh` (`Idnph`, `Tennph`) VALUES
 (7, 'Huy Hoàng'),
 (8, 'Alpha Books'),
 (9, '1980 Books');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `phanloai`
+--
+
+CREATE TABLE `phanloai` (
+  `Idpl` int(11) NOT NULL,
+  `Tenphanloai` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `phanloai`
+--
+
+INSERT INTO `phanloai` (`Idpl`, `Tenphanloai`) VALUES
+(1, 'Văn học'),
+(2, 'Truyện tranh - Thiếu nhi'),
+(3, 'Kinh tế'),
+(4, 'Giáo khoa - Tham khảo'),
+(5, 'Tiểu sử - Hồi ký'),
+(6, 'Tâm lý- Kỹ năng sống'),
+(7, 'Nuôi dạy con');
 
 -- --------------------------------------------------------
 
@@ -196,22 +220,25 @@ INSERT INTO `taikhoan` (`Idtk`, `Username`, `Password`, `Avatar`, `Idrole`, `Sta
 
 CREATE TABLE `theloai` (
   `Idloai` int(11) NOT NULL,
-  `Tenloai` varchar(30) NOT NULL
+  `Tenloai` varchar(30) NOT NULL,
+  `Idpl` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `theloai`
 --
 
-INSERT INTO `theloai` (`Idloai`, `Tenloai`) VALUES
-(1, 'Light Novel'),
-(2, 'Manga - Comic'),
-(3, 'kỹ năng sống'),
-(4, 'Kinh tế'),
-(5, 'Trinh thám'),
-(7, 'Tâm lý học'),
-(8, 'Bách khoa'),
-(9, 'Quân sự');
+INSERT INTO `theloai` (`Idloai`, `Tenloai`, `Idpl`) VALUES
+(1, 'Light Novel', 1),
+(2, 'Manga - Comic', 2),
+(3, 'kỹ năng sống', 6),
+(4, 'Marketing - Kinh tế', 3),
+(5, 'Trinh thám', 1),
+(7, 'Tâm lý học', 6),
+(8, 'Bách khoa', 4),
+(9, 'Quân sự', 5),
+(10, 'Chính trị', 5),
+(11, 'Truyện ngắn', 1);
 
 -- --------------------------------------------------------
 
@@ -284,6 +311,12 @@ ALTER TABLE `nhaphathanh`
   ADD PRIMARY KEY (`Idnph`);
 
 --
+-- Chỉ mục cho bảng `phanloai`
+--
+ALTER TABLE `phanloai`
+  ADD PRIMARY KEY (`Idpl`);
+
+--
 -- Chỉ mục cho bảng `role`
 --
 ALTER TABLE `role`
@@ -308,7 +341,8 @@ ALTER TABLE `taikhoan`
 -- Chỉ mục cho bảng `theloai`
 --
 ALTER TABLE `theloai`
-  ADD PRIMARY KEY (`Idloai`);
+  ADD PRIMARY KEY (`Idloai`),
+  ADD KEY `rel_phanloai` (`Idpl`);
 
 --
 -- Chỉ mục cho bảng `users`
@@ -347,6 +381,12 @@ ALTER TABLE `nhaphathanh`
   MODIFY `Idnph` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT cho bảng `phanloai`
+--
+ALTER TABLE `phanloai`
+  MODIFY `Idpl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT cho bảng `role`
 --
 ALTER TABLE `role`
@@ -368,7 +408,7 @@ ALTER TABLE `taikhoan`
 -- AUTO_INCREMENT cho bảng `theloai`
 --
 ALTER TABLE `theloai`
-  MODIFY `Idloai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Idloai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
@@ -411,6 +451,12 @@ ALTER TABLE `sanpham`
 --
 ALTER TABLE `taikhoan`
   ADD CONSTRAINT `role_rel` FOREIGN KEY (`Idrole`) REFERENCES `role` (`Idrole`);
+
+--
+-- Các ràng buộc cho bảng `theloai`
+--
+ALTER TABLE `theloai`
+  ADD CONSTRAINT `rel_phanloai` FOREIGN KEY (`Idpl`) REFERENCES `phanloai` (`Idpl`);
 
 --
 -- Các ràng buộc cho bảng `users`
