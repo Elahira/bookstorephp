@@ -145,34 +145,41 @@
                                     <?php
                                     $query = "SELECT * from phanloai";
                                     $run = $conn->query($query);
-                                    if($run->num_rows >0){
-                                        while($run->fetch_array()){
-                                            
-                                        }
-                                    }
+                                    if ($run->num_rows > 0) {
+                                        while ($rowsubcat = $run->fetch_array()) {
+                                            $subcat_id = $rowsubcat['Idpl'];
+                                            $subcat_name = $rowsubcat['Tenphanloai'];
+
                                     ?>
-                                    <li class="menu-item-has-children"><a href="shop.php">camera</a>
-                                        <!-- Mega Category Menu Start -->
-                                        <ul class="category-mega-menu">
-                                            <li class="menu-item-has-children">
-                                                <ul>
-                                                    <li><a href="shop-grid-left-sidebar.html">Samsome</a></li>
-                                                    <li><a href="shop-grid-left-sidebar.html">GL Stylus</a></li>
-                                                    <li><a href="shop-grid-left-sidebar.html">Uawei</a></li>
-                                                    <li><a href="shop-grid-left-sidebar.html">Cherry Berry</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children">
-                                                <a href="shop-grid-left-sidebar.html">headphone</a>
-                                                <ul>
-                                                    <li><a href="shop-grid-left-sidebar.html">Desktop Headphone</a></li>
-                                                    <li><a href="shop-grid-left-sidebar.html">Mobile Headphone</a></li>
-                                                    <li><a href="shop-grid-left-sidebar.html">Wireless Headphone</a></li>
-                                                    <li><a href="shop-grid-left-sidebar.html">LED Headphone</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul><!-- Mega Category Menu End -->
-                                    </li>
+                                            <li class="menu-item-has-children"><a href="shop.php?subcat=<?php echo $subcat_id ?>"><?php echo $subcat_name ?></a>
+                                                <?php
+                                                $querycat = "SELECT * from theloai where Idpl = '$subcat_id'";
+                                                $runcat = $conn->query($querycat);
+                                                if ($runcat->num_rows > 0) {
+                                                ?>
+                                                    <!-- Mega Category Menu Start -->
+                                                    <ul class="category-mega-menu">
+                                                        <li class="menu-item-has-children">
+                                                            <ul>
+                                                                <?php
+                                                                while ($rowcat = $runcat->fetch_array()) {
+                                                                    $cat_id = $rowcat['Idloai'];
+                                                                    $cat_name = $rowcat['Tenloai'];
+                                                                    $subcat_id = $rowcat['Idpl'];
+                                                                ?>
+                                                                    <li><a href="shop.php?subcat=<?php echo $cat_id ?>"><?php echo $cat_name ?></a></li>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                        <?php
+                                                }
+                                                echo "</li>";
+                                            }
+                                        }
+                                        ?>
                                 </ul>
                             </nav>
                         </div>

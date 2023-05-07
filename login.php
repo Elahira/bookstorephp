@@ -1,7 +1,7 @@
 <?php require_once('inc/top.php');
 
 if (isset($_SESSION['customer'])) {
-    echo "<script>alert('You already logining.');window.history.back();</script>";
+    echo "<script>alert('Bạn đã đăng nhập.');window.history.back();</script>";
 
 } else if (isset($_POST['login'])) {
     $username = $_POST['username'];
