@@ -7440,11 +7440,11 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 }
 
 .colors li.orange {
-    background-color: #f39c12;
+    background-color: orange;
 }
 
 .colors li.violet {
-    background-color: #9b59b6;
+    background-color: darkviolet;
 }
 
 .colors li.active:after {
