@@ -5,7 +5,7 @@ if(!isset($_SESSION['usernameadmin'])){
 }
 if(isset($_SESSION['usernameadmin'])){
 	$info_id = $_SESSION['usernameadmin'];
-	$info_query = "select * from taikhoan tk left join users u on tk.Idtk = u.Idtk  where tk.Idtk = '$info_id'";
+	$info_query = "SELECT * from taikhoan tk left join users u on tk.Idtk = u.Idtk  where tk.Idtk = '$info_id'";
 	$info_run = $conn->query($info_query);
 	
 	if($info_run -> num_rows > 0){

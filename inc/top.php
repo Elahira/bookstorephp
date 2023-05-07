@@ -1,20 +1,20 @@
 <?php require_once('admin/inc/db.php');
 session_start();
 
-if(isset($_SESSION['customer'])){
-	$info_us = $_SESSION['customer'];
-	$info_query = "SELECT * from taikhoan tk left join users u on tk.Idtk = u.Idtk  where tk.Idtk = '$info_id'";
-	$info_run = $conn->query($info_query);
-	
-	if($info_run -> num_rows > 0){
-		$info_row = $info_run -> fetch_array();
+if (isset($_SESSION['customer'])) {
+    $info_id = $_SESSION['customer'];
+    $info_query = "SELECT * from taikhoan tk left join users u on tk.Idtk = u.Idtk  where tk.Idtk = '$info_id'";
+    $info_run = $conn->query($info_query);
+
+    if ($info_run->num_rows > 0) {
+        $info_row = $info_run->fetch_array();
         $info_username = $info_row['Username'];
-		$info_password = $info_row['Password'];
-		$info_name = $info_row['Ten'];
+        $info_password = $info_row['Password'];
+        $info_name = $info_row['Ten'];
         $info_address = $info_row['Diachi'];
-		$info_email = $info_row['Mail'];
-		$info_phone = $info_row['Sdt'];
-	}
+        $info_email = $info_row['Mail'];
+        $info_phone = $info_row['Sdt'];
+    }
 }
 ?>
 

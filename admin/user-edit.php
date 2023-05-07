@@ -90,13 +90,6 @@
                                                     <input type="password" class="form-control" id="val-password" name="password" placeholder="Password..." value="<?php echo $user_password; ?>" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label" for="val-confirm-password">Nhập lại Password <span class="text-danger">*</span> </label>
-                                                <div class="col-md-8">
-                                                    <input type="password" class="form-control" id="val-confirm-password" name="val-confirm-password" placeholder="Repeat password" value="<?php echo $user_password; ?>" required>
-                                                </div>
-                                            </div>
-
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary" name="edit-user" value="<?php echo $id; ?>">Sửa</button>
                                             </div>

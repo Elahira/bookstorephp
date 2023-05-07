@@ -13,6 +13,7 @@
         styleLinker.attr('href', 'assets/css/skin-' + colorName + '.css');
         $(".colors li").removeClass('active');
         $this.addClass('active');
+        localStorage.setItem("pagecolor", JSON.stringify(colorName));
     });
 
     // Switcher Layout 
@@ -59,3 +60,9 @@
         $(".bg-pattern img").removeClass('active');
     });
 })(jQuery);
+let getcolor = JSON.parse(localStorage.getItem("pagecolor"));
+
+if (getcolor != "") {
+    var styleLinker = $('#galio-skin');
+    styleLinker.attr("href", 'assets/css/skin-' + getcolor + '.css');
+}
