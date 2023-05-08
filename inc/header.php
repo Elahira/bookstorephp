@@ -158,8 +158,9 @@
                                                 if ($runcat->num_rows > 0) {
                                                 ?>
                                                     <!-- Mega Category Menu Start -->
-                                                    <ul class="category-mega-menu">
-                                                        <li class="menu-item-has-children">
+                                                    <ul class="category-mega-menu" style="width: max-content;">
+                                                        <li class="menu-item-has-children" style="width: max-content;">
+                                                            <a href="shop.php?subcat=<?php echo $subcat_id ?>"><?php echo $subcat_name ?></a>
                                                             <ul>
                                                                 <?php
                                                                 while ($rowcat = $runcat->fetch_array()) {
@@ -167,7 +168,7 @@
                                                                     $cat_name = $rowcat['Tenloai'];
                                                                     $subcat_id = $rowcat['Idpl'];
                                                                 ?>
-                                                                    <li><a href="shop.php?subcat=<?php echo $cat_id ?>"><?php echo $cat_name ?></a></li>
+                                                                    <li><a href="shop.php?cat=<?php echo $cat_id ?>"><?php echo $cat_name ?></a></li>
                                                                 <?php
                                                                 }
                                                                 ?>
@@ -186,15 +187,8 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="active"><a href="#"><i class="fa fa-home"></i>Home <i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">Home version 01</a></li>
-                                            <li><a href="index-2.html">Home version 02</a></li>
-                                            <li><a href="index-3.html">Home version 03</a></li>
-                                            <li><a href="index-4.html">Home version 04</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                    <li class="active"><a href="index.php"><i class="fa fa-home"></i>Home</a></li>
+                                    <li class="static"><a href="#">Page <i class="fa fa-angle-down"></i></a>
                                         <ul class="megamenu dropdown">
                                             <li class="mega-title"><a href="#">column 01</a>
                                                 <ul>
@@ -264,20 +258,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Blog <i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="blog-left-sidebar.html">blog left sidebar</a></li>
-                                            <li><a href="blog-left-sidebar-2-col.html">blog left sidebar 2 col</a></li>
-                                            <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                            <li><a href="blog-full-2-column.html">blog full 2 column</a></li>
-                                            <li><a href="blog-full-3-column.html">blog full 3 column</a></li>
-                                            <li><a href="blog-details.html">blog details</a></li>
-                                            <li><a href="blog-details-audio.html">blog details audio</a></li>
-                                            <li><a href="blog-details-video.html">blog details video</a></li>
-                                            <li><a href="blog-details-image.html">blog details image</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact-us.html">Contact us</a></li>
+                                    <li><a href="about-us.php">Giới thiệu</a></li>
+                                    <li><a href="contact.php">Liên hệ</a></li>
                                 </ul>
                             </nav>
                         </div>
