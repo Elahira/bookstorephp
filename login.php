@@ -75,14 +75,13 @@ if (isset($_SESSION['customer'])) {
                         <!-- Login Content Start -->
                         <div class="col-lg-6">
                             <div class="login-reg-form-wrap  pr-lg-50">
-                                <h2>Đăng nhập</h2>
-                                <center>
+                                <h2 style="margin: 0%;">Đăng nhập</h2>
+                                <span>Bạn chưa có tài khoản? <a href="register.php">Đăng ký</a></span>
                                     <?php
                                     if (isset($error)) {
-                                        echo "<span style='color:red;'>$error</span>";
+                                        echo "<p style='color:red;'>$error</p>";
                                     }
                                     ?>
-                                </center>
                                 <form method="POST" enctype="multipart/form-data">
                                     <div class="single-input-item">
                                         <label for="username">Tài khoản</label>
@@ -100,7 +99,7 @@ if (isset($_SESSION['customer'])) {
                                                     <label class="custom-control-label" for="rememberMe">Nhớ tài khoản</label>
                                                 </div>
                                             </div>
-                                            <a href="register.php" class="forget-pwd">Đăng ký</a>
+                                            <a href="#" class="forget-pwd">Quên mật khẩu</a>
                                         </div>
                                     </div>
                                     <div class="single-input-item">

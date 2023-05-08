@@ -1,6 +1,6 @@
 <?php require_once('inc/top.php') ?>
 <!-- Site title -->
-<title>Galio - Mega Shop Responsive Bootstrap 4 Template</title>
+<title>Đăng ký</title>
 </head>
 
 <body>
@@ -45,7 +45,8 @@
                         <!-- Register Content Start -->
                         <div class="col-lg-6">
                             <div class="login-reg-form-wrap mt-md-34 mt-sm-34">
-                                <h2>Đăng ký</h2>
+                                <h2 style="margin: 0%;">Đăng ký</h2>
+                                <span>Bạn đã có tài khoản? <a href="login.php">Đăng nhập</a></span>
                                 <form action="./inc/process.php?register" method="POST" enctype="multipart/form-data">
                                     <div class="single-input-item">
                                         <label for="name">Họ tên</label>

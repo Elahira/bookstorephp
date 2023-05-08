@@ -1,5 +1,4 @@
 <header>
-
     <!-- header top start -->
     <div class="header-top-area bg-gray text-center text-md-left">
         <div class="container">
@@ -73,7 +72,7 @@
     <!-- header top end -->
 
     <!-- header middle start -->
-    <div class="header-middle-area header-middle-style-2 pt-20 pb-20">
+    <div class="header-middle-area pt-20 pb-20">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3">
@@ -119,158 +118,13 @@
                                 <input type="text" placeholder="Search...">
                                 <button class="search-btn"><i class="fa fa-search"></i></button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- header middle end -->
-
-    <!-- main menu area start -->
-    <div class="main-header-wrapper bdr-bottom1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="main-header-inner header-2">
-                        <div class="category-toggle-wrap">
-                            <div class="category-toggle">
-                                Danh mục
-                                <div class="cat-icon">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                            </div>
-                            <nav class="category-menu category-style-2">
-                                <ul>
-                                    <?php
-                                    $query = "SELECT * from phanloai";
-                                    $run = $conn->query($query);
-                                    if ($run->num_rows > 0) {
-                                        while ($rowsubcat = $run->fetch_array()) {
-                                            $subcat_id = $rowsubcat['Idpl'];
-                                            $subcat_name = $rowsubcat['Tenphanloai'];
-
-                                    ?>
-                                            <li class="menu-item-has-children"><a href="shop.php?subcat=<?php echo $subcat_id ?>"><?php echo $subcat_name ?></a>
-                                                <?php
-                                                $querycat = "SELECT * from theloai where Idpl = '$subcat_id'";
-                                                $runcat = $conn->query($querycat);
-                                                if ($runcat->num_rows > 0) {
-                                                ?>
-                                                    <!-- Mega Category Menu Start -->
-                                                    <ul class="category-mega-menu" style="width: max-content;">
-                                                        <li class="menu-item-has-children" style="width: max-content;">
-                                                            <a href="shop.php?subcat=<?php echo $subcat_id ?>"><?php echo $subcat_name ?></a>
-                                                            <ul>
-                                                                <?php
-                                                                while ($rowcat = $runcat->fetch_array()) {
-                                                                    $cat_id = $rowcat['Idloai'];
-                                                                    $cat_name = $rowcat['Tenloai'];
-                                                                    $subcat_id = $rowcat['Idpl'];
-                                                                ?>
-                                                                    <li><a href="shop.php?cat=<?php echo $cat_id ?>"><?php echo $cat_name ?></a></li>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                        <?php
-                                                }
-                                                echo "</li>";
-                                            }
-                                        }
-                                        ?>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="main-menu">
-                            <nav id="mobile-menu">
-                                <ul>
-                                    <li class="active"><a href="index.php"><i class="fa fa-home"></i>Home</a></li>
-                                    <li class="static"><a href="#">Page <i class="fa fa-angle-down"></i></a>
-                                        <ul class="megamenu dropdown">
-                                            <li class="mega-title"><a href="#">column 01</a>
-                                                <ul>
-                                                    <li><a href="shop-grid-left-sidebar.html">shop grid left sidebar</a></li>
-                                                    <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                    <li><a href="shop-grid-full-3-col.html">shop grid full 3 column</a></li>
-                                                    <li><a href="shop-grid-full-4-col.html">shop grid full 4 column</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="mega-title"><a href="#">column 02</a>
-                                                <ul>
-                                                    <li><a href="product-details.html">product details</a></li>
-                                                    <li><a href="product-details-affiliate.html">product details
-                                                            affiliate</a></li>
-                                                    <li><a href="product-details-variable.html">product details
-                                                            variable</a></li>
-                                                    <li><a href="product-details-group.html">product details group</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="mega-title"><a href="#">column 03</a>
-                                                <ul>
-                                                    <li><a href="cart.html">cart</a></li>
-                                                    <li><a href="checkout.html">checkout</a></li>
-                                                    <li><a href="compare.html">compare</a></li>
-                                                    <li><a href="wishlist.html">wishlist</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="mega-title"><a href="#">column 04</a>
-                                                <ul>
-                                                    <li><a href="my-account.html">my-account</a></li>
-                                                    <li><a href="login-register.html">login-register</a></li>
-                                                    <li><a href="about-us.html">about us</a></li>
-                                                    <li><a href="contact-us.html">contact us</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">shop <i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">shop grid layout <i class="fa fa-angle-right"></i></a>
-                                                <ul class="dropdown">
-                                                    <li><a href="shop-grid-left-sidebar.html">shop grid left sidebar</a></li>
-                                                    <li><a href="shop-grid-left-sidebar-3-col.html">left sidebar 3 col</a></li>
-                                                    <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                    <li><a href="shop-grid-right-sidebar-3-col.html">grid right sidebar 3 col</a></li>
-                                                    <li><a href="shop-grid-full-3-col.html">shop grid full 3 column</a></li>
-                                                    <li><a href="shop-grid-full-4-col.html">shop grid full 4 column</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">shop list layout <i class="fa fa-angle-right"></i></a>
-                                                <ul class="dropdown">
-                                                    <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                    <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
-                                                    <li><a href="shop-list-full.html">shop list full width</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">products details <i class="fa fa-angle-right"></i></a>
-                                                <ul class="dropdown">
-                                                    <li><a href="product-details.html">product details</a></li>
-                                                    <li><a href="product-details-affiliate.html">product details
-                                                            affiliate</a></li>
-                                                    <li><a href="product-details-variable.html">product details
-                                                            variable</a></li>
-                                                    <li><a href="product-details-group.html">product details group</a></li>
-                                                    <li><a href="product-details-box.html">product details box slider</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="about-us.php">Giới thiệu</a></li>
-                                    <li><a href="contact.php">Liên hệ</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="mini-cart2">
                             <div class="header-mini-cart">
                                 <div class="mini-cart-btn">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span class="cart-notification">2</span>
                                 </div>
                                 <div class="cart-total-price">
-                                    <span>total:</span>
+                                    <span>total</span>
                                     $50.00
                                 </div>
                                 <ul class="cart-list">
@@ -307,6 +161,93 @@
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header middle end -->
+
+    <!-- main menu area start -->
+    <div class="main-header-wrapper bdr-bottom1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-header-inner">
+                        <div class="category-toggle-wrap">
+                            <div class="category-toggle">
+                                Danh mục
+                                <div class="cat-icon">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <nav class="category-menu category-style-2">
+                                <ul>
+                                    <?php
+                                    $query = "SELECT * from phanloai";
+                                    $run = $conn->query($query);
+                                    if ($run->num_rows > 0) {
+                                        while ($rowsubcat = $run->fetch_array()) {
+                                            $subcat_id = $rowsubcat['Idpl'];
+                                            $subcat_name = $rowsubcat['Tenphanloai'];
+
+                                    ?>
+                                            <li class="menu-item-has-children"><a href="shop.php?subcat=<?php echo $subcat_id ?>"><i class="fa fa-book"></i><?php echo $subcat_name ?></a>
+                                                <?php
+                                                $querycat = "SELECT * from theloai where Idpl = '$subcat_id'";
+                                                $runcat = $conn->query($querycat);
+                                                if ($runcat->num_rows > 0) {
+                                                ?>
+                                                    <!-- Mega Category Menu Start -->
+                                                    <ul class="category-mega-menu" style="width: max-content;">
+                                                        <li class="menu-item-has-children" style="width: max-content;">
+                                                            <a href="shop.php?subcat=<?php echo $subcat_id ?>"><?php echo $subcat_name ?></a>
+                                                            <ul>
+                                                                <?php
+                                                                while ($rowcat = $runcat->fetch_array()) {
+                                                                    $cat_id = $rowcat['Idloai'];
+                                                                    $cat_name = $rowcat['Tenloai'];
+                                                                    $subcat_id = $rowcat['Idpl'];
+                                                                ?>
+                                                                    <li><a href="shop.php?cat=<?php echo $cat_id ?>"><?php echo $cat_name ?></a></li>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                        <?php
+                                                }
+                                                echo "</li>";
+                                            }
+                                        }
+                                        ?>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="main-menu">
+                            <nav id="mobile-menu">
+                                <ul>
+                                    <li class="active"><a href="index.php"><i class="fa fa-home"></i>Home</a></li>
+                                    <li><a href="shop.php">shop <i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="cart.php">Giỏ hàng </a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Page <i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="Blog.php">Blog</a></li>
+                                            <li><a href="about-us.php">Giới thiệu</a></li>
+                                            <li><a href="contact.php">Liên hệ</a></li>
+                                            <li><a href="page-404.php">404</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="about-us.php">Giới thiệu</a></li>
+                                    <li><a href="contact.php">Liên hệ</a></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

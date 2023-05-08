@@ -43,7 +43,7 @@
                                                 <div class="tab-pane fade active show" id="list-profile">
                                                     <div class="panel-body">
                                                         <div class="row-title">
-                                                            <h4>Profile</h4>
+                                                            <h4>Tài khoản</h4>
                                                         </div>
                                                         <p><strong>Username:</strong> <?php echo $info_username ?></p>
                                                         <p><strong>Họ tên:</strong> <?php echo $info_name ?></p>
@@ -55,7 +55,7 @@
                                                 <div class="tab-pane fade" id="list-edit-profile" role="tabpanel">
                                                     <div class="panel-body">
                                                         <div class="row-title">
-                                                            <h4>Edit Profile</h4>
+                                                            <h4>Sửa thông tin tài khoản</h4>
                                                         </div>
                                                         <div class="form-validation">
                                                             <form class="form-valide" action="inc/process.php" method="post">
