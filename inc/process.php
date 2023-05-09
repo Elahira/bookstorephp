@@ -1,8 +1,8 @@
 <?php
-require_once( 'admin/inc/db.php' );
+require_once( 'db.php' );
 session_start();
 
-//////////////////////// ADD USER //////////////////////
+//////////////////////// REGISTER //////////////////////
 
 if (isset($_POST['register'])) {
 	$user_yourname = $_POST['name'];
@@ -30,4 +30,44 @@ if (isset($_POST['register'])) {
 	}
 }
 
-?>
+//////////////////////// EDIT USER //////////////////////
+if (isset($_POST['edit_user'])) {
+	$user_idtk = $_POST['edit_user'];
+	$user_name = $_POST['edit_name'];
+	$user_email = $_POST['edit_email'];
+	$user_adress = $_POST['edit_address'];
+	$user_phone = $_POST['edit_phone'];
+	$user_password = $_POST['current_pwd'];
+	$user_new_password = $_POST['new_pwd'];
+	$user_crm_password = $_POST['confirm_pwd'];
+
+	$query = "SELECT * from Taikhoan where Idtk = '$user_idtk'";
+	$runcheck = $conn->query($query);
+	$checkpwd = $runcheck->fetch_array();
+
+	if($checkpwd['Password'] == $user_password){
+		if($user_new_password == $user_crm_password){
+			$query1 = "UPDATE taikhoan SET
+			`Password` = '$user_new_password'
+			where Idtk = '$user_idtk';";
+
+			$query2 = "UPDATE users SET
+			Mail='$user_email',
+			Sdt='$user_phone',
+			Diachi='$user_adress',
+			Ten='$user_name'
+			WHERE Idtk='$user_idtk';";
+
+			if ($conn->query($query1) && $conn->query($query2)) {
+				echo "Lưu thành công!";
+			} else {
+				echo "Lưu thất bại!";
+				}
+		}else{
+			echo "Mật khẩu mới nhập lại không khớp, xin hãy nhập kỹ lại";
+		}
+	}else{
+		echo "Sai mật khẩu hiện tại!";
+	}
+	
+}

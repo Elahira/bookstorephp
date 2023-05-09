@@ -12,7 +12,7 @@ $searchkey = $_GET['search'];
 
 if (isset($_GET['page'])) {
     $pages = $_GET['page'];
-}else{
+} else {
     $pages = 1;
 }
 $start = ($pages - 1) * $limit;
@@ -34,7 +34,7 @@ $num_row_page = $run_page->num_rows;
 $total_pages = ceil($num_row_page / $limit);
 
 ?>
-<table class="table table-bordered table-striped table-hover">
+<table id="order-table" class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
             <th>Mã đơn</th>
@@ -65,9 +65,9 @@ $total_pages = ceil($num_row_page / $limit);
                     <td><?php echo $address ?></td>
                     <td><?php echo $ngay_mua ?></td>
                     <td><?php echo $ngay_nhan ?></td>
-                    <td><a class="hd_upstatus">
-                            <p hidden id="hd-id"><?php echo $hd_id; ?></p>
-                            <p hidden id="hd_status"><?php echo $hd_status ?></p>
+                    <td><a id="hd_upstatus<?php echo $hd_id; ?>">
+                            <p hidden id="hd-id<?php echo $hd_id; ?>"><?php echo $hd_id; ?></p>
+                            <p hidden id="hd_status<?php echo $hd_id; ?>"><?php echo $hd_status ?></p>
                             <?php
                             if ($hd_status == '1') {
                             ?>
@@ -86,7 +86,24 @@ $total_pages = ceil($num_row_page / $limit);
                             }
                             ?>
                         </a></td>
-
+                    <script>
+                        $('#hd_upstatus<?php echo $hd_id; ?>').click(function() {
+                            var hd_id = $('#hd-id<?php echo $hd_id; ?>').text();
+                            var hd_status = $('#hd_status<?php echo $hd_id; ?>').text();
+                            $.ajax({
+                                method: 'GET',
+                                url: 'inc/process.php',
+                                data: {
+                                    hd_upstatus: hd_id,
+                                    hd_status: hd_status
+                                },
+                                success: function(response) {
+                                    alert(response);
+                                    fetchdata();
+                                }
+                            });
+                        });
+                    </script>
                     <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong<?php echo $hd_id ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
                     <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal<?php echo $hd_id ?>"><i class="fa fa-trash-o"></i></button></td>
                 </tr>
@@ -140,23 +157,3 @@ $total_pages = ceil($num_row_page / $limit);
         </ul>
     </nav>
 </div>
-
-<script>
-    $('.hd_upstatus').click(function() {
-        var hd_id = $('#hd-id').text();
-        var hd_status = $('#hd_status').text();
-        $.ajax({
-            method: 'GET',
-            url: 'inc/process.php',
-            data: {
-                hd_upstatus: hd_id,
-                hd_status: hd_status
-            },
-            success: function(response) {
-                alert(response);
-                fetchdata();
-            }
-        });
-        return false;
-    });
-</script>

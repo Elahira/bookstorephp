@@ -1,4 +1,4 @@
-<?php require_once('admin/inc/db.php');
+<?php require_once('db.php');
 session_start();
 
 if (isset($_SESSION['customer'])) {
@@ -40,3 +40,5 @@ if (isset($_SESSION['customer'])) {
     <!-- Main Style CSS -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/skin-default.css" rel="stylesheet" id="galio-skin">
+    <!-- jquery  -->
+    <script src="admin/js/jquery-3.6.4.min.js"></script>

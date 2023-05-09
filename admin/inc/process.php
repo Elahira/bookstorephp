@@ -238,13 +238,20 @@ if (isset($_POST['add-product'])) {
 
 //////////////////////// UPSTATUS ORDER //////////////////////
 if (isset($_GET['hd_upstatus']) and isset($_SESSION['usernameadmin'])) {
-    $upstatus = $_GET['hd_upstatus'];
-    $status = $_GET['hd_status'];
-    $status_new = $status + 1;
-    $upstatus_query = "UPDATE hoadon SET StatusHD = '$status_new' WHERE Idhd = '$upstatus'";
-    if ($conn->query($upstatus_query)) {
-        echo "Cập nhật tình trạng đơn hàng thành công.";
-    } else {
-        echo "Cập nhật tình trạng đơn hàng thất bại.";
-    }
+	$upstatus = $_GET['hd_upstatus'];
+	$status = $_GET['hd_status'];
+	$status_new = $status + 1;
+	$upstatus_query = "UPDATE hoadon SET StatusHD = '$status_new' WHERE Idhd = '$upstatus'";
+	if ($status_new == '3') {
+		$finish_date = getdate();
+		$finish = "UPDATE hoadon SET
+            	Ngaynhan = '$finish_date[year]-$finish_date[mon]-$finish_date[mday]'
+        		where Idhd = '$upstatus'";
+		$runfinish = $conn->query($finish);
+	}
+	if ($conn->query($upstatus_query)) {
+		echo "Cập nhật tình trạng đơn hàng thành công.";
+	} else {
+		echo "Cập nhật tình trạng đơn hàng thất bại.";
+	}
 }

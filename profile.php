@@ -48,7 +48,6 @@
                                     <div class="myaccount-tab-menu nav" role="tablist">
                                         <a href="#dashboad" class="active" data-toggle="tab"><i class="fa fa-dashboard"></i>Dashboard</a>
                                         <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Thông tin tài khoản</a>
-                                        <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> Địa chỉ</a>
                                         <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Phương thức thanh toán</a>
                                         <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đơn hàng của tôi</a>
                                         <a href="logout.php"><i class="fa fa-sign-out"></i> Đăng xuất</a>
@@ -63,10 +62,10 @@
                                         <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
-                                                <div class="welcome">
-                                                    <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
-                                                </div>
-                                                <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                                                <p class="mb-0">Họ tên: <strong><?php echo $info_name ?></strong></p>
+                                                <p class="mb-0">Email: <strong><?php echo $info_email ?></strong></p>
+                                                <p class="mb-0">Số điện thoại <strong><?php echo $info_phone ?></strong></p>
+                                                <p class="mb-0">Địa chỉ <strong><?php echo $info_address ?></strong></p>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
@@ -79,33 +78,56 @@
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>Order</th>
-                                                                <th>Date</th>
-                                                                <th>Status</th>
-                                                                <th>Total</th>
-                                                                <th>Action</th>
+                                                                <th>Stt</th>
+                                                                <th>Mã đơn hàng</th>
+                                                                <th>Ngày đặt</th>
+                                                                <th>Tình trạng</th>
+                                                                <th>Xem chi tiết</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <?php
+                                                            $query = "SELECT * FROM hoadon where Idtk = '$info_id'";
+                                                            $run = $conn->query($query);
+                                                            if ($run->num_rows > 0) {
+                                                                while ($row = $run->fetch_array()) {
+                                                                    $hd_id = $row['Idhd'];
+                                                                    $ngay_mua = $row['Ngaymua'];
+                                                                    $ngay_nhan = $row['Ngaynhan'];
+                                                                    $hd_status = $row['StatusHD'];
+                                                            ?>
+                                                                    <td><?php echo $hd_id ?></td>
+                                                                    <td><?php echo $ngay_mua ?></td>
+                                                                    <td>
+                                                                        <?php
+                                                                        if ($hd_status == '1') {
+                                                                        ?>
+                                                                            <button type="button" class="btn btn-info">Chuẩn bị hàng</button>
+                                                                        <?php
+                                                                        }
+                                                                        if ($hd_status == '2') {
+                                                                        ?>
+                                                                            <button type="button" class="btn btn-danger">Đang giao</button>
+                                                                        <?php
+                                                                        }
+                                                                        if ($hd_status == '3') {
+                                                                        ?>
+                                                                            <button type="button" class="btn btn-success" style="color:#fff;" disabled>Đã giao</button>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                    </td>
+                                                                    <td><?php echo $ngay_mua ?></td>
+                                                                    <td><?php echo $ngay_mua ?></td>
+                                                            <?php
+                                                                }
+                                                            }
+                                                            ?>
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>Aug 22, 2018</td>
                                                                 <td>Pending</td>
                                                                 <td>$3000</td>
-                                                                <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>July 22, 2018</td>
-                                                                <td>Approved</td>
-                                                                <td>$200</td>
-                                                                <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>June 12, 2017</td>
-                                                                <td>On Hold</td>
-                                                                <td>$990</td>
                                                                 <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
                                                             </tr>
                                                         </tbody>
@@ -125,76 +147,90 @@
                                         <!-- Single Tab Content End -->
 
                                         <!-- Single Tab Content Start -->
-                                        <div class="tab-pane fade" id="address-edit" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>Billing Address</h3>
-                                                <address>
-                                                    <p><strong>Alex Tuntuni</strong></p>
-                                                    <p>1355 Market St, Suite 900 <br>
-                                                        San Francisco, CA 94103</p>
-                                                    <p>Mobile: (123) 456-7890</p>
-                                                </address>
-                                                <a href="#" class="check-btn sqr-btn "><i class="fa fa-edit"></i> Edit Address</a>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="account-info" role="tabpanel">
                                             <div class="myaccount-content">
-                                                <h3>Account Details</h3>
+                                                <h3>Thông tin tài khoản</h3>
                                                 <div class="account-details-form">
-                                                    <form action="#">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item">
-                                                                    <label for="first-name" class="required">First Name</label>
-                                                                    <input type="text" id="first-name" placeholder="First Name" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="single-input-item">
-                                                                    <label for="last-name" class="required">Last Name</label>
-                                                                    <input type="text" id="last-name" placeholder="Last Name" />
-                                                                </div>
-                                                            </div>
+                                                    <form id="frm-edit" method="POST" enctype="multipart/form-data">
+                                                        <div class="single-input-item">
+                                                            <label for="username" class="required">Tài khoản</label>
+                                                            <input type="text" id="username" value="<?php echo $info_username ?>" disabled />
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="display-name" class="required">Display Name</label>
-                                                            <input type="text" id="display-name" placeholder="Display Name" />
+                                                            <label for="name" class="required">Họ tên</label>
+                                                            <input type="text" id="yourname" placeholder="Nhập họ tên" value="<?php echo $info_name ?>" />
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="email" class="required">Email Addres</label>
-                                                            <input type="email" id="email" placeholder="Email Address" />
+                                                            <label for="phone" class="required">Số điện thoại</label>
+                                                            <input type="number" id="phone" placeholder="Nhập số điện thoại" value="<?php echo $info_phone ?>" />
+                                                        </div>
+                                                        <div class="single-input-item">
+                                                            <label for="email" class="required">Email</label>
+                                                            <input type="email" id="email" placeholder="Nhập email" value="<?php echo $info_email ?>" />
+                                                        </div>
+                                                        <div class="single-input-item">
+                                                            <label for="address" class="required">Địa chỉ</label>
+                                                            <input type="text" id="address" placeholder="Nhập địa chỉ" value="<?php echo $info_address ?>" />
                                                         </div>
                                                         <fieldset>
-                                                            <legend>Password change</legend>
+                                                            <legend>Đổi mật khẩu</legend>
                                                             <div class="single-input-item">
-                                                                <label for="current-pwd" class="required">Current Password</label>
-                                                                <input type="password" id="current-pwd" placeholder="Current Password" />
+                                                                <label for="current-pwd" class="required">Mật khẩu hiện tại</label>
+                                                                <input type="password" id="current-pwd" placeholder="Nhập mật khẩu hiện tại" value="<?php echo $info_password ?>" />
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="single-input-item">
-                                                                        <label for="new-pwd" class="required">New Password</label>
-                                                                        <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                        <label for="new-pwd" class="required">Mật khẩu mới</label>
+                                                                        <input type="password" id="new-pwd" placeholder="Nhập mật khẩu mới" value="<?php echo $info_password ?>" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="single-input-item">
-                                                                        <label for="confirm-pwd" class="required">Confirm Password</label>
-                                                                        <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                        <label for="confirm-pwd" class="required">Nhập lại mật khẩu mới</label>
+                                                                        <input type="password" id="confirm-pwd" placeholder="Nhập lại mật khẩu mới" value="<?php echo $info_password ?>" />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </fieldset>
                                                         <div class="single-input-item">
-                                                            <button class="check-btn sqr-btn ">Save Changes</button>
+                                                            <button type="submit" name="edit-user" value="<?php echo $info_id ?>" class="check-btn sqr-btn ">Lưu</button>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div> <!-- Single Tab Content End -->
+                                        <script>
+                                            $('#frm-edit').submit(function() {
+                                                var edit_id = <?php echo $info_id; ?>;
+                                                var edit_name = $('#yourname').val();
+                                                var edit_email = $('#email').val();
+                                                var edit_address = $('#address').val();
+                                                var edit_phone = $('#phone').val();
+                                                var edit_pwd = $('#current-pwd').val();
+                                                var edit_new_pwd = $('#new-pwd').val();
+                                                var edit_crm_pwd = $('#confirm-pwd').val();
+
+                                                $.ajax({
+                                                    method: 'POST',
+                                                    url: 'inc/process.php',
+                                                    data: {
+                                                        edit_user: edit_id,
+                                                        edit_name: edit_name,
+                                                        edit_phone: edit_phone,
+                                                        edit_email: edit_email,
+                                                        edit_address: edit_address,
+                                                        current_pwd: edit_pwd,
+                                                        new_pwd: edit_new_pwd,
+                                                        confirm_pwd: edit_crm_pwd
+                                                    },
+                                                    success: function(response) {
+                                                        alert(response);
+                                                    }
+                                                });
+                                                return false;
+                                            });
+                                        </script>
                                     </div>
                                 </div> <!-- My Account Tab Content End -->
                             </div>
