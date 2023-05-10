@@ -21,12 +21,12 @@ if (isset($_POST['register'])) {
 		$user_id = $rowcheck['Idtk'];
 		$query_id = "INSERT INTO users (Ten,Sdt,Mail,Idtk) VALUES ('$user_yourname','$user_phone','$user_email','$user_id')";
 		if ($conn->query($query_id)) {
-			echo "<script>alert('Đăng ký thành công!');window.location='../users.php'</script>";
+			echo "<script>alert('Đăng ký thành công!');window.location='../login.php'</script>";
 		} else {
-			echo "<script>alert('Đăng ký thất bại!');window.location='../users.php'</script>";
+			echo "<script>alert('Đăng ký thất bại!');window.location='../login.php'</script>";
 		}
 	} else {
-		echo "<script>alert('Đăng ký thất bại!');window.location='../users.php'</script>";
+		echo "<script>alert('Đăng ký thất bại!');window.location='../login.php'</script>";
 	}
 }
 
@@ -69,5 +69,16 @@ if (isset($_POST['edit_user'])) {
 	}else{
 		echo "Sai mật khẩu hiện tại!";
 	}
-	
+}
+
+
+//////////////////////// DEL BANK //////////////////////
+if (isset($_POST['del_bank'])) {
+	$del_id = $_POST['del_bank'];
+	$query = "DELETE FROM users_payment WHERE Idpay = '$del_id'";
+	if($conn->query($query)){
+		echo "Xóa ngân hàng này thành công!";
+	}else{
+		echo "Xóa ngân hàng này thất bại!";
+	}
 }

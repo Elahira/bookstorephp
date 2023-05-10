@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 06, 2023 lúc 09:21 AM
+-- Thời gian đã tạo: Th5 10, 2023 lúc 09:38 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.2.0
 
@@ -64,7 +64,7 @@ CREATE TABLE `hoadon` (
 --
 
 INSERT INTO `hoadon` (`Idhd`, `Ngaymua`, `Ngaynhan`, `Idtk`, `Ghichu`, `StatusHD`) VALUES
-(1, '2023-04-21', '2023-04-30', 2, 'Địa chỉ: 213', 2),
+(1, '2023-04-21', '2023-05-09', 2, 'Địa chỉ: 213', 3),
 (2, '2023-04-27', '2023-04-30', 2, 'giao nhanh nha\r\n', 1);
 
 -- --------------------------------------------------------
@@ -210,7 +210,8 @@ CREATE TABLE `taikhoan` (
 INSERT INTO `taikhoan` (`Idtk`, `Username`, `Password`, `Avatar`, `Idrole`, `StatusTK`) VALUES
 (1, 'admin', '123', '', 1, 1),
 (2, 'khach1', '321', '', 2, 1),
-(3, 'test', '123', NULL, 2, 0);
+(3, 'test', '123', NULL, 2, 0),
+(4, 'khach2', '123', NULL, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -262,7 +263,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`Iduser`, `Ten`, `Diachi`, `Mail`, `Sdt`, `Idtk`) VALUES
 (1, 'I am Admin', '273 An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh', 'admin@gmail.com', 18008098, 1),
 (2, 'Nguyen Van A', '294 Nguyễn Tri Phương, Phường 4, Quận 10, Thành phố Hồ Chí Minh', 'khach1@gmai.com', 907738923, 2),
-(3, 'Test', 'USA', 'test@gmail.com', 231233, 3);
+(3, 'Test', 'USA', 'test@gmail.com', 231233, 3),
+(4, 'khach2', 'EU', 'test2@gmail.com', 238958345, 4);
 
 -- --------------------------------------------------------
 
@@ -272,7 +274,7 @@ INSERT INTO `users` (`Iduser`, `Ten`, `Diachi`, `Mail`, `Sdt`, `Idtk`) VALUES
 
 CREATE TABLE `users_payment` (
   `Idpay` int(11) NOT NULL,
-  `Iduser` int(11) NOT NULL,
+  `Idtk` int(11) NOT NULL,
   `Bank` varchar(50) DEFAULT NULL,
   `Sotk` int(15) DEFAULT NULL,
   `Tentk` varchar(50) DEFAULT NULL
@@ -282,8 +284,9 @@ CREATE TABLE `users_payment` (
 -- Đang đổ dữ liệu cho bảng `users_payment`
 --
 
-INSERT INTO `users_payment` (`Idpay`, `Iduser`, `Bank`, `Sotk`, `Tentk`) VALUES
-(1, 1, 'MB', 21323, 'ADmin');
+INSERT INTO `users_payment` (`Idpay`, `Idtk`, `Bank`, `Sotk`, `Tentk`) VALUES
+(1, 1, 'MB', 21323, 'ADmin'),
+(2, 2, 'Techcombank', 1232323, 'khach1');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -356,7 +359,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users_payment`
   ADD PRIMARY KEY (`Idpay`),
-  ADD KEY `lrel_upay` (`Iduser`);
+  ADD KEY `payment_rel` (`Idtk`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -402,7 +405,7 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT cho bảng `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `Idtk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Idtk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `theloai`
@@ -414,13 +417,13 @@ ALTER TABLE `theloai`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `Iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `users_payment`
 --
 ALTER TABLE `users_payment`
-  MODIFY `Idpay` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Idpay` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -468,7 +471,7 @@ ALTER TABLE `users`
 -- Các ràng buộc cho bảng `users_payment`
 --
 ALTER TABLE `users_payment`
-  ADD CONSTRAINT `lrel_upay` FOREIGN KEY (`Iduser`) REFERENCES `users` (`Iduser`);
+  ADD CONSTRAINT `payment_rel` FOREIGN KEY (`Idtk`) REFERENCES `taikhoan` (`Idtk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

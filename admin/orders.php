@@ -162,7 +162,7 @@ if (isset($_GET['upstatus']) and isset($_SESSION['usernameadmin'])) {
                                                             $pro_total = $pro_quantity * $pro_price;
                                                     ?>
                                                             <tr>
-                                                                <td><img src="./product-img/<?php echo $pro_img ?>" width="100%"></td>
+                                                                <td><img src="./product-img/<?php echo $pro_img ?>" width="50%"></td>
                                                                 <td><?php echo $pro_name ?></td>
                                                                 <td><?php echo $pro_quantity ?></td>
                                                                 <td>$ <?php echo $pro_price ?></td>

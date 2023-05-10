@@ -94,7 +94,7 @@ if (isset($_GET['lockon']) and isset($_SESSION['usernameadmin'])) {
                     </div>
                     <?php
                     $query = "SELECT * FROM users u
-                    LEFT JOIN users_payment upay ON u.Iduser = upay.Iduser";
+                    LEFT JOIN users_payment upay ON u.Idtk = upay.Idtk";
                     $run = $conn->query($query);
                     if ($run->num_rows > 0) {
                         while ($row = $run->fetch_array()) {

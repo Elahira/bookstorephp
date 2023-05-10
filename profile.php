@@ -1,6 +1,11 @@
 <?php require_once('inc/top.php') ?>
 <!-- Site title -->
 <title>Galio - Mega Shop Responsive Bootstrap 4 Template</title>
+<?php
+if (!isset($_SESSION['customer'])) {
+    header('location: login.php');
+}
+?>
 </head>
 
 <body>
@@ -62,10 +67,12 @@
                                         <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
-                                                <p class="mb-0">Họ tên: <strong><?php echo $info_name ?></strong></p>
-                                                <p class="mb-0">Email: <strong><?php echo $info_email ?></strong></p>
-                                                <p class="mb-0">Số điện thoại <strong><?php echo $info_phone ?></strong></p>
-                                                <p class="mb-0">Địa chỉ <strong><?php echo $info_address ?></strong></p>
+                                                <div class="saved-message">
+                                                    <p>Họ tên: <strong><?php echo $info_name ?></strong></p>
+                                                    <p>Email: <strong><?php echo $info_email ?></strong></p>
+                                                    <p>Số điện thoại <strong><?php echo $info_phone ?></strong></p>
+                                                    <p>Địa chỉ <strong><?php echo $info_address ?></strong></p>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
@@ -73,7 +80,7 @@
                                         <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="orders" role="tabpanel">
                                             <div class="myaccount-content">
-                                                <h3>Orders</h3>
+                                                <h3>Đơn hàng</h3>
                                                 <div class="myaccount-table table-responsive text-center">
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
@@ -81,6 +88,7 @@
                                                                 <th>Stt</th>
                                                                 <th>Mã đơn hàng</th>
                                                                 <th>Ngày đặt</th>
+                                                                <th>Ngày giao</th>
                                                                 <th>Tình trạng</th>
                                                                 <th>Xem chi tiết</th>
                                                             </tr>
@@ -89,50 +97,158 @@
                                                             <?php
                                                             $query = "SELECT * FROM hoadon where Idtk = '$info_id'";
                                                             $run = $conn->query($query);
+                                                            $hd_stt = 0;
                                                             if ($run->num_rows > 0) {
                                                                 while ($row = $run->fetch_array()) {
+                                                                    $hd_stt++;
                                                                     $hd_id = $row['Idhd'];
                                                                     $ngay_mua = $row['Ngaymua'];
                                                                     $ngay_nhan = $row['Ngaynhan'];
                                                                     $hd_status = $row['StatusHD'];
                                                             ?>
-                                                                    <td><?php echo $hd_id ?></td>
-                                                                    <td><?php echo $ngay_mua ?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if ($hd_status == '1') {
-                                                                        ?>
-                                                                            <button type="button" class="btn btn-info">Chuẩn bị hàng</button>
-                                                                        <?php
-                                                                        }
-                                                                        if ($hd_status == '2') {
-                                                                        ?>
-                                                                            <button type="button" class="btn btn-danger">Đang giao</button>
-                                                                        <?php
-                                                                        }
-                                                                        if ($hd_status == '3') {
-                                                                        ?>
-                                                                            <button type="button" class="btn btn-success" style="color:#fff;" disabled>Đã giao</button>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </td>
-                                                                    <td><?php echo $ngay_mua ?></td>
-                                                                    <td><?php echo $ngay_mua ?></td>
+                                                                    <tr>
+                                                                        <td><?php echo $hd_stt ?></td>
+                                                                        <td><?php echo $hd_id ?></td>
+                                                                        <td><?php echo $ngay_mua ?></td>
+                                                                        <td><?php echo $ngay_nhan ?></td>
+                                                                        <td>
+                                                                            <?php
+                                                                            if ($hd_status == '1') {
+                                                                            ?>
+                                                                                <span class="btn btn-info">Chuẩn bị hàng</span>
+                                                                            <?php
+                                                                            }
+                                                                            if ($hd_status == '2') {
+                                                                            ?>
+                                                                                <span class="btn btn-danger">Đang giao</span>
+                                                                            <?php
+                                                                            }
+                                                                            if ($hd_status == '3') {
+                                                                            ?>
+                                                                                <span class="btn btn-success">Đã giao</span>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </td>
+                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong<?php echo $hd_id ?>"><i class="fa fa-pencil-square-o"></i></button></td>
+                                                                    </tr>
                                                             <?php
                                                                 }
                                                             }
                                                             ?>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Aug 22, 2018</td>
-                                                                <td>Pending</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <?php
+                                                $query = $query = "SELECT * FROM hoadon hd 
+				                                LEFT JOIN taikhoan tk ON hd.Idtk = tk.Idtk
+				                                LEFT JOIN users u ON u.Idtk = tk.Idtk ORDER BY hd.Idhd desc;";
+                                                $run = $conn->query($query);
+                                                if ($run->num_rows > 0) {
+                                                    while ($row = $run->fetch_array()) {
+                                                        $hd_id = $row['Idhd'];
+                                                        $email = $row['Mail'];
+                                                        $phonenumber = $row['Sdt'];
+                                                        $ghichu = $row['Ghichu'];
+                                                ?>
+                                                        <div class="modal fade" id="exampleModalLong<?php echo $hd_id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="exampleModalLongTitle<?php echo $hd_id ?>" style="color:#7571f9; margin: auto;text-align: center;">Chi tiết đơn hàng</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Mã đơn hàng:</h6>
+                                                                                <p> <?php echo $hd_id ?></p>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Email:</h6>
+                                                                                <p> <?php echo $email ?></p>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Số điện thoại:</h6>
+                                                                                <p> <?php echo $phonenumber ?></p>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <h6 style="color:#ea5774;font-weight:500;">Ghi chú:</h6>
+                                                                                <p> <?php echo $ghichu ?></p>
+                                                                            </div>
+                                                                            <div class="table-responsive">
+                                                                                <table id="table-detail-<?php echo $hd_id ?>" class="table table-bordered table-striped table-hover">
+                                                                                    <tr>
+                                                                                        <th style="width: 26%">Ảnh sản phẩm</th>
+                                                                                        <th style="width: 26%">Sản phẩm</th>
+                                                                                        <th style="width: 16%">Giá</th>
+                                                                                        <th style="width: 16%">Số lượng</th>
+                                                                                        <th style="width: 16%">Tổng tiền</th>
+                                                                                    </tr>
+                                                                                    <?php
+                                                                                    $total_price = 0;
+                                                                                    $querydetail = "SELECT * FROM chitiethoadon cthd 
+                                                                                    LEFT JOIN hoadon hd ON hd.Idhd = cthd.Idhd 
+                                                                                    LEFT JOIN sanpham sp ON sp.Idsp = cthd.Idsp 
+                                                                                    WHERE cthd.Idhd = '$hd_id'";
+                                                                                    $rundetail = $conn->query($querydetail);
+                                                                                    if ($rundetail->num_rows > 0) {
+                                                                                        while ($rowdetail = $rundetail->fetch_array()) {
+                                                                                            $pro_img = $rowdetail['Img'];
+                                                                                            $pro_name = $rowdetail['Tensp'];
+                                                                                            $pro_quantity = $rowdetail['Soluong'];
+                                                                                            $pro_price = $rowdetail['Giamoi'];
+                                                                                            $pro_total = $pro_quantity * $pro_price;
+                                                                                    ?>
+                                                                                            <tr>
+                                                                                                <td><img src="admin/product-img/<?php echo $pro_img ?>" width="40%"></td>
+                                                                                                <td><?php echo $pro_name ?></td>
+                                                                                                <td><?php echo $pro_quantity ?></td>
+                                                                                                <td>$ <?php echo $pro_price ?></td>
+                                                                                                <td>$ <?php echo $pro_total ?></td>
+                                                                                            </tr>
+                                                                                    <?php
+                                                                                            $total_price += $pro_total;
+                                                                                        }
+                                                                                    }
+                                                                                    ?>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th></th>
+                                                                                        <th></th>
+                                                                                        <th style="color: #ea5774;">Tính tạm:</th>
+                                                                                        <th style="color: #ea5774;">$ <?php echo $total_price ?></th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th></th>
+                                                                                        <th></th>
+                                                                                        <th style="color: #ea5774;">Phí ship:</th>
+                                                                                        <th style="color: #ea5774;">$ 5</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th></th>
+                                                                                        <th></th>
+                                                                                        <th style="color: #ea5774;">Tổng:</th>
+                                                                                        <th style="color: #ea5774;">$ <?php echo $total_price + 5 ?></th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                <?php
+                                                    }
+                                                } else {
+                                                    echo "Không có đơn hàng";
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
@@ -140,12 +256,69 @@
                                         <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="payment-method" role="tabpanel">
                                             <div class="myaccount-content">
-                                                <h3>Payment Method</h3>
-                                                <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
+                                                <h3>Phương thức thanh toán</h3>
+                                                <button type="button" class="btn btn-outline-info" style="float:right; margin-bottom:1em"><a href="#">Thêm</a></button>
+                                                <div class="myaccount-table table-responsive text-center">
+                                                    <table class="table table-bordered">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th>Stt</th>
+                                                                <th>Ngân hàng</th>
+                                                                <th>Số tài khoản</th>
+                                                                <th>Tên tài khoản</th>
+                                                                <th>Xóa</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $payment = "SELECT * from users_payment where Idtk='$info_id'";
+                                                            $runpay = $conn->query($payment);
+                                                            if ($runpay->num_rows > 0) {
+                                                                $payment_stt = 0;
+                                                                while ($rowpay = $runpay->fetch_array()) {
+                                                                    $payment_stt++;
+                                                                    $bank_id = $rowpay['Idpay'];
+                                                                    $bank = $rowpay['Bank'];
+                                                                    $sotk = $rowpay['Sotk'];
+                                                                    $tentk = $rowpay['Tentk'];
+                                                            ?>
+                                                                    <tr>
+                                                                        <td><?php echo $payment_stt ?></td>
+                                                                        <td><?php echo $bank ?></td>
+                                                                        <td><?php echo $sotk ?></td>
+                                                                        <td><?php echo $tentk ?></td>
+                                                                        <td><button type="button" class="btn btn-danger" id="btn-del-bank<?php echo $bank_id ?>"><i class="fa fa-trash"></i></button></td>
+                                                                    </tr>
+                                                                    <script>
+                                                                        $('#btn-del-bank<?php echo $bank_id ?>').click(function() {
+                                                                            var bank_id = <?php echo $bank_id ?>;
+                                                                            $.ajax({
+                                                                                method: 'POST',
+                                                                                url: 'inc/process.php',
+                                                                                data: {
+                                                                                    del_bank: bank_id      
+                                                                                },
+                                                                                success: function(response) {
+                                                                                    alert(response);
+                                                                                    $("#payment-method").load(" #payment-method > *");
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                    </script>
+                                                            <?php
+                                                                }
+                                                            }else{
+                                                                echo "Không có thông tin thanh toán nào hết";
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
 
+                                        <!-- thong tin tai khoa -->
                                         <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="account-info" role="tabpanel">
                                             <div class="myaccount-content">
