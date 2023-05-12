@@ -218,7 +218,7 @@
                                             <div class="product-item fix">
                                                 <div class="product-thumb">
                                                     <a href="product.php?id=<?php echo $idsp ?>">
-                                                        <img src="./admin/product-img/<?php echo $img ?>" class="imgsp" alt="">
+                                                        <img src="admin/product-img/<?php echo $img ?>" class="imgsp" alt="">
                                                     </a>
                                                     <div class="product-label">
                                                         <span>New</span>
@@ -287,40 +287,60 @@
                                     <div class="col-lg-4">
                                         <div class="category-wrapper mb-md-24 mb-sm-24">
                                             <div class="section-title-2 d-flex justify-content-between mb-28">
-                                                <h3>New Products</h3>
+                                                <h3>Văn học</h3>
                                                 <div class="category-append"></div>
                                             </div> <!-- section title end -->
                                             <div class="category-carousel-active row" data-row="4">
-                                                <div class="col">
-                                                    <div class="category-item">
-                                                        <div class="category-thumb">
-                                                            <a href="product-details.html">
-                                                                <img src="assets/img/product/product-img1.jpg" alt="">
-                                                            </a>
+                                                <?php
+                                                $query = "SELECT * from sanpham sp
+                                                left join theloai tl on tl.Idloai = sp.Idloai
+                                                left join phanloai pl on tl.Idpl = pl.Idpl
+                                                where pl.Idpl = '1'";
+                                                $run = $conn->query($query);
+                                                if ($run->num_rows > 0) {
+                                                    while ($row = $run->fetch_array()) {
+                                                        $idsp = $row['Idsp'];
+                                                        $tensp = $row['Tensp'];
+                                                        $giasp = $row['Giasp'];
+                                                        $giamgia = $row['Giamgia'];
+                                                        $giamoi = $row['Giamoi'];
+                                                        $img = $row['Img'];
+                                                ?>
+                                                        <div class="col">
+                                                            <div class="category-item">
+                                                                <div class="category-thumb">
+                                                                    <a href="product.php?id=<?php echo $idsp ?>">
+                                                                        <img src="admin/product-img/<?php echo $img ?>" alt="">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="category-content">
+                                                                    <h4><a href="product.php?id=<?php echo $idsp ?>"><?php echo $tensp ?></a></h4>
+                                                                    <div class="price-box">
+                                                                        <div class="regular-price">
+                                                                            $<?php echo $giamoi ?>
+                                                                        </div>
+                                                                        <div class="old-price">
+                                                                            <del>$<?php echo $giasp ?></del>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="ratings">
+                                                                        <span class="good"><i class="fa fa-star"></i></span>
+                                                                        <span class="good"><i class="fa fa-star"></i></span>
+                                                                        <span class="good"><i class="fa fa-star"></i></span>
+                                                                        <span class="good"><i class="fa fa-star"></i></span>
+                                                                        <span><i class="fa fa-star"></i></span>
+                                                                        <div class="pro-review">
+                                                                            <span>1 review(s)</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- end single item -->
                                                         </div>
-                                                        <div class="category-content">
-                                                            <h4><a href="product-details.html">Virtual Product 01</a></h4>
-                                                            <div class="price-box">
-                                                                <div class="regular-price">
-                                                                    $150.00
-                                                                </div>
-                                                                <div class="old-price">
-                                                                    <del></del>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ratings">
-                                                                <span class="good"><i class="fa fa-star"></i></span>
-                                                                <span class="good"><i class="fa fa-star"></i></span>
-                                                                <span class="good"><i class="fa fa-star"></i></span>
-                                                                <span class="good"><i class="fa fa-star"></i></span>
-                                                                <span><i class="fa fa-star"></i></span>
-                                                                <div class="pro-review">
-                                                                    <span>1 review(s)</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- end single item -->
-                                                </div> <!-- end single item column -->
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+                                                <!-- end single item column -->
                                             </div>
                                         </div>
                                     </div>
