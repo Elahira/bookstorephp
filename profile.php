@@ -1,6 +1,6 @@
 <?php require_once('inc/top.php') ?>
 <!-- Site title -->
-<title>Galio - Mega Shop Responsive Bootstrap 4 Template</title>
+<title>Trang cá nhân</title>
 <?php
 if (!isset($_SESSION['customer'])) {
     header('location: login.php');
@@ -257,68 +257,87 @@ if (!isset($_SESSION['customer'])) {
                                         <div class="tab-pane fade" id="payment-method" role="tabpanel">
                                             <div class="myaccount-content">
                                                 <h3>Phương thức thanh toán</h3>
-                                                <button type="button" class="btn btn-outline-info" style="float:right; margin-bottom:1em"><a href="#">Thêm</a></button>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>Stt</th>
-                                                                <th>Ngân hàng</th>
-                                                                <th>Số tài khoản</th>
-                                                                <th>Tên tài khoản</th>
-                                                                <th>Xóa</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $payment = "SELECT * from users_payment where Idtk='$info_id'";
-                                                            $runpay = $conn->query($payment);
-                                                            if ($runpay->num_rows > 0) {
-                                                                $payment_stt = 0;
-                                                                while ($rowpay = $runpay->fetch_array()) {
-                                                                    $payment_stt++;
-                                                                    $bank_id = $rowpay['Idpay'];
-                                                                    $bank = $rowpay['Bank'];
-                                                                    $sotk = $rowpay['Sotk'];
-                                                                    $tentk = $rowpay['Tentk'];
-                                                            ?>
-                                                                    <tr>
-                                                                        <td><?php echo $payment_stt ?></td>
-                                                                        <td><?php echo $bank ?></td>
-                                                                        <td><?php echo $sotk ?></td>
-                                                                        <td><?php echo $tentk ?></td>
-                                                                        <td><button type="button" class="btn btn-danger" id="btn-del-bank<?php echo $bank_id ?>"><i class="fa fa-trash"></i></button></td>
-                                                                    </tr>
-                                                                    <script>
-                                                                        $('#btn-del-bank<?php echo $bank_id ?>').click(function() {
-                                                                            var bank_id = <?php echo $bank_id ?>;
-                                                                            $.ajax({
-                                                                                method: 'POST',
-                                                                                url: 'inc/process.php',
-                                                                                data: {
-                                                                                    del_bank: bank_id      
-                                                                                },
-                                                                                success: function(response) {
-                                                                                    alert(response);
-                                                                                    $("#payment-method").load(" #payment-method > *");
-                                                                                }
-                                                                            });
-                                                                        });
-                                                                    </script>
-                                                            <?php
-                                                                }
-                                                            }else{
-                                                                echo "Không có thông tin thanh toán nào hết";
-                                                            }
-                                                            ?>
-                                                        </tbody>
-                                                    </table>
+                                                <button type="button" class="btn btn-outline-info" style="float:right; margin-bottom:1em" data-toggle="modal" data-target="#ModalBank">Thêm</button>
+                                                <!-- table bank -->
+                                                <div class="myaccount-table table-responsive text-center" id="bank-output">
                                                 </div>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="ModalBank" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Thêm phương thức thanh toán</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form id="add-bank" method="post">
+                                                                <div class="modal-body">
+                                                                    <div class="single-input-item">
+                                                                        <label for="bankname" class="required">Tên ngân hàng</label>
+                                                                        <input type="text" id="bankname" placeholder="Nhập tên ngân hàng" required />
+                                                                    </div>
+                                                                    <div class="single-input-item">
+                                                                        <label for="banknum" class="required">Số tài khoản</label>
+                                                                        <input type="number" id="banknum" placeholder="Nhập số tài khoản ngân hàng" required />
+                                                                    </div>
+                                                                    <div class="single-input-item">
+                                                                        <label for="bankacc" class="required">Tên tài khoản</label>
+                                                                        <input type="text" id="bankacc" placeholder="Nhập tên tài khoản" required />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                    <button type="submit" id="btn-add-bank" class="btn btn-primary">Lưu</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    function fetchdata() {
+                                                        var id = <?php echo $info_id; ?>;
+                                                        $.ajax({
+                                                            method: 'GET',
+                                                            url: 'table-bank.php',
+                                                            data: {
+                                                                id: id
+                                                            },
+                                                            success: function(data) {
+                                                                $('#bank-output').html(data);
+                                                            }
+                                                        });
+                                                    };
+                                                    fetchdata();
+                                                    $('#add-bank').submit(function(e) {
+                                                        e.preventDefault();
+                                                        var bank_name = $('#bankname').val();
+                                                        var bank_num = $('#banknum').val();
+                                                        var bank_acc = $('#bankacc').val();
+                                                        var add_bank = <?php echo $info_id; ?>;
+                                                        $.ajax({
+                                                            method: 'POST',
+                                                            url: 'inc/process.php',
+                                                            data: {
+                                                                add_bank: add_bank,
+                                                                bank_name: bank_name,
+                                                                bank_num: bank_num,
+                                                                bank_acc: bank_acc
+                                                            },
+                                                            success: function(response) {
+                                                                alert(response);
+                                                                $("#ModalBank").modal('hide');
+                                                                fetchdata();
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
 
-                                        <!-- thong tin tai khoa -->
+                                        <!-- thong tin tai khoan -->
                                         <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="account-info" role="tabpanel">
                                             <div class="myaccount-content">

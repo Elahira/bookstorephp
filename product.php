@@ -1,6 +1,6 @@
 <?php require_once('inc/top.php') ?>
 <!-- Site title -->
-<title>Giỏ hàng</title>
+<title>BookStore</title>
 </head>
 
 <body>
@@ -25,7 +25,8 @@
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                                    <li class="breadcrumb-item"><a href="shop.php">Sản phẩm</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
                                 </ul>
                             </nav>
                         </div>
@@ -39,6 +40,9 @@
         
         <!-- row end -->
 
+        <!-- brand area start -->
+        <?php require_once('inc/branded.php') ?>
+        <!-- brand area end -->
 
         <!-- footer area start -->
         <?php require_once('inc/footer.php') ?>

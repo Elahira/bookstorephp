@@ -71,6 +71,20 @@ if (isset($_POST['edit_user'])) {
 	}
 }
 
+//////////////////////// ADD BANK //////////////////////
+if (isset($_POST['add_bank'])) {
+	$add_tk_id = $_POST['add_bank'];
+	$add_bankname = $_POST['bank_name'];
+	$add_banknum = $_POST['bank_num'];
+	$add_bankacc = $_POST['bank_acc'];
+	$query = "INSERT INTO users_payment(Idtk,Bank,Sotk,Tentk) VALUES ('$add_tk_id','$add_bankname','$add_banknum','$add_bankacc')";
+	if($conn->query($query)){
+		echo "Thêm ngân hàng này thành công!";
+	}else{
+		echo "Thêm ngân hàng này thất bại!";
+	}
+}
+
 
 //////////////////////// DEL BANK //////////////////////
 if (isset($_POST['del_bank'])) {

@@ -1,6 +1,6 @@
 <?php require_once('inc/top.php') ?>
 <!-- Site title -->
-<title>Galio - Mega Shop Responsive Bootstrap 4 Template</title>
+<title>BookStore</title>
 </head>
 
 <body>
