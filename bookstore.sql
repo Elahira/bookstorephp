@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 10, 2023 lúc 09:38 AM
+-- Thời gian đã tạo: Th5 12, 2023 lúc 11:35 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.2.0
 
@@ -42,7 +42,13 @@ CREATE TABLE `chitiethoadon` (
 INSERT INTO `chitiethoadon` (`Idcthd`, `Idhd`, `Idsp`, `Soluong`, `Tongtien`) VALUES
 (1, 1, 1, 1, 116),
 (2, 1, 5, 1, 84),
-(3, 2, 5, 1, 84);
+(3, 2, 5, 1, 84),
+(4, 3, 6, 1, 47),
+(5, 3, 9, 1, 129.6),
+(6, 3, 10, 2, 280),
+(7, 3, 4, 1, 117),
+(8, 3, 8, 1, 78.4),
+(9, 2, 2, 1, 160);
 
 -- --------------------------------------------------------
 
@@ -65,7 +71,8 @@ CREATE TABLE `hoadon` (
 
 INSERT INTO `hoadon` (`Idhd`, `Ngaymua`, `Ngaynhan`, `Idtk`, `Ghichu`, `StatusHD`) VALUES
 (1, '2023-04-21', '2023-05-09', 2, 'Địa chỉ: 213', 3),
-(2, '2023-04-27', '2023-04-30', 2, 'giao nhanh nha\r\n', 1);
+(2, '2023-04-27', '2023-04-30', 2, 'giao nhanh nha\r\n', 1),
+(3, '2023-05-01', '2023-05-10', 4, 'COD', 1);
 
 -- --------------------------------------------------------
 
@@ -211,7 +218,8 @@ INSERT INTO `taikhoan` (`Idtk`, `Username`, `Password`, `Avatar`, `Idrole`, `Sta
 (1, 'admin', '123', '', 1, 1),
 (2, 'khach1', '321', '', 2, 1),
 (3, 'test', '123', NULL, 2, 0),
-(4, 'khach2', '123', NULL, 2, 0);
+(4, 'khach2', '123', NULL, 2, 0),
+(5, 'khach3', '123', NULL, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -264,7 +272,8 @@ INSERT INTO `users` (`Iduser`, `Ten`, `Diachi`, `Mail`, `Sdt`, `Idtk`) VALUES
 (1, 'I am Admin', '273 An Dương Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh', 'admin@gmail.com', 18008098, 1),
 (2, 'Nguyen Van A', '294 Nguyễn Tri Phương, Phường 4, Quận 10, Thành phố Hồ Chí Minh', 'khach1@gmai.com', 907738923, 2),
 (3, 'Test', 'USA', 'test@gmail.com', 231233, 3),
-(4, 'khach2', 'EU', 'test2@gmail.com', 238958345, 4);
+(4, 'khach2', 'EU', 'test2@gmail.com', 238958345, 4),
+(5, 'Khach C', '', 'khachC@gmail.com', 2147483647, 5);
 
 -- --------------------------------------------------------
 
@@ -286,7 +295,8 @@ CREATE TABLE `users_payment` (
 
 INSERT INTO `users_payment` (`Idpay`, `Idtk`, `Bank`, `Sotk`, `Tentk`) VALUES
 (1, 1, 'MB', 21323, 'ADmin'),
-(2, 2, 'Techcombank', 1232323, 'khach1');
+(3, 2, 'MB', 32190380, 'khach A'),
+(24, 2, 'ACB', 312312231, 'KHACH A');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -369,13 +379,13 @@ ALTER TABLE `users_payment`
 -- AUTO_INCREMENT cho bảng `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  MODIFY `Idcthd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Idcthd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `Idhd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Idhd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `nhaphathanh`
@@ -405,7 +415,7 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT cho bảng `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `Idtk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Idtk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `theloai`
@@ -417,13 +427,13 @@ ALTER TABLE `theloai`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `Iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `users_payment`
 --
 ALTER TABLE `users_payment`
-  MODIFY `Idpay` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Idpay` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
