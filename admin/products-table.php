@@ -35,7 +35,7 @@ $num_row_page = $run_page->num_rows;
 $total_pages = ceil($num_row_page / $limit);
 
 ?>
-<table id="table-order" class="table table-bordered table-striped table-hover">
+<table id="table-order" class="table table-bordered table-striped table-hover" style="width: 100rem;">
     <thead>
         <tr>
             <th style="width: 5%;">Mã sách</th>
@@ -79,7 +79,7 @@ $total_pages = ceil($num_row_page / $limit);
         ?>
                 <tr>
                     <td><?php echo $pro_id ?></td>
-                    <td><img src="./product-img/<?php echo $pro_img ?>" alt="" style="width:100%" /></td>
+                    <td><img src="./product-img/<?php echo $pro_img ?>" alt="" style="width:70%" /></td>
                     <td><?php echo $pro_name ?></td>
                     <td><?php echo $pro_cat ?></td>
                     <td><?php echo $pro_pub ?></td>

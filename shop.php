@@ -5,7 +5,7 @@
 <?php
 
 $pages = 0;
-$limit = 16;
+$limit = 12;
 
 if (isset($_GET['page'])) {
     $pages = $_GET['page'];
@@ -20,12 +20,78 @@ LIMIT $start, $limit";
 $querypage = "SELECT * FROM sanpham
 ORDER BY Idsp asc";
 
+$cur_page = '';
+$cur_page_name = '';
+
+if (isset($_GET['subcat'])) {
+    $id_subcat = $_GET['subcat'];
+    $queryshop = "SELECT * FROM sanpham sp
+    left join theloai tl on tl.Idloai = sp.Idloai
+    left join phanloai pl on tl.Idpl = pl.Idpl
+    where pl.Idpl = '$id_subcat'
+    LIMIT $start, $limit";
+
+    $querypage = "SELECT * FROM sanpham sp
+    left join theloai tl on tl.Idloai = sp.Idloai
+    left join phanloai pl on tl.Idpl = pl.Idpl
+    where pl.Idpl = '$id_subcat'";
+
+    $cur_page = "&subcat=$id_subcat";
+
+    $querysub = "SELECT * from phanloai where Idpl = $id_subcat";
+    $runsub = $conn->query($querysub);
+    $rowsub = $runsub->fetch_array();
+    $cur_page_name = $rowsub['Tenphanloai']; 
+}
+
+if (isset($_GET['cat'])) {
+    $id_cat = $_GET['cat'];
+    $queryshop = "SELECT * FROM sanpham sp
+    where Idloai = '$id_cat'
+    LIMIT $start, $limit";
+
+    $queryshop = "SELECT * FROM sanpham sp
+    where Idloai = '$id_cat'";
+
+    $cur_page = "&subcat=$id_cat";
+
+    $querycat = "SELECT * from theloai where Idloai = $id_cat";
+    $runcat = $conn->query($querycat);
+    $rowcat = $runcat->fetch_array();
+    $cur_page_name = $rowcat['Tenloai'];
+}
+
+if (isset($_GET['pub'])) {
+    $id_pub = $_GET['pub'];
+    $queryshop = "SELECT * FROM sanpham
+    where Idnph = '$id_pub'
+    LIMIT $start, $limit";
+
+    $queryshop = "SELECT * FROM sanpham
+    where Idnph = '$id_pub'";
+
+    $cur_page = "&pub=$id_pub";
+
+    $querypub = "SELECT * from nhaphathanh where Idnph = $id_pub";
+    $runpub = $conn->query($querypub);
+    $rowpub = $runpub->fetch_array();
+    $cur_page_name = $rowpub['Tennph'];
+}
+
 $run_page = $conn->query($querypage);
 $num_row_page = $run_page->num_rows;
 $total_pages = ceil($num_row_page / $limit);
 
 $runshop = $conn->query($queryshop);
 ?>
+<style>
+    .error_text{
+        color: red;
+        margin: auto;
+        width: 50%;
+        text-align: center;
+    }
+</style>
 
 </head>
 
@@ -51,7 +117,18 @@ $runshop = $conn->query($queryshop);
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+                                    <?php
+                                    if($cur_page_name!=''){
+                                        ?>
+                                        <li class="breadcrumb-item"><a href="shop.php">Sản phẩm</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"><?php echo $cur_page_name ?></li>
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+                                        <?php
+                                    }
+                                    ?>
                                 </ul>
                             </nav>
                         </div>
@@ -102,13 +179,13 @@ $runshop = $conn->query($queryshop);
                                         <?php
                                         $querypub = "SELECT * FROM nhaphathanh";
                                         $runpub = $conn->query($querypub);
-                                        if($runpub->num_rows > 0){
-                                            while($rowpub = $runpub->fetch_array()){
+                                        if ($runpub->num_rows > 0) {
+                                            while ($rowpub = $runpub->fetch_array()) {
                                                 $idnph = $rowpub['Idnph'];
                                                 $tennph = $rowpub['Tennph'];
-                                                ?>
+                                        ?>
                                                 <li><i class="fa fa-angle-right"></i><a href="shop.php?pub=<?php echo $idnph ?>"><?php echo $tennph ?></a></li>
-                                                <?php
+                                        <?php
                                             }
                                         }
                                         ?>
@@ -230,8 +307,10 @@ $runshop = $conn->query($queryshop);
                                         </div> <!-- product single column end -->
                                 <?php
                                     }
+                                }else{
                                 }
                                 ?>
+                                <div class="error_text">Hiện tại đang cập nhật, bạn vui lòng quay lại sau nhé!</div>
                             </div>
                             <!-- product item end -->
                         </div>
@@ -246,20 +325,16 @@ $runshop = $conn->query($queryshop);
                                         if ($pages > 1) {
                                             $previous = $pages - 1;
                                         ?>
-                                            <li><a href="shop.php?page=<?php echo $previous ?>">Previous</a></li>
+                                            <li><a href="shop.php?page=<?php echo $previous.$cur_page ?>">Previous</a></li>
                                         <?php
-                                        } else {
-                                        ?>
-                                            <li><a class="Previous">Previous</a></li>
-                                        <?php
-                                        }
+                                        } 
                                         for ($i = 1; $i <= $total_pages; $i++) {
                                             $active_class = "";
                                             if ($i == $pages) {
                                                 $active_class = "active";
                                             }
                                         ?>
-                                            <li class="<?php echo $active_class ?>"><a href="shop.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                            <li class="<?php echo $active_class ?>"><a href="shop.php?page=<?php echo $i.$cur_page ?>"><?php echo $i ?></a></li>
                                         <?php
                                         }
                                         ?>
@@ -267,14 +342,10 @@ $runshop = $conn->query($queryshop);
                                         if ($pages < $total_pages) {
                                             $pages++; {
                                         ?>
-                                                <li><a href="shop.php?page=<?php echo $pages ?>" >Next</a></li>
-                            
+                                                <li><a href="shop.php?page=<?php echo $pages.$cur_page ?>">Next</a></li>
+
                                             <?php
                                             }
-                                        } else {
-                                            ?>
-                                            <li><a class="Next">Next</a></li>
-                                        <?php
                                         }
                                         ?>
                                     </ul>

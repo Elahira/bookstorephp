@@ -11,8 +11,9 @@ if (isset($_POST['register'])) {
 	$user_username = $_POST['username'];
 	$user_password = $_POST['password'];
 	$user_permission = "2";
+	$user_status = "1";
 
-	$query = "INSERT INTO taikhoan (Username,Password,Idrole) VALUES ('$user_username','$user_password','$user_permission');";
+	$query = "INSERT INTO taikhoan (Username,Password,Idrole,StatusTK) VALUES ('$user_username','$user_password','$user_permission','$user_status');";
 
 	if ($conn->query($query)) {
 		$query = "SELECT Idtk FROM taikhoan WHERE Username='$user_username'";

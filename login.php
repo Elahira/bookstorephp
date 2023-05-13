@@ -16,13 +16,19 @@ if (isset($_SESSION['customer'])) {
         $db_username = $row['Username'];
         $db_password = $row['Password'];
         $db_role_id = $row['Idrole'];
-        if ($username == $db_username && $password == $db_password) {
-            session_start();
-            $_SESSION['customer'] = $db_id;
-			header('location: index.php');	
-        } else {
-            $error = "Sai mật khẩu!";
+        $db_status = $row['StatusTK'];
+        if($db_status == '1'){
+            if ($username == $db_username && $password == $db_password) {
+                session_start();
+                $_SESSION['customer'] = $db_id;
+                header('location: index.php');	
+            } else {
+                $error = "Sai mật khẩu!";
+            }
+        }else{
+            $error = "Tài khoản hiện đang bị tạm khóa, xin hãy liên hệ đến bộ phận cskh.";
         }
+        
     } else {
         $error = "Tài khoản không tồn tại!";
     }

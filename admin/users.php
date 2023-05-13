@@ -123,7 +123,7 @@ if (isset($_GET['lockon']) and isset($_SESSION['usernameadmin'])) {
                                                         </tr>
                                                         <?php
                                                         $querybank = "SELECT * FROM users_payment
-                                                                            WHERE Iduser = '$user_id'";
+                                                                            WHERE Idtk = '$user_id'";
                                                         $runbank = $conn->query($querybank);
                                                         $bank_count = 0;
                                                         if ($runbank->num_rows > 0) {
