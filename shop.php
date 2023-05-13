@@ -14,11 +14,20 @@ if (isset($_GET['page'])) {
 }
 $start = ($pages - 1) * $limit;
 
+$max_price = 1000;
+$min_price = 0;
+
+if (isset($_POST['price_filter'])) {
+    $max_price = $_POST['max_price'];
+    $min_price = $_POST['min_price'];
+}
+
 $queryshop = "SELECT * FROM sanpham
+Where Giamoi between '$min_price' and '$max_price'
 LIMIT $start, $limit";
 
 $querypage = "SELECT * FROM sanpham
-ORDER BY Idsp asc";
+Where Giamoi between $min_price and $max_price";
 
 $cur_page = '';
 $cur_page_name = '';
@@ -28,30 +37,30 @@ if (isset($_GET['subcat'])) {
     $queryshop = "SELECT * FROM sanpham sp
     left join theloai tl on tl.Idloai = sp.Idloai
     left join phanloai pl on tl.Idpl = pl.Idpl
-    where pl.Idpl = '$id_subcat'
+    where pl.Idpl = '$id_subcat' and Giamoi between '$min_price' and '$max_price'
     LIMIT $start, $limit";
 
     $querypage = "SELECT * FROM sanpham sp
     left join theloai tl on tl.Idloai = sp.Idloai
     left join phanloai pl on tl.Idpl = pl.Idpl
-    where pl.Idpl = '$id_subcat'";
+    where pl.Idpl = '$id_subcat' and Giamoi between '$min_price' and '$max_price'";
 
     $cur_page = "&subcat=$id_subcat";
 
     $querysub = "SELECT * from phanloai where Idpl = $id_subcat";
     $runsub = $conn->query($querysub);
     $rowsub = $runsub->fetch_array();
-    $cur_page_name = $rowsub['Tenphanloai']; 
+    $cur_page_name = $rowsub['Tenphanloai'];
 }
 
 if (isset($_GET['cat'])) {
     $id_cat = $_GET['cat'];
     $queryshop = "SELECT * FROM sanpham sp
-    where Idloai = '$id_cat'
+    where Idloai = '$id_cat' and Giamoi between '$min_price' and '$max_price'
     LIMIT $start, $limit";
 
-    $queryshop = "SELECT * FROM sanpham sp
-    where Idloai = '$id_cat'";
+    $querypage = "SELECT * FROM sanpham sp
+    where Idloai = '$id_cat' and Giamoi between '$min_price' and '$max_price'";
 
     $cur_page = "&subcat=$id_cat";
 
@@ -64,11 +73,11 @@ if (isset($_GET['cat'])) {
 if (isset($_GET['pub'])) {
     $id_pub = $_GET['pub'];
     $queryshop = "SELECT * FROM sanpham
-    where Idnph = '$id_pub'
+    where Idnph = '$id_pub' and Giamoi between '$min_price' and '$max_price'
     LIMIT $start, $limit";
 
-    $queryshop = "SELECT * FROM sanpham
-    where Idnph = '$id_pub'";
+    $querypage = "SELECT * FROM sanpham
+    where Idnph = '$id_pub' and Giamoi between '$min_price' and '$max_price'";
 
     $cur_page = "&pub=$id_pub";
 
@@ -85,7 +94,7 @@ $total_pages = ceil($num_row_page / $limit);
 $runshop = $conn->query($queryshop);
 ?>
 <style>
-    .error_text{
+    .error_text {
         color: red;
         margin: auto;
         width: 50%;
@@ -118,15 +127,15 @@ $runshop = $conn->query($queryshop);
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                                     <?php
-                                    if($cur_page_name!=''){
-                                        ?>
+                                    if ($cur_page_name != '') {
+                                    ?>
                                         <li class="breadcrumb-item"><a href="shop.php">Sản phẩm</a></li>
                                         <li class="breadcrumb-item active" aria-current="page"><?php echo $cur_page_name ?></li>
-                                        <?php
-                                    }else{
-                                        ?>
+                                    <?php
+                                    } else {
+                                    ?>
                                         <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </ul>
@@ -202,11 +211,13 @@ $runshop = $conn->query($queryshop);
                                     <div class="price-range-wrap">
                                         <div class="price-range" data-min="0" data-max="1000"></div>
                                         <div class="range-slider">
-                                            <form action="#" class="d-flex justify-content-between">
-                                                <button class="filter-btn">Lọc</button>
+                                            <form method="POST" enctype="multipart/form-data" class="d-flex justify-content-between">
+                                                <button type="submit" name="price_filter" class="filter-btn">Lọc</button>
                                                 <div class="price-input d-flex align-items-center">
                                                     <label for="amount">Giá: </label>
-                                                    <input type="text" id="amount">
+                                                    <input type="text" name="min_price" id="amount">
+                                                    <span>-</span>
+                                                    <input type="text" name="max_price" id="amountmax">
                                                 </div>
                                             </form>
                                         </div>
@@ -239,15 +250,15 @@ $runshop = $conn->query($queryshop);
                                     <div class="col-lg-5 col-md-6">
                                         <div class="top-bar-right">
                                             <div class="product-short">
-                                                <p>Sort By : </p>
+                                                <p>Sắp xếp theo : </p>
                                                 <select class="nice-select" name="sortby">
-                                                    <option value="trending">Relevance</option>
-                                                    <option value="sales">Name (A - Z)</option>
-                                                    <option value="sales">Name (Z - A)</option>
-                                                    <option value="rating">Price (Low &gt; High)</option>
-                                                    <option value="date">Rating (Lowest)</option>
-                                                    <option value="price-asc">Model (A - Z)</option>
-                                                    <option value="price-asc">Model (Z - A)</option>
+                                                    <option value="name-asc">Tên: A - Z</option>
+                                                    <option value="name-desc">Tên: Z - A</option>
+                                                    <option value="price-asc">Giá: Tăng dần</option>
+                                                    <option value="price-desc">Giá: Giảm dần</option>
+                                                    <option value="pro-asc">Cũ nhất</option>
+                                                    <option value="pro-desc">Mới nhất</option>
+                                                    <option value="sales">bán chạy nhất</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -305,12 +316,14 @@ $runshop = $conn->query($queryshop);
                                             </div>
                                             <!-- product single grid item end -->
                                         </div> <!-- product single column end -->
-                                <?php
+                                    <?php
                                     }
-                                }else{
+                                } else {
+                                    ?>
+                                    <div class="error_text">Hiện tại đang cập nhật, bạn vui lòng quay lại sau nhé!</div>
+                                <?php
                                 }
                                 ?>
-                                <div class="error_text">Hiện tại đang cập nhật, bạn vui lòng quay lại sau nhé!</div>
                             </div>
                             <!-- product item end -->
                         </div>
@@ -325,16 +338,16 @@ $runshop = $conn->query($queryshop);
                                         if ($pages > 1) {
                                             $previous = $pages - 1;
                                         ?>
-                                            <li><a href="shop.php?page=<?php echo $previous.$cur_page ?>">Previous</a></li>
+                                            <li><a href="shop.php?page=<?php echo $previous . $cur_page ?>">Previous</a></li>
                                         <?php
-                                        } 
+                                        }
                                         for ($i = 1; $i <= $total_pages; $i++) {
                                             $active_class = "";
                                             if ($i == $pages) {
                                                 $active_class = "active";
                                             }
                                         ?>
-                                            <li class="<?php echo $active_class ?>"><a href="shop.php?page=<?php echo $i.$cur_page ?>"><?php echo $i ?></a></li>
+                                            <li class="<?php echo $active_class ?>"><a href="shop.php?page=<?php echo $i . $cur_page ?>"><?php echo $i ?></a></li>
                                         <?php
                                         }
                                         ?>
@@ -342,9 +355,9 @@ $runshop = $conn->query($queryshop);
                                         if ($pages < $total_pages) {
                                             $pages++; {
                                         ?>
-                                                <li><a href="shop.php?page=<?php echo $pages.$cur_page ?>">Next</a></li>
+                                                <li><a href="shop.php?page=<?php echo $pages . $cur_page ?>">Next</a></li>
 
-                                            <?php
+                                        <?php
                                             }
                                         }
                                         ?>

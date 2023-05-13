@@ -97,3 +97,5 @@ if (isset($_POST['del_bank'])) {
 		echo "Xóa ngân hàng này thất bại!";
 	}
 }
+
+//////////////////////// ADD TO CART //////////////////////

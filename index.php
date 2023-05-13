@@ -9,11 +9,12 @@
         object-fit: contain;
     }
 
-    .imgsp4col{
+    .imgsp4col {
         width: 88px;
         height: 130px;
         object-fit: contain;
     }
+
     .giamgia {
         color: white;
         background-color: red;
@@ -153,7 +154,8 @@
                                                     <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
                                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                                    <input type="text" value="<?php echo $tensp ?>" id='namesp<?php echo $idsp ?>' hidden>
+                                                    <a data-toggle="tooltip" data-placement="left" title="Add to cart" id="<?php echo $idsp ?>" class="add-cart"><i class="fa fa-shopping-cart"></i></a>
                                                 </div>
                                             </div>
                                             <div class="product-content">
@@ -179,7 +181,14 @@
                                 }
                                 ?>
                                 <!-- product single item end -->
-
+                                <script>
+                                    $(document).ready(function() {
+                                        $(document).on("click", ".add-cart", function() {
+                                            var id = $(this).attr("id");
+                                            var name = $("#namesp"+id).val();
+                                        });
+                                    });
+                                </script>
                                 <!-- featured category end -->
                             </div>
                             <!-- featured category area end -->
@@ -359,7 +368,7 @@
                                                 <div class="category-append"></div>
                                             </div> <!-- section title end -->
                                             <div class="category-carousel-active row" data-row="4">
-                                            <?php
+                                                <?php
                                                 $query = "SELECT * from sanpham sp
                                                 left join theloai tl on tl.Idloai = sp.Idloai
                                                 left join phanloai pl on tl.Idpl = pl.Idpl
@@ -422,7 +431,7 @@
                                                 <div class="category-append"></div>
                                             </div> <!-- section title end -->
                                             <div class="category-carousel-active row" data-row="4">
-                                            <?php
+                                                <?php
                                                 $query = "SELECT * from sanpham sp
                                                 left join theloai tl on tl.Idloai = sp.Idloai
                                                 left join phanloai pl on tl.Idpl = pl.Idpl

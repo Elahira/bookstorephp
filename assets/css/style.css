@@ -3559,8 +3559,8 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     color: #444444;
     border: none;
     outline: none;
-    max-width: 80px;
-    text-align: right;
+    max-width: 50px;
+    text-align: center;
     pointer-events: none;
 }
 
@@ -3786,6 +3786,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 }
 
 .product-item .product-thumb .product-action-link a:hover {
+    cursor: pointer;
     background-color: #d8373e;
 }
 

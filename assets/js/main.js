@@ -528,6 +528,7 @@
 	// pricing filter
 	var rangeSlider = $(".price-range"),
 		amount = $("#amount"),
+		amountmax = $("#amountmax"),
 		minPrice = rangeSlider.data('min'),
 		maxPrice = rangeSlider.data('max');
 	rangeSlider.slider({
@@ -536,11 +537,12 @@
 		max: maxPrice,
 		values: [minPrice, maxPrice],
 		slide: function (event, ui) {
-			amount.val("$" + ui.values[0] + " - $" + ui.values[1]);
+			amount.val(ui.values[0]);
+			amountmax.val(ui.values[1]);
 		}
 	});
-	amount.val(" $" + rangeSlider.slider("values", 0) +
-		" - $" + rangeSlider.slider("values", 1));
+	amount.val(rangeSlider.slider("values", 0));
+	amountmax.val(rangeSlider.slider("values", 1));
 
 	// product view mode change js
 	$('.product-view-mode').on('click', 'a', function (e) {
