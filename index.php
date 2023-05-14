@@ -142,6 +142,7 @@
                                         $img = $row['Img'];
 
                                 ?>
+
                                         <div class="product-item fix">
                                             <div class="product-thumb">
                                                 <a href="product.php?id=<?php echo $idsp ?>">
@@ -154,7 +155,6 @@
                                                     <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
                                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
-                                                    <input type="text" value="<?php echo $tensp ?>" id='namesp<?php echo $idsp ?>' hidden>
                                                     <a data-toggle="tooltip" data-placement="left" title="Add to cart" id="<?php echo $idsp ?>" class="add-cart"><i class="fa fa-shopping-cart"></i></a>
                                                 </div>
                                             </div>
@@ -176,19 +176,17 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- hidden data -->
+                                        <input type="text" value="<?php echo $tensp ?>" id='name-sp<?php echo $idsp ?>' hidden>
+                                        <input type="number" value="<?php echo $giamoi ?>" id='price-sp<?php echo $idsp ?>' hidden>
+                                        <input type="text" value="<?php echo $img ?>" id='img-sp<?php echo $idsp ?>' hidden>
+                                        <!-- hidden data end -->
                                 <?php
                                     }
                                 }
                                 ?>
                                 <!-- product single item end -->
-                                <script>
-                                    $(document).ready(function() {
-                                        $(document).on("click", ".add-cart", function() {
-                                            var id = $(this).attr("id");
-                                            var name = $("#namesp"+id).val();
-                                        });
-                                    });
-                                </script>
+
                                 <!-- featured category end -->
                             </div>
                             <!-- featured category area end -->
@@ -569,6 +567,35 @@
                 </div>
             </div>
             <!-- latest product end -->
+
+            <!-- script add cart -->
+            <script>
+                $(document).ready(function() {
+                    $(document).on("click", ".add-cart", function() {
+                        var id = $(this).attr("id");
+                        var name = $("#name-sp" + id).val();
+                        var price = $("#price-sp" + id).val();
+                        var img = $("#img-sp" + id).val();
+                        var quantity = 1;
+
+                        $.ajax({
+                            method: 'POST',
+                            url: 'inc/process.php',
+                            data: {
+                                add_cart_sp: id,
+                                add_cart_name: name,
+                                add_cart_price: price,
+                                add_cart_img: img,
+                                add_cart_quantity: quantity
+                            },
+                            success: function(response) {
+                                alert (response);
+                            }
+                        });
+                    });
+                });
+            </script>
+            <!-- script add cart end -->
 
             <!-- latest blog area start -->
             <div class="latest-blog-area pt-28">

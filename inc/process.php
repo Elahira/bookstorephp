@@ -1,5 +1,5 @@
 <?php
-require_once( 'db.php' );
+require_once('db.php');
 session_start();
 
 //////////////////////// REGISTER //////////////////////
@@ -46,8 +46,8 @@ if (isset($_POST['edit_user'])) {
 	$runcheck = $conn->query($query);
 	$checkpwd = $runcheck->fetch_array();
 
-	if($checkpwd['Password'] == $user_password){
-		if($user_new_password == $user_crm_password){
+	if ($checkpwd['Password'] == $user_password) {
+		if ($user_new_password == $user_crm_password) {
 			$query1 = "UPDATE taikhoan SET
 			`Password` = '$user_new_password'
 			where Idtk = '$user_idtk';";
@@ -63,11 +63,11 @@ if (isset($_POST['edit_user'])) {
 				echo "Lưu thành công!";
 			} else {
 				echo "Lưu thất bại!";
-				}
-		}else{
+			}
+		} else {
 			echo "Mật khẩu mới nhập lại không khớp, xin hãy nhập kỹ lại";
 		}
-	}else{
+	} else {
 		echo "Sai mật khẩu hiện tại!";
 	}
 }
@@ -79,9 +79,9 @@ if (isset($_POST['add_bank'])) {
 	$add_banknum = $_POST['bank_num'];
 	$add_bankacc = $_POST['bank_acc'];
 	$query = "INSERT INTO users_payment(Idtk,Bank,Sotk,Tentk) VALUES ('$add_tk_id','$add_bankname','$add_banknum','$add_bankacc')";
-	if($conn->query($query)){
+	if ($conn->query($query)) {
 		echo "Thêm ngân hàng này thành công!";
-	}else{
+	} else {
 		echo "Thêm ngân hàng này thất bại!";
 	}
 }
@@ -91,11 +91,42 @@ if (isset($_POST['add_bank'])) {
 if (isset($_POST['del_bank'])) {
 	$del_id = $_POST['del_bank'];
 	$query = "DELETE FROM users_payment WHERE Idpay = '$del_id'";
-	if($conn->query($query)){
+	if ($conn->query($query)) {
 		echo "Xóa ngân hàng này thành công!";
-	}else{
+	} else {
 		echo "Xóa ngân hàng này thất bại!";
 	}
 }
 
 //////////////////////// ADD TO CART //////////////////////
+if (isset($_POST['add_cart_sp'])) {
+	if (isset($_SESSION['cart'])) {
+		$array_id = array_column($_SESSION['cart'], "id");
+		if (!in_array($_POST['add_cart_sp'], $array_id)) {
+			$item_array = array(
+				"id" => $_POST['add_cart_sp'],
+				"name" => $_POST['add_cart_name'],
+				"price" => $_POST['add_cart_price'],
+				"img" => $_POST['add_cart_img'],
+				"quantity" => (int)$_POST['add_cart_quantity']
+			);
+			$_SESSION['cart'][] = $item_array;
+		} else {
+			foreach ($_SESSION["cart"] as &$val) {
+				if ($val["id"] == $_POST['add_cart_sp']) {
+					$val["quantity"] += is_numeric($val["add_cart_quantity"]);
+				}
+			}
+		}
+	} else {
+		$item_array = array(
+			"id" => $_POST['add_cart_sp'],
+			"name" => $_POST['add_cart_name'],
+			"price" => $_POST['add_cart_price'],
+			"img" => $_POST['add_cart_img'],
+			"quantity" => (int)$_POST['add_cart_quantity']
+		);
+		$_SESSION['cart'][] = $item_array;
+	}
+	echo "the thanh cong";
+}

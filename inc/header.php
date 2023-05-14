@@ -157,7 +157,7 @@
                                         <span class="subtotal-price">$88.66</span>
                                     </li>
                                     <li class="checkout-btn">
-                                        <a href="#">checkout</a>
+                                        <a href="cart.php">Xem giỏ hàng</a>
                                     </li>
                                 </ul>
                             </div>
