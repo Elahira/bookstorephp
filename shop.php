@@ -291,9 +291,9 @@ $runshop = $conn->query($queryshop);
                                                     </div>
                                                     <div class="product-action-link">
                                                         <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
-                                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
-                                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                                        <a data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+                                                        <a data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
+                                                        <a data-toggle="tooltip" data-placement="left" title="Thêm vào giỏ" id="<?php echo $idsp ?>" class="add-cart"><i class="fa fa-shopping-cart"></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
@@ -312,7 +312,11 @@ $runshop = $conn->query($queryshop);
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div><!-- hidden data -->
+                                                <input type="text" value="<?php echo $tensp ?>" id='name-sp<?php echo $idsp ?>' hidden>
+                                                <input type="number" value="<?php echo $giamoi ?>" id='price-sp<?php echo $idsp ?>' hidden>
+                                                <input type="text" value="<?php echo $img ?>" id='img-sp<?php echo $idsp ?>' hidden>
+                                                <!-- hidden data end -->
                                             </div>
                                             <!-- product single grid item end -->
                                         </div> <!-- product single column end -->
@@ -374,6 +378,35 @@ $runshop = $conn->query($queryshop);
         </div>
         <!-- page wrapper end -->
         <!-- row end -->
+
+        <!-- script add cart -->
+        <script>
+                $(document).ready(function() {
+                    $(document).on("click", ".add-cart", function() {
+                        var id = $(this).attr("id");
+                        var name = $("#name-sp" + id).val();
+                        var price = $("#price-sp" + id).val();
+                        var img = $("#img-sp" + id).val();
+                        var quantity = 1;
+
+                        $.ajax({
+                            method: 'POST',
+                            url: 'inc/process.php',
+                            data: {
+                                add_cart_sp: id,
+                                add_cart_name: name,
+                                add_cart_price: price,
+                                add_cart_img: img,
+                                add_cart_quantity: quantity
+                            },
+                            success: function(response) {
+                                alert(response);
+                            }
+                        });
+                    });
+                });
+            </script>
+            <!-- script add cart end -->
 
         <!-- brand area start -->
         <?php require_once('inc/branded.php') ?>

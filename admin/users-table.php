@@ -35,7 +35,7 @@ $num_row_page = $run_page->num_rows;
 $total_pages = ceil($num_row_page / $limit);
 
 ?>
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover" style="width: 100rem;">
     <thead>
     </thead>
     <thead>

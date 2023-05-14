@@ -124,7 +124,7 @@
                                 </div>
                                 <h3>Sản phẩm khuyến mãi</h3>
                             </div> <!-- section title end -->
-                            <!-- featured category start -->
+                            <!-- khuyen mai -->
                             <div class="featured-carousel-active slick-padding slick-arrow-style">
                                 <!-- product single item start -->
                                 <?php
@@ -155,7 +155,7 @@
                                                     <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
                                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
-                                                    <a data-toggle="tooltip" data-placement="left" title="Add to cart" id="<?php echo $idsp ?>" class="add-cart"><i class="fa fa-shopping-cart"></i></a>
+                                                    <a data-toggle="tooltip" data-placement="left" title="Thêm vào giỏ" id="<?php echo $idsp ?>" class="add-cart"><i class="fa fa-shopping-cart"></i></a>
                                                 </div>
                                             </div>
                                             <div class="product-content">
@@ -175,12 +175,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- hidden data -->
+                                            <input type="text" value="<?php echo $tensp ?>" id='name-sp<?php echo $idsp ?>' hidden>
+                                            <input type="number" value="<?php echo $giamoi ?>" id='price-sp<?php echo $idsp ?>' hidden>
+                                            <input type="text" value="<?php echo $img ?>" id='img-sp<?php echo $idsp ?>' hidden>
+                                            <!-- hidden data end -->
                                         </div>
-                                        <!-- hidden data -->
-                                        <input type="text" value="<?php echo $tensp ?>" id='name-sp<?php echo $idsp ?>' hidden>
-                                        <input type="number" value="<?php echo $giamoi ?>" id='price-sp<?php echo $idsp ?>' hidden>
-                                        <input type="text" value="<?php echo $img ?>" id='img-sp<?php echo $idsp ?>' hidden>
-                                        <!-- hidden data end -->
                                 <?php
                                     }
                                 }
@@ -239,7 +239,7 @@
                                                         <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                                         <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
                                                         <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
-                                                        <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                                        <a data-toggle="tooltip" data-placement="left" title="Thêm vào giỏ" id="<?php echo $idsp ?>" class="add-cart"><i class="fa fa-shopping-cart"></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
@@ -260,6 +260,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- hidden data -->
+                                                <input type="text" value="<?php echo $tensp ?>" id='name-sp<?php echo $idsp ?>' hidden>
+                                                <input type="number" value="<?php echo $giamoi ?>" id='price-sp<?php echo $idsp ?>' hidden>
+                                                <input type="text" value="<?php echo $img ?>" id='img-sp<?php echo $idsp ?>' hidden>
+                                                <!-- hidden data end -->
                                             </div>
                                     <?php
                                         }
@@ -535,7 +540,7 @@
                                             <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
                                             <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
                                             <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                            <a data-toggle="tooltip" data-placement="left" title="Thêm vào giỏ" id="<?php echo $idsp ?>" class="add-cart"><i class="fa fa-shopping-cart"></i></a>
                                         </div>
                                     </div>
                                     <div class="product-content">
@@ -556,6 +561,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- hidden data -->
+                                    <input type="text" value="<?php echo $tensp ?>" id='name-sp<?php echo $idsp ?>' hidden>
+                                    <input type="number" value="<?php echo $giamoi ?>" id='price-sp<?php echo $idsp ?>' hidden>
+                                    <input type="text" value="<?php echo $img ?>" id='img-sp<?php echo $idsp ?>' hidden>
+                                    <!-- hidden data end -->
                                 </div>
                         <?php
                             }
@@ -589,7 +599,7 @@
                                 add_cart_quantity: quantity
                             },
                             success: function(response) {
-                                alert (response);
+                                alert(response);
                             }
                         });
                     });

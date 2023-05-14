@@ -106,7 +106,7 @@ if (isset($_POST['add_cart_sp'])) {
 			$item_array = array(
 				"id" => $_POST['add_cart_sp'],
 				"name" => $_POST['add_cart_name'],
-				"price" => $_POST['add_cart_price'],
+				"price" => (float)$_POST['add_cart_price'],
 				"img" => $_POST['add_cart_img'],
 				"quantity" => (int)$_POST['add_cart_quantity']
 			);
@@ -114,7 +114,7 @@ if (isset($_POST['add_cart_sp'])) {
 		} else {
 			foreach ($_SESSION["cart"] as &$val) {
 				if ($val["id"] == $_POST['add_cart_sp']) {
-					$val["quantity"] += is_numeric($val["add_cart_quantity"]);
+					$val["quantity"] += is_numeric($_POST["add_cart_quantity"]);
 				}
 			}
 		}
@@ -122,11 +122,16 @@ if (isset($_POST['add_cart_sp'])) {
 		$item_array = array(
 			"id" => $_POST['add_cart_sp'],
 			"name" => $_POST['add_cart_name'],
-			"price" => $_POST['add_cart_price'],
+			"price" => (float)$_POST['add_cart_price'],
 			"img" => $_POST['add_cart_img'],
 			"quantity" => (int)$_POST['add_cart_quantity']
 		);
 		$_SESSION['cart'][] = $item_array;
 	}
-	echo "the thanh cong";
+	echo "thêm vào giỏ hàng công";
+}
+
+//////////////////////// DELETE ITEM CART //////////////////////
+if(isset($_POST['del_cart_item'])){
+
 }
