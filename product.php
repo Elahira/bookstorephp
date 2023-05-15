@@ -1,17 +1,52 @@
 <?php require_once('inc/top.php');
-if(isset($_GET['id'])){
+if (isset($_GET['id'])) {
     $id_sp = $_GET['id'];
 
-    $query_name = "SELECT * from sanpham
-    where Idsp = $id_sp";
-    $run_name = $conn->query($query_name);
-    $row_name = $run_name->fetch_array();
-    $page_name = $row_name['Tensp'];
-    $related = $row_name['Idloai'];
+    $query = "SELECT * from sanpham sp
+    LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph
+    where sp.Idsp = $id_sp";
+
+    $run = $conn->query($query);
+    $row = $run->fetch_array();
+
+    $pro_id = $row['Idsp'];
+    $pro_img = $row['Img'];
+    $pro_name = $row['Tensp'];
+    $pro_cat = $row['Idloai'];
+    $pro_pubname = $row['Tennph'];
+    $pro_price = $row['Giasp'];
+    $pro_sale = $row['Giamgia'];
+    $pro_newprice = $row['Giamoi'];
+    $pro_author = $row['Tacgia'];
+    $pro_illu = $row['Minhhoa'];
+    $pro_trans = $row['Dichgia'];
+    $pro_cover = $row['Loaibia'];
+    $pro_page = $row['Sotrang'];
+    $pro_desc = $row['Mota'];
 }
 ?>
 <!-- Site title -->
-<title><?php echo $page_name ?></title>
+<title><?php echo $pro_name ?></title>
+<style>
+    .giamgia {
+        color: white;
+        background-color: red;
+        font-size: 16px;
+        font-weight: 700;
+        display: inline-block;
+        padding: 5px;
+        border-radius: 20%;
+    }
+
+    .giacu {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .buy-btn{
+        cursor: pointer;
+    }
+</style>
 </head>
 
 <body>
@@ -37,7 +72,7 @@ if(isset($_GET['id'])){
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="shop.php">Sản phẩm</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"><?php echo $page_name ?></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><?php echo $pro_name ?></li>
                                 </ul>
                             </nav>
                         </div>
@@ -59,29 +94,13 @@ if(isset($_GET['id'])){
                                 <div class="col-lg-6">
                                     <div class="product-large-slider mb-20 slick-arrow-style_2">
                                         <div class="pro-large-img img-zoom" id="img1">
-                                            <img src="assets/img/product/product-details-img1.jpg" alt="" />
+                                            <img src="admin/product-img/<?php echo $pro_img ?>" alt="" />
                                         </div>
-                                        <div class="pro-large-img img-zoom" id="img2">
-                                            <img src="assets/img/product/product-details-img2.jpg" alt="" />
-                                        </div>
-                                        <div class="pro-large-img img-zoom" id="img3">
-                                            <img src="assets/img/product/product-details-img3.jpg" alt="" />
-                                        </div>
-                                        <div class="pro-large-img img-zoom" id="img4">
-                                            <img src="assets/img/product/product-details-img4.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div class="pro-nav slick-padding2 slick-arrow-style_2">
-                                        <div class="pro-nav-thumb"><img src="assets/img/product/product-details-img1.jpg" alt="" /></div>
-                                        <div class="pro-nav-thumb"><img src="assets/img/product/product-details-img2.jpg" alt="" /></div>
-                                        <div class="pro-nav-thumb"><img src="assets/img/product/product-details-img3.jpg" alt="" /></div>
-                                        <div class="pro-nav-thumb"><img src="assets/img/product/product-details-img4.jpg" alt="" /></div>
-                                        <div class="pro-nav-thumb"><img src="assets/img/product/product-details-img2.jpg" alt="" /></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="product-details-des mt-md-34 mt-sm-34">
-                                        <h3><a href="product-details.html">external product 12</a></h3>
+                                        <h3><a href="product.php?id=<?php echo $pro_id ?>"><?php echo $pro_name ?></a></h3>
                                         <div class="ratings">
                                             <span class="good"><i class="fa fa-star"></i></span>
                                             <span class="good"><i class="fa fa-star"></i></span>
@@ -100,16 +119,16 @@ if(isset($_GET['id'])){
                                             <span>1 in stock</span>
                                         </div>
                                         <div class="pricebox">
-                                            <span class="regular-price">$160.00</span>
+                                            <span style="text-decoration: line-through;" class="giacu">$<?php echo $pro_price ?></span>
+                                            <div class="giamgia">-<?php echo $pro_sale ?>%</div>
+                                            <p class="regular-price">$<?php echo $pro_newprice ?></p>
                                         </div>
-                                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.<br>
-                                            Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
                                         <div class="quantity-cart-box d-flex align-items-center">
                                             <div class="quantity">
                                                 <div class="pro-qty"><input type="text" value="1"></div>
                                             </div>
                                             <div class="action_link">
-                                                <a class="buy-btn" href="#">add to cart<i class="fa fa-shopping-cart"></i></a>
+                                                <a class="buy-btn">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>
                                             </div>
                                         </div>
                                         <div class="useful-links mt-20">
@@ -135,50 +154,49 @@ if(isset($_GET['id'])){
                                     <div class="product-review-info">
                                         <ul class="nav review-tab">
                                             <li>
-                                                <a class="active" data-toggle="tab" href="#tab_one">description</a>
+                                                <a class="active" data-toggle="tab" href="#tab_one">Nội dung</a>
                                             </li>
                                             <li>
-                                                <a data-toggle="tab" href="#tab_two">information</a>
+                                                <a data-toggle="tab" href="#tab_two">Mô tả</a>
                                             </li>
                                             <li>
-                                                <a data-toggle="tab" href="#tab_three">reviews</a>
+                                                <a data-toggle="tab" href="#tab_three">Đánh giá</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content reviews-tab">
                                             <div class="tab-pane fade show active" id="tab_one">
                                                 <div class="tab-one">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque.</p>
                                                     <div class="review-description">
-                                                        <div class="tab-thumb">
-                                                            <img src="assets/img/about/services.jpg" alt="">
-                                                        </div>
-                                                        <div class="tab-des mt-sm-24">
-                                                            <h3>Product Information :</h3>
-                                                            <ul>
-                                                                <li>Donec non est at libero vulputate rutrum.</li>
-                                                                <li>Morbi ornare lectus quis justo gravida semper.</li>
-                                                                <li>Pellentesque aliquet, sem eget laoreet ultrices</li>
-                                                                <li>Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla</li>
-                                                                <li>Donec a neque libero.</li>
-                                                                <li>Pellentesque aliquet, sem eget laoreet ultrices</li>
-                                                                <li>Morbi ornare lectus quis justo gravida semper.</li>
-                                                            </ul>
-                                                        </div>
+                                                        <?php echo nl2br($pro_desc) ?>
                                                     </div>
-                                                    <p>Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue. Nunc facilisis sagittis ullamcorper.</p>
-                                                    <p>Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt.</p>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab_two">
                                                 <table class="table table-bordered">
                                                     <tbody>
                                                         <tr>
-                                                            <td>color</td>
-                                                            <td>black, blue, red</td>
+                                                            <td>Nhà phát hành</td>
+                                                            <td><?php echo $pro_pubname ?></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>size</td>
-                                                            <td>L, M, S</td>
+                                                            <td>Tác giả</td>
+                                                            <td><?php echo $pro_author ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Minh họa</td>
+                                                            <td><?php echo $pro_illu ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Dịch giả</td>
+                                                            <td><?php echo $pro_trans ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bìa</td>
+                                                            <td><?php echo $pro_cover ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Số trang</td>
+                                                            <td><?php echo $pro_page ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -240,7 +258,7 @@ if(isset($_GET['id'])){
                                                         </div>
                                                     </div>
                                                     <div class="buttons">
-                                                        <button class="sqr-btn" type="submit">Continue</button>
+                                                        <button class="sqr-btn" type="button">Continue</button>
                                                     </div>
                                                 </form> <!-- end of review-form -->
                                             </div>
@@ -264,7 +282,7 @@ if(isset($_GET['id'])){
                                 <!-- product single item start -->
                                 <?php
                                 $query = "SELECT * from sanpham
-                                where Idloai = $related
+                                where Idloai = $pro_cat
                                 LIMIT 12 OFFSET 0";
                                 $run = $conn->query($query);
                                 if ($run->num_rows > 0) {
@@ -431,7 +449,27 @@ if(isset($_GET['id'])){
         </div>
         <!-- product details wrapper end -->
         <!-- row end -->
+        <script>
+            var proQty = $('.pro-qty');
+            proQty.prepend('<span class="dec qtybtn">-</span>');
+            proQty.append('<span class="inc qtybtn">+</span>');
 
+            proQty.on('click', '.qtybtn', function() {
+                var $button = $(this);
+                var oldValue = $button.parent().find('input').val();
+                if ($button.hasClass('inc')) {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    // Don't allow decrementing below zero
+                    if (oldValue > 0) {
+                        var newVal = parseFloat(oldValue) - 1;
+                    } else {
+                        newVal = 0;
+                    }
+                }
+                $button.parent().find('input').val(newVal);
+            });
+        </script>
         <!-- brand area start -->
         <?php require_once('inc/branded.php') ?>
         <!-- brand area end -->

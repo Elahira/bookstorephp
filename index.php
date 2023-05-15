@@ -20,6 +20,9 @@
         background-color: red;
         font-size: 16px;
         font-weight: 700;
+        display: inline-block;
+        padding: 2px;
+        border-radius: 20%;
     }
 </style>
 
@@ -247,7 +250,7 @@
                                                     <div class="pricebox">
                                                         <p style="text-decoration: line-through;">$<?php echo $giasp ?></p>
                                                         <span class="regular-price">$<?php echo $giamoi ?></span>
-                                                        <span class="giamgia">-<?php echo $giamgia ?>%</span>
+                                                        <div class="giamgia">-<?php echo $giamgia ?>%</div>
                                                         <div class="ratings">
                                                             <span class="good"><i class="fa fa-star"></i></span>
                                                             <span class="good"><i class="fa fa-star"></i></span>
