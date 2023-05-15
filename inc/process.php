@@ -114,7 +114,7 @@ if (isset($_POST['add_cart_sp'])) {
 		} else {
 			foreach ($_SESSION["cart"] as &$val) {
 				if ($val["id"] == $_POST['add_cart_sp']) {
-					$val["quantity"] += is_numeric($_POST["add_cart_quantity"]);
+					$val["quantity"] += (int)$_POST["add_cart_quantity"];
 				}
 			}
 		}
@@ -132,6 +132,29 @@ if (isset($_POST['add_cart_sp'])) {
 }
 
 //////////////////////// DELETE ITEM CART //////////////////////
-if(isset($_POST['del_cart_item'])){
+if (isset($_GET['del_cart'])) {
+	if ($_GET['del_cart'] == "all") {
+		unset($_SESSION['cart']);
+		echo "<script>alert('Xóa toàn bộ sản phẩm khỏi giỏ hàng thành công!');</script>";
+		header('Location: ' . $_SERVER["HTTP_REFERER"]);
+	} else {
+		foreach ($_SESSION["cart"] as $key => $value) {
+			if ($value["id"] == $_GET['del_cart']) {
+				unset($_SESSION['cart'][$key]);
+			}
+		}
+	}
+}
 
+//////////////////////// UPDATE ITEM CART //////////////////////
+if(isset($_POST['up_cart'])){
+	$upsp = $_POST['up_cart_qty'];
+	if(isset($_SESSION['cart'])){
+		foreach ($_SESSION["cart"] as &$val) {
+			if ($val["id"] == $_POST['up_cart']) {
+				$val["quantity"] = (int)$upsp;
+				echo "thanh cong";
+			}
+		}
+	}
 }

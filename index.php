@@ -124,7 +124,7 @@
                                 </div>
                                 <h3>Sản phẩm khuyến mãi</h3>
                             </div> <!-- section title end -->
-                            <!-- khuyen mai -->
+                            <!-- sales -->
                             <div class="featured-carousel-active slick-padding slick-arrow-style">
                                 <!-- product single item start -->
                                 <?php
@@ -189,7 +189,7 @@
 
                                 <!-- featured category end -->
                             </div>
-                            <!-- featured category area end -->
+                            <!-- sales area end -->
 
                             <!-- banner statistic start -->
                             <div class="banner-statistic pt-28 pb-36">

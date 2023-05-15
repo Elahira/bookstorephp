@@ -230,13 +230,14 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="active"><a href="index.php"><i class="fa fa-home"></i>Home</a></li>
-                                    <li><a href="shop.php">shop <i class="fa fa-angle-down"></i></a>
+                                    <li class="active"><a href="index.php"><i class="fa fa-home"></i>Trang chủ</a></li>
+                                    <li><a href="shop.php">sản phẩm <i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown">
+                                            <li><a href="shop.php">Sản phẩm </a></li>
                                             <li><a href="cart.php">Giỏ hàng </a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Page <i class="fa fa-angle-down"></i></a>
+                                    <li><a href="#">Tin tức <i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown">
                                             <li><a href="Blog.php">Blog</a></li>
                                             <li><a href="about-us.php">Giới thiệu</a></li>
