@@ -4,6 +4,8 @@ session_start();
 
 //////////////////////// REGISTER //////////////////////
 
+$cus_id = $_SESSION['customer'];
+
 if (isset($_POST['register'])) {
 	$user_yourname = $_POST['name'];
 	$user_email = $_POST['email'];
@@ -101,19 +103,20 @@ if (isset($_POST['del_bank'])) {
 //////////////////////// ADD TO CART //////////////////////
 if (isset($_POST['add_cart_sp'])) {
 	if (isset($_SESSION['cart'])) {
-		$array_id = array_column($_SESSION['cart'], "id");
-		if (!in_array($_POST['add_cart_sp'], $array_id)) {
+		$array_cart = array_column($_SESSION['cart'], "id", "cusID");
+		if (!in_array($_POST['add_cart_sp'], $array_cart) && !in_array($_POST['add_cart_cusID'], $array_cart)) {
 			$item_array = array(
 				"id" => $_POST['add_cart_sp'],
 				"name" => $_POST['add_cart_name'],
 				"price" => (float)$_POST['add_cart_price'],
 				"img" => $_POST['add_cart_img'],
-				"quantity" => (int)$_POST['add_cart_quantity']
+				"quantity" => (int)$_POST['add_cart_quantity'],
+				"cusID" => (int)$_POST['add_cart_cusID']
 			);
 			$_SESSION['cart'][] = $item_array;
 		} else {
 			foreach ($_SESSION["cart"] as &$val) {
-				if ($val["id"] == $_POST['add_cart_sp']) {
+				if ($val["id"] == $_POST['add_cart_sp'] && $val["cusID"] == $cus_id) {
 					$val["quantity"] += (int)$_POST["add_cart_quantity"];
 				}
 			}
@@ -124,7 +127,8 @@ if (isset($_POST['add_cart_sp'])) {
 			"name" => $_POST['add_cart_name'],
 			"price" => (float)$_POST['add_cart_price'],
 			"img" => $_POST['add_cart_img'],
-			"quantity" => (int)$_POST['add_cart_quantity']
+			"quantity" => (int)$_POST['add_cart_quantity'],
+			"cusID" => (int)$_POST['add_cart_cusID']
 		);
 		$_SESSION['cart'][] = $item_array;
 	}
@@ -134,12 +138,16 @@ if (isset($_POST['add_cart_sp'])) {
 //////////////////////// DELETE ITEM CART //////////////////////
 if (isset($_GET['del_cart'])) {
 	if ($_GET['del_cart'] == "all") {
-		unset($_SESSION['cart']);
+		foreach ($_SESSION["cart"] as $key => $value) {
+			if ($value["cusID"] == $cus_id) {
+				unset($_SESSION['cart'][$key]);
+			}
+		}
 		echo "<script>alert('Xóa toàn bộ sản phẩm khỏi giỏ hàng thành công!');</script>";
 		header('Location: ' . $_SERVER["HTTP_REFERER"]);
 	} else {
 		foreach ($_SESSION["cart"] as $key => $value) {
-			if ($value["id"] == $_GET['del_cart']) {
+			if ($value["id"] == $_GET['del_cart'] && $value["cusID"] == $cus_id) {
 				unset($_SESSION['cart'][$key]);
 			}
 		}
@@ -151,7 +159,7 @@ if(isset($_POST['up_cart'])){
 	$upsp = $_POST['up_cart_qty'];
 	if(isset($_SESSION['cart'])){
 		foreach ($_SESSION["cart"] as &$val) {
-			if ($val["id"] == $_POST['up_cart']) {
+			if ($val["id"] == $_POST['up_cart'] && $val["cusID"] == $cus_id) {
 				$val["quantity"] = (int)$upsp;
 				echo "thanh cong";
 			}

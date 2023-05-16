@@ -36,6 +36,7 @@ if (isset($_GET['id'])) {
         display: inline-block;
         padding: 5px;
         border-radius: 20%;
+        margin-left: 1em;
     }
 
     .giacu {
@@ -43,7 +44,7 @@ if (isset($_GET['id'])) {
         line-height: 24px;
     }
 
-    .buy-btn{
+    .buy-btn {
         cursor: pointer;
     }
 </style>
@@ -98,9 +99,10 @@ if (isset($_GET['id'])) {
                                         </div>
                                     </div>
                                 </div>
+                                <input id="img-sp" value="<?php echo $pro_img ?>" hidden>
                                 <div class="col-lg-6">
                                     <div class="product-details-des mt-md-34 mt-sm-34">
-                                        <h3><a href="product.php?id=<?php echo $pro_id ?>"><?php echo $pro_name ?></a></h3>
+                                        <h3><a href="product.php?id=<?php echo $pro_id ?>" id="name-sp"><?php echo $pro_name ?></a></h3>
                                         <div class="ratings">
                                             <span class="good"><i class="fa fa-star"></i></span>
                                             <span class="good"><i class="fa fa-star"></i></span>
@@ -121,14 +123,14 @@ if (isset($_GET['id'])) {
                                         <div class="pricebox">
                                             <span style="text-decoration: line-through;" class="giacu">$<?php echo $pro_price ?></span>
                                             <div class="giamgia">-<?php echo $pro_sale ?>%</div>
-                                            <p class="regular-price">$<?php echo $pro_newprice ?></p>
+                                            <p class="regular-price">$ <span id="price-sp"><?php echo $pro_newprice ?></span></p>
                                         </div>
                                         <div class="quantity-cart-box d-flex align-items-center">
                                             <div class="quantity">
-                                                <div class="pro-qty"><input type="text" value="1"></div>
+                                                <div class="pro-qty"><input type="text" value="1" id="qty-sp"></div>
                                             </div>
                                             <div class="action_link">
-                                                <a class="buy-btn">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>
+                                                <a class="buy-btn add-cart-pro" id="<?php echo $pro_id ?>">Thêm vào giỏ<i class="fa fa-shopping-cart"></i></a>
                                             </div>
                                         </div>
                                         <div class="useful-links mt-20">
@@ -191,7 +193,7 @@ if (isset($_GET['id'])) {
                                                             <td><?php echo $pro_trans ?></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Bìa</td>
+                                                            <td>Loại bìa</td>
                                                             <td><?php echo $pro_cover ?></td>
                                                         </tr>
                                                         <tr>
@@ -273,7 +275,7 @@ if (isset($_GET['id'])) {
                         <div class="related-products-area mt-34">
                             <div class="section-title mb-30">
                                 <div class="title-icon">
-                                    <i class="fa fa-desktop"></i>
+                                    <i class="fa fa-book"></i>
                                 </div>
                                 <h3>Sản phẩm liên quan</h3>
                             </div> <!-- section title end -->
@@ -450,24 +452,27 @@ if (isset($_GET['id'])) {
         <!-- product details wrapper end -->
         <!-- row end -->
         <script>
-            var proQty = $('.pro-qty');
-            proQty.prepend('<span class="dec qtybtn">-</span>');
-            proQty.append('<span class="inc qtybtn">+</span>');
+            $(document).ready(function() {
+                // quantity change js
+                var proQty = $('.pro-qty');
+                proQty.prepend('<span class="dec qtybtn">-</span>');
+                proQty.append('<span class="inc qtybtn">+</span>');
 
-            proQty.on('click', '.qtybtn', function() {
-                var $button = $(this);
-                var oldValue = $button.parent().find('input').val();
-                if ($button.hasClass('inc')) {
-                    var newVal = parseFloat(oldValue) + 1;
-                } else {
-                    // Don't allow decrementing below zero
-                    if (oldValue > 0) {
-                        var newVal = parseFloat(oldValue) - 1;
+                proQty.on('click', '.qtybtn', function() {
+                    var $button = $(this);
+                    var oldValue = $button.parent().find('input').val();
+                    if ($button.hasClass('inc')) {
+                        var newVal = parseFloat(oldValue) + 1;
                     } else {
-                        newVal = 0;
+                        // Don't allow decrementing below zero
+                        if (oldValue > 0) {
+                            var newVal = parseFloat(oldValue) - 1;
+                        } else {
+                            newVal = 0;
+                        }
                     }
-                }
-                $button.parent().find('input').val(newVal);
+                    $button.parent().find('input').val(newVal);
+                });
             });
         </script>
         <!-- brand area start -->

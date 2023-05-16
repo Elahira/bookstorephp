@@ -27,26 +27,28 @@ $total = 0;
                     <?php
                     if (isset($_SESSION['cart'])) {
                         foreach ($_SESSION["cart"] as &$sp) {
-                            $id_sp = $sp['id'];
-                            $name = $sp['name'];
-                            $price = $sp['price'];
-                            $quantity = $sp['quantity'];
-                            $img = $val = $sp['img'];
+                            if ($sp['cusID'] == $_SESSION['customer']) {
+                                $id_sp = $sp['id'];
+                                $name = $sp['name'];
+                                $price = $sp['price'];
+                                $quantity = $sp['quantity'];
+                                $img = $sp['img'];
 
-                            $subtotal = $price * $quantity;
-                            $total += $subtotal;
+                                $subtotal = $price * $quantity;
+                                $total += $subtotal;
                     ?>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="product.php?id=<?php echo $id_sp ?>"><img class="img-fluid" src="admin/product-img/<?php echo $img ?>" alt="Product" /></a></td>
-                                <td class="pro-title"><a href="product.php?id=<?php echo $id_sp ?>"><?php echo $name ?></a></td>
-                                <td class="pro-price"><span><?php echo $price ?></span></td>
-                                <td class="pro-quantity">
-                                    <div class="pro-qty"><input type="text" value="<?php echo $quantity ?>" class="qnty-cart" id="<?php echo $id_sp ?>"></div>
-                                </td>
-                                <td class="pro-subtotal"><span><?php echo $subtotal ?></span></td>
-                                <td class="pro-remove"><a id="<?php echo $id_sp ?>" class="del_cart_item"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
+                                <tr>
+                                    <td class="pro-thumbnail"><a href="product.php?id=<?php echo $id_sp ?>"><img class="img-fluid" src="admin/product-img/<?php echo $img ?>" alt="Product" /></a></td>
+                                    <td class="pro-title"><a href="product.php?id=<?php echo $id_sp ?>"><?php echo $name ?></a></td>
+                                    <td class="pro-price"><span><?php echo $price ?></span></td>
+                                    <td class="pro-quantity">
+                                        <div class="pro-qty"><input type="text" value="<?php echo $quantity ?>" class="qnty-cart" id="<?php echo $id_sp ?>"></div>
+                                    </td>
+                                    <td class="pro-subtotal"><span><?php echo $subtotal ?></span></td>
+                                    <td class="pro-remove"><a id="<?php echo $id_sp ?>" class="del_cart_item"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
                     <?php
+                            }
                         }
                     }
                     ?>
@@ -63,7 +65,7 @@ $total = 0;
                 </form>
             </div>
             <div class="cart-update mt-sm-16">
-                <a href="inc/process.php?del_cart=all" class="sqr-btn">Xóa hết</a>
+                <a href="inc/process.php?del_cart=all&del" class="sqr-btn">Xóa hết</a>
             </div>
         </div>
     </div>
@@ -169,6 +171,7 @@ $total = 0;
 
         $(document).on("click", ".del_cart_item", function() {
             var id = $(this).attr("id");
+
             $.ajax({
                 method: 'GET',
                 url: 'inc/process.php',

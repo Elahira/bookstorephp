@@ -232,6 +232,8 @@
     <script src="assets/js/main.js"></script>
     <!-- Switcher JS [Please Remove this when Choose your Final Projct] -->
     <script src="assets/js/switcher.js"></script>
+    <!-- script add to cart -->
+    <script src="assets/js/add-cart.js"></script>
 </body>
 
 

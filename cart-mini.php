@@ -1,47 +1,62 @@
 <?php
 require_once('inc/db.php');
-$id = $_POST['id'];
-?>
-<?php
-    
+session_start();
+
+$count = 0;
+if (isset($_SESSION['cart']) && isset($_SESSION['customer'])) {
+    foreach ($_SESSION["cart"] as $temp) {
+        if ($temp['cusID'] == $_SESSION['customer']) {
+            $count += 1;
+        }
+    }
+}
+$submoney = 0;
+$money = 0;
 ?>
 
 <div class="mini-cart-btn">
     <i class="fa fa-shopping-cart"></i>
-    <span class="cart-notification">2</span>
+    <span class="cart-notification"><?php echo $count ?></span>
 </div>
 <div class="cart-total-price">
-    <span>total</span>
-    $50.00
+    <span>Giỏ hàng</span>
 </div>
 <ul class="cart-list">
-    <li>
-        <div class="cart-img">
-            <a href="product-details.html"><img src="assets/img/cart/cart-1.jpg" alt=""></a>
-        </div>
-        <div class="cart-info">
-            <h4><a href="product-details.html">simple product 09</a></h4>
-            <span>$60.00</span>
-        </div>
-        <div class="del-icon">
-            <i class="fa fa-times"></i>
-        </div>
-    </li>
-    <li>
-        <div class="cart-img">
-            <a href="product-details.html"><img src="assets/img/cart/cart-2.jpg" alt=""></a>
-        </div>
-        <div class="cart-info">
-            <h4><a href="product-details.html">virtual product 10</a></h4>
-            <span>$50.00</span>
-        </div>
-        <div class="del-icon">
-            <i class="fa fa-times"></i>
-        </div>
-    </li>
+    <?php
+    if (isset($_SESSION['cart']) && isset($_SESSION['customer'])) {
+        foreach ($_SESSION["cart"] as &$sp) {
+            if ($sp['cusID'] == $_SESSION['customer']) {
+                $id_sp = $sp['id'];
+                $name = $sp['name'];
+                $price = $sp['price'];
+                $quantity = $sp['quantity'];
+                $img = $sp['img'];
+
+                $submoney = $price * $quantity;
+                $money += $submoney;
+        ?>
+
+                <li>
+                    <div class="cart-img">
+                        <a href="product.php?id=<?php echo $id_sp ?>"><img src="admin/product-img/<?php echo $img ?>" alt=""></a>
+                    </div>
+                    <div class="cart-info">
+                        <h4><a href="product.php?id=<?php echo $id_sp ?>"><?php echo $name ?></a></h4>
+                        <span>$<?php echo $price ?></span>
+                        <p>Số lượng: <?php echo $quantity ?></p>
+                    </div>
+                    <div class="del-icon">
+                        <i class="fa fa-times"></i>
+                    </div>
+                </li>
+        <?php
+            }
+        }
+    }
+    ?>
     <li class="mini-cart-price">
-        <span class="subtotal">subtotal : </span>
-        <span class="subtotal-price">$88.66</span>
+        <span class="subtotal">Thành tiền : </span>
+        <span class="subtotal-price"><?php echo $money ?></span>
     </li>
     <li class="checkout-btn">
         <a href="cart.php">Xem giỏ hàng</a>

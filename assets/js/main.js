@@ -33,7 +33,7 @@
 	dropdownAnimation();
 
 	// mini cart toggler
-	$(".mini-cart-btn").on("click", function (event) {
+	$(".mini-cart-btn, .cart-total-price").on("click", function (event) {
 		event.stopPropagation();
 		event.preventDefault();
 		$(".cart-list").slideToggle();

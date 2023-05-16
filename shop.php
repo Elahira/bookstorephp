@@ -379,35 +379,6 @@ $runshop = $conn->query($queryshop);
         <!-- page wrapper end -->
         <!-- row end -->
 
-        <!-- script add cart -->
-        <script>
-                $(document).ready(function() {
-                    $(document).on("click", ".add-cart", function() {
-                        var id = $(this).attr("id");
-                        var name = $("#name-sp" + id).val();
-                        var price = $("#price-sp" + id).val();
-                        var img = $("#img-sp" + id).val();
-                        var quantity = 1;
-
-                        $.ajax({
-                            method: 'POST',
-                            url: 'inc/process.php',
-                            data: {
-                                add_cart_sp: id,
-                                add_cart_name: name,
-                                add_cart_price: price,
-                                add_cart_img: img,
-                                add_cart_quantity: quantity
-                            },
-                            success: function(response) {
-                                alert(response);
-                            }
-                        });
-                    });
-                });
-            </script>
-            <!-- script add cart end -->
-
         <!-- brand area start -->
         <?php require_once('inc/branded.php') ?>
         <!-- brand area end -->

@@ -1,6 +1,10 @@
 <?php require_once('inc/top.php');
 $subtotal = 0;
 $total = 0;
+
+if(!isset($_SESSION['customer'])){
+    header('location: login.php');
+}
 ?>
 <!-- Site title -->
 <title>Giỏ hàng</title>
