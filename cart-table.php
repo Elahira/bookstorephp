@@ -153,6 +153,7 @@ $total = 0;
 
         });
 
+        //update cart quantity
         $('.qnty-cart').change(function() {
             var id = $(this).attr("id");
             var newVal = $(this).val();
@@ -169,6 +170,7 @@ $total = 0;
             });
         });
 
+        //del cart item
         $(document).on("click", ".del_cart_item", function() {
             var id = $(this).attr("id");
 

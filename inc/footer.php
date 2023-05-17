@@ -234,6 +234,7 @@
     <script src="assets/js/switcher.js"></script>
     <!-- script add to cart -->
     <script src="assets/js/add-cart.js"></script>
+
 </body>
 
 

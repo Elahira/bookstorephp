@@ -116,11 +116,12 @@
                         </div>
                         <div class="header-middle-block">
                             <div class="header-middle-searchbox">
-                                <input type="text" placeholder="Search...">
-                                <button class="search-btn"><i class="fa fa-search"></i></button>
+                                <form action="search.php" method="get">
+                                    <input type="text" name="search" placeholder="Nhập từ khóa tìm kiếm..." required>
+                                    <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+                                </form>
                             </div>
                             <div class="header-mini-cart" id="cart-mini"></div>
-
                         </div>
                     </div>
                 </div>

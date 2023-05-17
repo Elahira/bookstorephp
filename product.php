@@ -4,7 +4,7 @@ if (isset($_GET['id'])) {
 
     $query = "SELECT * from sanpham sp
     LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph
-    where sp.Idsp = $id_sp";
+    where StatusSP = 1 and sp.Idsp = $id_sp";
 
     $run = $conn->query($query);
     $row = $run->fetch_array();
@@ -284,7 +284,7 @@ if (isset($_GET['id'])) {
                                 <!-- product single item start -->
                                 <?php
                                 $query = "SELECT * from sanpham
-                                where Idloai = $pro_cat
+                                where StatusSP = 1 and Idloai = $pro_cat
                                 LIMIT 12 OFFSET 0";
                                 $run = $conn->query($query);
                                 if ($run->num_rows > 0) {
@@ -361,6 +361,7 @@ if (isset($_GET['id'])) {
                                 <div class="category-carousel-active row" data-row="4">
                                     <?php
                                     $query = "SELECT * from sanpham
+                                    where StatusSP = 1
                                     order by Giamgia desc
                                     LIMIT 12 OFFSET 0";
                                     $run = $conn->query($query);

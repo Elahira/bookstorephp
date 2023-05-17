@@ -69,7 +69,6 @@ if (isset($_GET['del']) and isset($_SESSION['usernameadmin'])) {
 													echo "Không tìm thấy phân loại";
 												}
 												?>
-												<option value="them"><a href="./subcate.php">Thêm</a></option>
 											</select>
 										</div>
 									</div>

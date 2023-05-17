@@ -155,14 +155,93 @@ if (isset($_GET['del_cart'])) {
 }
 
 //////////////////////// UPDATE ITEM CART //////////////////////
-if(isset($_POST['up_cart'])){
+if (isset($_POST['up_cart'])) {
 	$upsp = $_POST['up_cart_qty'];
-	if(isset($_SESSION['cart'])){
+	if (isset($_SESSION['cart'])) {
 		foreach ($_SESSION["cart"] as &$val) {
 			if ($val["id"] == $_POST['up_cart'] && $val["cusID"] == $cus_id) {
 				$val["quantity"] = (int)$upsp;
 				echo "thanh cong";
 			}
 		}
+	}
+}
+
+//////////////////////// EDIT ADDRESS //////////////////////
+if (isset($_GET['edit_address'])) {
+	$edit_address = $_GET['edit_address'];
+	$query_address = "UPDATE users SET 
+		Diachi = '$edit_address'
+		where Idtk = $cus_id";
+
+	if ($conn->query($query_address)) {
+		echo "<script>alert('Sửa thành công!');window.location='../checkout.php'</script>";
+	} else {
+		echo "<script>alert('Sửa thất bại!');window.location='../checkout.php'</script>";
+	}
+}
+
+//////////////////////// CHECKOUT //////////////////////
+if (isset($_POST['checkout_bank'])) {
+	$bank_payment = $_POST['checkout_bank'];
+	$bank_note = $_POST['checkout_note'];
+	$new_order = '';
+	$buydate = date("Y-m-d");
+
+	if ($bank_payment == 'COD') {
+		$bank_note .= '\nThanh toán COD';
+		$querynew = "INSERT INTO `hoadon` (`Idhd`, `Ngaymua`, `Ngaynhan`, `Idtk`, `Ghichu`, `StatusHD`) VALUES (NULL, '$buydate', '$buydate', '$cus_id', '$bank_note', '1');";
+
+		$run_neworder = $conn->query($querynew);
+		
+		$query_new_order = "SELECT max(Idhd) FROM `hoadon`";
+		$run_order = $conn->query($query_new_order);
+		$row = $run_order->fetch_array();
+		$new_order = $row['max(Idhd)'];
+
+		foreach ($_SESSION["cart"] as $key => $val) {
+			$pro_id = $val['id'];
+			$price = $val['price'];
+			$qty = $val['quantity'];
+
+			$subtotal = $price * $qty;
+
+			$query_cthd = "INSERT INTO chitiethoadon(Idhd, Idsp, Soluong, Tongtien) VALUES ('$new_order','$pro_id','$qty','$subtotal')";
+			$run_cthd = $conn->query($query_cthd);
+			unset($_SESSION['cart'][$key]);
+		}
+
+		echo "Đặt hàng thành công";
+	} else {
+		$q_payment = "SELECT * FROM users_payment where Idpay = $bank_payment";
+		$run_bank_payment = $conn->query($q_payment);
+		$row_bank = $run_bank_payment->fetch_array();
+		$bank_name = $row_bank['Bank'];
+		$bank_num = $row_bank['Sotk'];
+		$bank_acc = $row_bank['Tentk'];
+
+		$bank_note .= '\nĐã thanh toán online \nNgân hàng: '.$bank_name.'\nSố tài khoản: '.$bank_num.'\nTên tài khoản: '.$bank_acc;
+
+		$querynew = "INSERT INTO `hoadon` (`Idhd`, `Ngaymua`, `Ngaynhan`, `Idtk`, `Ghichu`, `StatusHD`) VALUES (NULL, '$buydate', '$buydate', '$cus_id', '$bank_note', '1');";
+
+		$run_neworder = $conn->query($querynew);
+		
+		$query_new_order = "SELECT max(Idhd) FROM `hoadon`";
+		$run_order = $conn->query($query_new_order);
+		$row = $run_order->fetch_array();
+		$new_order = $row['max(Idhd)'];
+
+		foreach ($_SESSION["cart"] as $key => $val) {
+			$pro_id = $val['id'];
+			$price = $val['price'];
+			$qty = $val['quantity'];
+
+			$subtotal = $price * $qty;
+
+			$query_cthd = "INSERT INTO chitiethoadon(Idhd, Idsp, Soluong, Tongtien) VALUES ('$new_order','$pro_id','$qty','$subtotal')";
+			$run_cthd = $conn->query($query_cthd);
+			unset($_SESSION['cart'][$key]);
+		}
+		echo "Đặt hàng thành công";
 	}
 }

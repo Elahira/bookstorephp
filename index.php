@@ -132,6 +132,7 @@
                                 <!-- product single item start -->
                                 <?php
                                 $query = "SELECT * from sanpham
+                                where StatusSP = 1
                                 order by Giamgia desc
                                 LIMIT 12 OFFSET 0";
                                 $run = $conn->query($query);
@@ -217,6 +218,7 @@
                                     <!-- product single item start -->
                                     <?php
                                     $query = "SELECT * from sanpham
+                                    where StatusSP = 1
                                     order by Idsp desc
                                     LIMIT 12 OFFSET 0";
                                     $run = $conn->query($query);
@@ -515,7 +517,7 @@
                         <!-- product single item start -->
                         <?php
                         $query = "SELECT sp.Idsp, Tensp, Giasp, Giamgia, Giamoi, Img, COUNT(cthd.Idsp)  FROM sanpham sp, chitiethoadon cthd 
-                        where cthd.Idsp = sp.Idsp
+                        where StatusSP = 1 and cthd.Idsp = sp.Idsp
                         GROUP by sp.Idsp
                         ORDER by COUNT(cthd.Idsp) DESC
                         LIMIT 8 OFFSET 0";

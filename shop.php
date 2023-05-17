@@ -23,27 +23,28 @@ if (isset($_POST['price_filter'])) {
 }
 
 $queryshop = "SELECT * FROM sanpham
-Where Giamoi between '$min_price' and '$max_price'
+Where StatusSP = 1 and Giamoi between '$min_price' and '$max_price'
 LIMIT $start, $limit";
 
 $querypage = "SELECT * FROM sanpham
-Where Giamoi between $min_price and $max_price";
+Where StatusSP = 1 and Giamoi between $min_price and $max_price";
 
 $cur_page = '';
 $cur_page_name = '';
 
+//phan loai
 if (isset($_GET['subcat'])) {
     $id_subcat = $_GET['subcat'];
     $queryshop = "SELECT * FROM sanpham sp
     left join theloai tl on tl.Idloai = sp.Idloai
     left join phanloai pl on tl.Idpl = pl.Idpl
-    where pl.Idpl = '$id_subcat' and Giamoi between '$min_price' and '$max_price'
+    where StatusSP = 1 and pl.Idpl = '$id_subcat' and Giamoi between '$min_price' and '$max_price'
     LIMIT $start, $limit";
 
     $querypage = "SELECT * FROM sanpham sp
     left join theloai tl on tl.Idloai = sp.Idloai
     left join phanloai pl on tl.Idpl = pl.Idpl
-    where pl.Idpl = '$id_subcat' and Giamoi between '$min_price' and '$max_price'";
+    where StatusSP = 1 and pl.Idpl = '$id_subcat' and Giamoi between '$min_price' and '$max_price'";
 
     $cur_page = "&subcat=$id_subcat";
 
@@ -53,14 +54,16 @@ if (isset($_GET['subcat'])) {
     $cur_page_name = $rowsub['Tenphanloai'];
 }
 
+
+//the loai
 if (isset($_GET['cat'])) {
     $id_cat = $_GET['cat'];
     $queryshop = "SELECT * FROM sanpham sp
-    where Idloai = '$id_cat' and Giamoi between '$min_price' and '$max_price'
+    where StatusSP = 1 and Idloai = '$id_cat' and Giamoi between '$min_price' and '$max_price'
     LIMIT $start, $limit";
 
     $querypage = "SELECT * FROM sanpham sp
-    where Idloai = '$id_cat' and Giamoi between '$min_price' and '$max_price'";
+    where StatusSP = 1 and Idloai = '$id_cat' and Giamoi between '$min_price' and '$max_price'";
 
     $cur_page = "&subcat=$id_cat";
 
@@ -70,14 +73,15 @@ if (isset($_GET['cat'])) {
     $cur_page_name = $rowcat['Tenloai'];
 }
 
+//nha phat hanh
 if (isset($_GET['pub'])) {
     $id_pub = $_GET['pub'];
     $queryshop = "SELECT * FROM sanpham
-    where Idnph = '$id_pub' and Giamoi between '$min_price' and '$max_price'
+    where StatusSP = 1 and Idnph = '$id_pub' and Giamoi between '$min_price' and '$max_price'
     LIMIT $start, $limit";
 
     $querypage = "SELECT * FROM sanpham
-    where Idnph = '$id_pub' and Giamoi between '$min_price' and '$max_price'";
+    where StatusSP = 1 and Idnph = '$id_pub' and Giamoi between '$min_price' and '$max_price'";
 
     $cur_page = "&pub=$id_pub";
 

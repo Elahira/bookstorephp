@@ -5408,7 +5408,6 @@ only screen and (max-width: 575px) {
     margin: 0 0 30px;
     padding: 15px 20px;
     position: relative;
-    text-transform: uppercase;
 }
 
 .checkoutaccordion h3 span {
@@ -5611,7 +5610,6 @@ only screen and (max-width: 767px) {
 
 .single-payment-method .payment-method-details:after {
     content: '';
-    position: absolute;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid #f1f1f1;

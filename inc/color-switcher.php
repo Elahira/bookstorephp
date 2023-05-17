@@ -19,8 +19,8 @@
         <div class="switcher-panel-item">
             <h3>Layout Style</h3>
             <ul class="nav layout-changer">
-                <li><button class="btn-layout-changer active" data-layout="wide">Wide</button></li>
-                <li><button class="btn-layout-changer" data-layout="boxed">Boxed</button></li>
+                <li><button class="btn-layout-changer wide active" data-layout="wide">Wide</button></li>
+                <li><button class="btn-layout-changer box" data-layout="boxed">Boxed</button></li>
             </ul>
         </div>
 
@@ -49,3 +49,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    let getcolor = JSON.parse(localStorage.getItem("pagecolor"));
+    let getlayoutStyle = JSON.parse(localStorage.getItem("layoutStyle"));
+    let getbgPattern = JSON.parse(localStorage.getItem("bgPattern"));
+    let getbglayout = JSON.parse(localStorage.getItem("bgLayout"));
+
+    if (getcolor != null) {
+        var styleLinker = $('#galio-skin');
+        styleLinker.attr("href", 'assets/css/skin-' + getcolor + '.css');
+    }
+
+    if (getlayoutStyle != "wide"){
+        $("body").addClass('layout-boxed ' + getbglayout +'');
+        $("body").css('background-image', 'url(' + getbgPattern + ')');
+        $(".wide").removeClass('active');
+        $(".box").addClass('active');
+    }
+   
+</script>

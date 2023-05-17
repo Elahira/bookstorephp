@@ -24,7 +24,7 @@
                     <!-- About Text Start -->
                     <div class="col-lg-12 ml-auto">
                         <div class="about-text-wrap" style="text-align: center; margin-top:5em">
-                            <h2>404 Error <span>Trang hiện không tồn tại</span></h2>
+                            <h2 style="text-transform: uppercase;">404 Error <span>Trang hiện không tồn tại</span></h2>
                             <p>Xin lỗi hiện tại trang bạn đang tìm bị lỗi hoặc không tồn tại.</p>
                             <a href="index.php">Trở về trang chủ</a>
                     </div>

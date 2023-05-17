@@ -243,9 +243,9 @@ if (isset($_GET['hd_upstatus']) and isset($_SESSION['usernameadmin'])) {
 	$status_new = $status + 1;
 	$upstatus_query = "UPDATE hoadon SET StatusHD = '$status_new' WHERE Idhd = '$upstatus'";
 	if ($status_new == '3') {
-		$finish_date = getdate();
+		$finish_date = date( "Y-m-d" );
 		$finish = "UPDATE hoadon SET
-            	Ngaynhan = '$finish_date[year]-$finish_date[mon]-$finish_date[mday]'
+            	Ngaynhan = '$finish_date'
         		where Idhd = '$upstatus'";
 		$runfinish = $conn->query($finish);
 	}

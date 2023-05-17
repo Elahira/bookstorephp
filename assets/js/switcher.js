@@ -25,6 +25,7 @@
         $this.addClass('active');
         $("body").removeClass('layout-wide layout-boxed');
         $("body").addClass('layout-' + layoutStyle);
+        localStorage.setItem("layoutStyle", JSON.stringify(layoutStyle));
     });
 
     // Background Pattern
@@ -38,6 +39,10 @@
 
         $(".bg-pattern li img").removeClass('active');
         $this.addClass('active');
+        var bglayout = 'pattern-bg';
+        
+        localStorage.setItem("bgLayout", JSON.stringify(bglayout));
+        localStorage.setItem("bgPattern", JSON.stringify(bgPattern));
     });
 
     // Background Image
@@ -49,9 +54,13 @@
         $("body").removeClass('pattern-bg');
         $("body").addClass('image-bg');
         $("body").css('background-image', 'url(' + bgPattern + ')');
-
+        
         $(".bg-pattern li img").removeClass('active');
         $this.addClass('active');
+        var bglayout = 'image-bg';
+
+        localStorage.setItem("bgLayout", JSON.stringify(bglayout));
+        localStorage.setItem("bgPattern", JSON.stringify(bgPattern));
     });
 
     $(".layout-changer button[data-layout='wide']").on('click', function () {
@@ -60,9 +69,3 @@
         $(".bg-pattern img").removeClass('active');
     });
 })(jQuery);
-let getcolor = JSON.parse(localStorage.getItem("pagecolor"));
-
-if (getcolor != "") {
-    var styleLinker = $('#galio-skin');
-    styleLinker.attr("href", 'assets/css/skin-' + getcolor + '.css');
-}
