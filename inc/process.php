@@ -44,7 +44,7 @@ if (isset($_POST['edit_user'])) {
 	$user_new_password = $_POST['new_pwd'];
 	$user_crm_password = $_POST['confirm_pwd'];
 
-	$query = "SELECT * from Taikhoan where Idtk = '$user_idtk'";
+	$query = "SELECT * from taikhoan where Idtk = '$user_idtk'";
 	$runcheck = $conn->query($query);
 	$checkpwd = $runcheck->fetch_array();
 
