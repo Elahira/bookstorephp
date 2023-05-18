@@ -212,13 +212,13 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <h6 style="color:#ea5774;font-weight:500;">Ghi chú:</h6>
-                                                <p> <?php echo $ghichu ?></p>
+                                                <p> <?php echo nl2br($ghichu) ?></p>
                                             </div>
                                             <div class="table-responsive">
                                                 <table id="table-detail-<?php echo $hd_id ?>" class="table table-bordered table-striped table-hover">
                                                     <tr>
-                                                        <th style="width: 26%">Ảnh sản phẩm</th>
-                                                        <th style="width: 26%">Sản phẩm</th>
+                                                        <th style="width: 16%">Ảnh sản phẩm</th>
+                                                        <th style="width: 36%">Sản phẩm</th>
                                                         <th style="width: 16%">Giá</th>
                                                         <th style="width: 16%">Số lượng</th>
                                                         <th style="width: 16%">Tổng tiền</th>
@@ -239,10 +239,10 @@
                                                             $pro_total = $pro_quantity * $pro_price;
                                                     ?>
                                                             <tr>
-                                                                <td><img src="./product-img/<?php echo $pro_img ?>" width="100%"></td>
+                                                                <td><img src="./product-img/<?php echo $pro_img ?>" width="70%"></td>
                                                                 <td><?php echo $pro_name ?></td>
-                                                                <td><?php echo $pro_quantity ?></td>
                                                                 <td>$ <?php echo $pro_price ?></td>
+                                                                <td><?php echo $pro_quantity ?></td>
                                                                 <td>$ <?php echo $pro_total ?></td>
                                                             </tr>
                                                     <?php
