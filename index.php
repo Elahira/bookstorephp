@@ -372,7 +372,7 @@
                                     <div class="col-lg-4">
                                         <div class="category-wrapper mb-md-24 mb-sm-24">
                                             <div class="section-title-2 d-flex justify-content-between mb-28">
-                                                <h3>Truyện tranh - Thiếu nhi</h3>
+                                                <h3>Truyện tranh</h3>
                                                 <div class="category-append"></div>
                                             </div> <!-- section title end -->
                                             <div class="category-carousel-active row" data-row="4">

@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <?php
 require_once('inc/db.php');
 session_start();
@@ -42,6 +39,8 @@ else if(isset($_POST['login'])){
 	// echo $error;
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 	<title>Bookstore - Admin Dashboard Login</title>

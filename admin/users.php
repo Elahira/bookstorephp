@@ -10,7 +10,7 @@ if (isset($_GET['lockon']) and isset($_SESSION['usernameadmin'])) {
     } else {
         $status_new = $status + 1;
     }
-    $upstatus_query = "UPDATE Taikhoan SET StatusTK = '$status_new' WHERE Idtk = '$upstatus'";
+    $upstatus_query = "UPDATE taikhoan SET StatusTK = '$status_new' WHERE Idtk = '$upstatus'";
     if ($conn->query($upstatus_query)) {
         echo "<script>alert('Cập nhật trạng thái người dùng thành công.');window.location='./users.php'</script>";
     } else {

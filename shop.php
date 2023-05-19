@@ -24,6 +24,7 @@ if (isset($_POST['price_filter'])) {
 
 $queryshop = "SELECT * FROM sanpham
 Where StatusSP = 1 and Giamoi between '$min_price' and '$max_price'
+ORDER BY Idsp desc
 LIMIT $start, $limit";
 
 $querypage = "SELECT * FROM sanpham
@@ -39,6 +40,7 @@ if (isset($_GET['subcat'])) {
     left join theloai tl on tl.Idloai = sp.Idloai
     left join phanloai pl on tl.Idpl = pl.Idpl
     where StatusSP = 1 and pl.Idpl = '$id_subcat' and Giamoi between '$min_price' and '$max_price'
+    ORDER BY Idsp desc
     LIMIT $start, $limit";
 
     $querypage = "SELECT * FROM sanpham sp
@@ -60,6 +62,7 @@ if (isset($_GET['cat'])) {
     $id_cat = $_GET['cat'];
     $queryshop = "SELECT * FROM sanpham sp
     where StatusSP = 1 and Idloai = '$id_cat' and Giamoi between '$min_price' and '$max_price'
+    ORDER BY Idsp desc
     LIMIT $start, $limit";
 
     $querypage = "SELECT * FROM sanpham sp
@@ -78,6 +81,7 @@ if (isset($_GET['pub'])) {
     $id_pub = $_GET['pub'];
     $queryshop = "SELECT * FROM sanpham
     where StatusSP = 1 and Idnph = '$id_pub' and Giamoi between '$min_price' and '$max_price'
+    ORDER BY Idsp desc
     LIMIT $start, $limit";
 
     $querypage = "SELECT * FROM sanpham
