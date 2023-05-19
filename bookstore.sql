@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2023 lúc 08:15 PM
--- Phiên bản máy phục vụ: 10.4.27-MariaDB
--- Phiên bản PHP: 8.2.0
+-- Thời gian đã tạo: Th5 19, 2023 lúc 08:45 AM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -106,7 +106,8 @@ INSERT INTO `nhaphathanh` (`Idnph`, `Tennph`) VALUES
 (8, 'Alpha Books'),
 (9, '1980 Books'),
 (10, 'AZ Việt Nam'),
-(11, 'Tân việt');
+(11, 'Tân việt'),
+(12, 'Shinebooks');
 
 -- --------------------------------------------------------
 
@@ -125,7 +126,7 @@ CREATE TABLE `phanloai` (
 
 INSERT INTO `phanloai` (`Idpl`, `Tenphanloai`) VALUES
 (1, 'Văn học'),
-(2, 'Truyện tranh - Thiếu nhi'),
+(2, 'Truyện tranh'),
 (3, 'Kinh tế'),
 (4, 'Giáo khoa - Tham khảo'),
 (5, 'Tiểu sử - Hồi ký'),
@@ -218,7 +219,10 @@ INSERT INTO `sanpham` (`Idsp`, `Tensp`, `Tacgia`, `Minhhoa`, `Dichgia`, `Loaibia
 (37, 'Nguyên Tắc Thiết Kế Slide Chuẩn Ted', 'Akash Karia', '', '', 'Bìa mềm', 186, 65, 15, 55.25, 5, 'thietke.jpg', 'Người ta lựa chọn sử dụng slide để khiến thông điệp của họ trở nên dễ hiểu hơn, khiến thông điệp của mình dễ dàng được tiếp nhận và trở nên thú vị hơn.\r\n\r\nĐó chính là yếu tố mấu chốt đầu tiên bạn có thể rút ra từ cuốn sách này. Mỗi khi thiết kế slide, hãy tự hỏi bản thân:\r\n\r\nTôi đang tạo ra slide này để giúp khán giả hay bản thân mình?\r\n\r\nThay vì bấu víu vào slide như một chỗ dựa và sử dụng theo kiểu giấy ghi chép cỡ lớn để có thể nhớ những điều cần nói, những diễn giả tài ba trên sân khấu TED sử dụng slide để giúp khán giả, chứ không phải bản thân họ. Bạn có muốn biết bí quyết thiết kế slide đằng sau những bài diễn thuyết nổi tiếng khắp thế giới này không?\r\n\r\nNguyên tắc thiết kế slide chuẩn TED không phải là sách vỡ lòng đầy đủ về việc thiết kế bài thuyết trình. Tuy nhiên, nó bao quát tất thảy các yếu tố cần thiết. Nguyên tắc thiết kế slide chuẩn TED được viết rất cô đọng phù hợp cho những người không muốn lãng phí thời gian vào những điều vô bổ. Trong cuốn sách này, bạn sẽ tìm thấy các ví dụ về những slide hấp dẫn từ các bài TED talk ấn tượng, cùng với đó là những nguyên tắc thiết thực mà bạn có thể vận dụng để khiến bài thuyết trình của mình trở nên sống động.\r\n\r\nDẫu nó không phải là sách vỡ lòng đầy đủ về việc thiết kế slide, nhưng nếu thực hiện đầy đủ các nguyên tắc trong sách, bạn cũng sẽ khiến bài thuyết trình của mình tốt hơn 90% số diễn giả – nói cách khác – bài của bạn sẽ nằm trong top 10% bài thuyết trình chất lượng nhất.\r\n\r\nNhư vậy là đủ để tạo ra những bài thuyết trình ấn tượng thay vì những gạch đầu dòng nhàm chán rồi.\r\n\r\nCẤU TRÚC CỦA CUỐN SÁCH NÀY\r\n\r\nCuốn sách này được chia làm ba phần. Phần đầu tiên bàn luận ngắn gọn về thông điệp trong bài thuyết trình vì dẫu bạn thiết kế slide thuyết trình đẹp mắt đến nhường nào, nhưng nếu thông điệp dở tệ, bài thuyết trình của bạn cũng sẽ cùng chung số phận.\r\n\r\nPhần hai là nội dung chính của cuốn sách này. Bạn sẽ khám phá những nguyên tắc chung về việc thiết kế bài thuyết trình, từ đó có thể vận dụng để tạo ra những slide hiệu quả và hấp dẫn giúp bạn truyền tải thông điệp thay vì khiến chúng trở nên rối rắm.\r\n\r\nCuối cùng, phần ba tập trung vào những nguyên tắc mấu chốt để truyền tải các slide một cách sinh động và cuốn hút.\r\n\r\nTrong cuốn sách này, tác giả đưa ra những hướng dẫn cho phần mềm PowerPoint. Tuy nhiên, ngay cả khi bạn sử dụng phần mềm Keynote hoặc Prezi, các nguyên tắc được trình bày trong cuốn sách này vẫn hoàn toàn có thể áp dụng.', 14, 1),
 (38, 'BlueLock - Tập 6 - Tặng Kèm Card PVC', 'Muneyuki Kaneshiro, Yusuke Nomura', '', 'Yoda', 'Bìa mềm', 192, 35, 10, 31.5, 1, 'bluelock6.jpg', 'BlueLock - Tập 6\r\n\r\nHỠI NHỮNG TIỀN ĐẠO, HÃY CHIẾN THẮNG BẰNG CHÍNH SỨC MÌNH!\r\n\r\nCHƯƠNG MỚI – VÒNG TUYỂN CHỌN THỨ 2, BẮT ĐẦU!!\r\n\r\nSau khi vượt qua vòng tuyển chọn thứ 2, Isagi và các thành viên đội Z lần lượt mở cánh cửa tiến vào vòng tuyển chọn thứ 2, nơi họ sẽ tự mình đương đầu với thử thách! Thứ nghênh đón họ chính là hệ thống thủ môn tối tân bậc nhất, BLUELOCK MAN. Khóa huấn luyện đó là gì!? Nội dung chi tiết của vòng tuyển chọn thứ 2 sẽ sớm được hé lộ! Cuộc chạm trán với những tiền đạo không quen biết và những trận đấu mới với luật lệ bất ngờ đang chờ đợi Isagi!!\r\n\r\nMUỐN ĐỨNG TRÊN ĐỈNH THẾ GIỚI PHẢI ĐÁNH BẠI CẢ KẺ ĐỊCH LẪN ĐỒNG ĐỘI! SÚT BÓNG ĐI!!\r\n\r\nMuneyuki Kaneshiro\r\n\r\n“Thể thao, không giống như cuộc sống, có thắng và thua. Tôi thích nó bởi vì nó tàn nhẫn, dứt khoát và đầy nhiệt huyết. Vừa nghĩ tới vừa nốc bia trước màn hình ti vi.”\r\n\r\nYusuke Nomura\r\n\r\n“Tôi rất thích phim và hoạt hình thể loại hành động gay cấn. Mong rằng các bạn độc giả cũng xem cuốn truyện này thuộc thể loại ấy.”', 2, 1),
 (39, 'Dã Ngoại Thảnh Thơi - Yurucamp - Tập 9', 'Afro', '', 'Hồng Hà', 'Bìa mềm', 176, 30, 10, 27, 1, 'yurucamp9.jpg', '“Xin chào, tôi là afro. Cảm ơn các bạn đã mua “Dã ngoại thảnh thơi” tập 9. Lần trước tôi đã vô tình lạc vào một bãi diễn tập ở núi Phú Sĩ vì tưởng nhầm đó là khu cắm trại và bị bao vây giữa một đống xe cộ màu xanh lục đặc thù. Tôi đã tính đào hố để thoát thân nhưng giữa đường lại đi ra một không gian trông như hang động và hoàn toàn lạc lối. Lại thế rồi!!!!!!”', 2, 1),
-(40, 'Dược Sư Tự Sự (Manga) - Tập 4', 'Natsu Hyuuga, Touco Shino, Itsuki Nanao, Nekokurage', '', 'Hide', 'Bìa mềm', 194, 47, 10, 42.3, 1, 'duocsu4_manga.jpg', 'Sau lần về quê rồi trở lại hậu cung, mỗi khi có chuyện phiền toái xảy ra, Miêu Miêu lại bị đủ các bên nhờ vả. Một lời uỷ thác mới của Nhâm Thị có liên hệ với thủ phạm gây ra vụ đầu độc bất thành Lí Thụ phi ở yến tiệc ngoài trời và hé lộ chân tướng của toàn bộ sự việc đó...!?\r\n\r\nTập 4 này là phần kết của hồi truyện về hậu cung, gói gọn toàn bộ nội dung cho đến hết tập 1 của tiểu thuyết nguyên tác!!\r\n\r\n* WINGS BOOKS - Thương hiệu sách trẻ của NXB Kim Đồng hân hạnh gửi đến các bạn độc giả phiên bản chuyển thể manga đặc sắc của bộ light-novel siêu ăn khách DƯỢC SƯ TỰ SỰ!', 2, 1);
+(40, 'Dược Sư Tự Sự (Manga) - Tập 4', 'Natsu Hyuuga, Touco Shino, Itsuki Nanao, Nekokurage', '', 'Hide', 'Bìa mềm', 194, 47, 10, 42.3, 1, 'duocsu4_manga.jpg', 'Sau lần về quê rồi trở lại hậu cung, mỗi khi có chuyện phiền toái xảy ra, Miêu Miêu lại bị đủ các bên nhờ vả. Một lời uỷ thác mới của Nhâm Thị có liên hệ với thủ phạm gây ra vụ đầu độc bất thành Lí Thụ phi ở yến tiệc ngoài trời và hé lộ chân tướng của toàn bộ sự việc đó...!?\r\n\r\nTập 4 này là phần kết của hồi truyện về hậu cung, gói gọn toàn bộ nội dung cho đến hết tập 1 của tiểu thuyết nguyên tác!!\r\n\r\n* WINGS BOOKS - Thương hiệu sách trẻ của NXB Kim Đồng hân hạnh gửi đến các bạn độc giả phiên bản chuyển thể manga đặc sắc của bộ light-novel siêu ăn khách DƯỢC SƯ TỰ SỰ!', 2, 1),
+(41, 'Diệt Slime Suốt 300 Năm, Tôi Levelmax Lúc Nào Chẳng Hay - Tập 12', 'Morita Kisetsu', 'Benio', 'Mai', 'Bìa mềm', 408, 149, 20, 119.2, 2, 'slime300ep12.png', 'Diệt Slime Suốt 300 Năm, Tôi Levelmax Lúc Nào Chẳng Hay - Tập 12\r\n\r\nDiệt slime suốt 300 năm, cuối cùng thì tôi cũng gặp được UFO rồi!?\r\n\r\nNhưng nghĩ lại, tôi vẫn nhìn thấy các hồn ma mỗi ngày đó thôi, vậy nên cũng không có gì đặc biệt cho lắm. Thế nhưng vẫn thật tuyệt vời khi được thấy những cô con gái yêu của mình náo động vì chuyện đó. Và đúng như dự đoán, chân tướng thực sự của chiếc UFO này chính là…!\r\n\r\nBên cạnh đó, trong tập này, tôi cũng sẽ tạo ra các món ăn mới từ gạo, đi tham quan các địa điểm tâm linh cùng các ác linh, và còn ra khơi tìm bạn của Slime Thông thái nữa.\r\n\r\nCuối truyện sẽ là trận chiến trường học đầy hỗn loạn của Raika trong ngoại truyện “Học viện Nữ sinh Rồng Đỏ”!', 1, 1),
+(42, 'Mình Sẽ Tìm Cậu Vào Đêm Trăng Rằm', 'Yozora Fuyuno', '', 'Satoukibi', 'Bìa Mềm', 248, 109, 20, 87.2, 12, 'demtrang.jpg', 'Từ ngày không còn cha mẹ ở bên, tôi đã trở nên vô cảm với thế giới này. Mỗi ngày tôi đều say mê vẽ tranh, nhưng các bức tranh của tôi chỉ là tranh đen trắng, hoàn toàn không có một chút sắc màu. Bỗng một ngày có một người con gái rất đẹp, mang theo bầu không khí kỳ lạ xuất hiện. Dáng vẻ cô ấy lặng yên mỉm cười trước bức tranh mà tôi vẽ khiến tôi dần dần bị thu hút. Tuy nhiên thế giới trong mắt cô ấy đã hoàn toàn mất đi mọi màu sắc, thêm nữa số phận của cô ấy còn được định sẵn là “Càng hạnh phúc, cái chết sẽ càng cận kề”.\r\n“Tớ không muốn mất cậu…” Để có thể khiến thế giới của cô ấy bừng sáng trở lại, tôi đã đưa ra một quyết định quan trọng…\r\n\r\nTrích dẫn trong sách:\r\n\r\n“Giữa một đời dài rộng nhưng rất đỗi bình thường và một đời ngắn ngủi nhưng ngập tràn hạnh phúc, cậu sẽ chọn cái nào?”', 1, 1),
+(43, 'Dược Sư Tự Sự (Manga) - Tập 5', 'Natsu Hyuuga (Hero Bunko/Shufunotomosha), Touco Shino, Itsuki Nanao, Nekokurage', '', 'Thảo Aki', 'Bìa mềm', 176, 47, 10, 42.3, 1, 'duocsu5_manga.jpg', 'Sau khi bị đuổi khỏi hậu cung một lần, Miêu Miêu được Nhâm Thị trực tiếp thuê về làm việc ở ngoại đình. Những lời nhờ vả giải mã các điều bí ẩn kích thích trí tò mò của Miêu Miêu tăng lên so với trước đây, lại còn có người đem đến các yêu cầu phiền nhiễu khác. Phải chăng thám tử lừng danh Miêu Miêu đã ra đời...!?\r\n\r\nTập thứ 5 khai màn một chương truyện mới!', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -418,7 +422,7 @@ ALTER TABLE `hoadon`
 -- AUTO_INCREMENT cho bảng `nhaphathanh`
 --
 ALTER TABLE `nhaphathanh`
-  MODIFY `Idnph` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Idnph` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `phanloai`
@@ -436,7 +440,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `Idsp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `Idsp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT cho bảng `taikhoan`
