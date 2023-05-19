@@ -190,20 +190,32 @@ if (isset($_POST['edit-product'])) {
 	$pro_cat = $_POST['e-pro-cat'];
 	$pro_des = $_POST['e-pro-des'];
 
-	$file = $_FILES['image']['tmp_name'];
-	if ($file != "") {
-		$image_check = getimagesize($_FILES['image']['tmp_name']);
-		$image = file_get_contents($_FILES['image']['tmp_name']);
-		$image_name = $_FILES['image']['name'];
-		$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des', `Img`='$image_name' WHERE `Idsp` = '$pro_id';";
+	$tmp_name = $_FILES['image']['tmp_name'];
+	$img_name = $_FILES['image']['name']; 
+	$img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+	$img_ex_lc = strtolower($img_ex);
+
+	$allowed_exs = array("jpg", "jpeg", "png");
+	if (in_array($img_ex_lc, $allowed_exs)) {
+		$new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+		$img_upload_path = '../product-img/' . $new_img_name;
+		move_uploaded_file($tmp_name, $img_upload_path);
+
+		if ($tmp_name != "") {
+			
+			$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des', `Img`='$new_img_name' WHERE `Idsp` = '$pro_id';";
+		} else {
+			$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des' WHERE `Idsp` = '$pro_id';";
+		}
+		if ($conn->query($update_query)) {
+			echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
+		} else {
+			echo "<script>alert('Sửa thất bại!');window.location='../products.php'</script>";
+		}
 	} else {
-		$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des' WHERE `Idsp` = '$pro_id';";
+		echo "<script>alert('Sai định dạng file!');window.location='../products.php'</script>";
 	}
-	if ($conn->query($update_query)) {
-		echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
-	} else {
-		echo "<script>alert('Sửa thất bại!');window.location='../products.php'</script>";
-	}
+	
 }
 //////////////////////// ADD PRODUCT //////////////////////
 
@@ -221,18 +233,27 @@ if (isset($_POST['add-product'])) {
 	$add_pro_cat = $_POST['add-pro-cat'];
 	$add_pro_des = $_POST['add-pro-des'];
 
-	$file = $_FILES['image']['tmp_name'];
-	$image_check = getimagesize($_FILES['image']['tmp_name']);
-	$image = file_get_contents($_FILES['image']['tmp_name']);
-	$image_name = $_FILES['image']['name'];
+	$tmp_name = $_FILES['image']['tmp_name'];
+	$img_name = $_FILES['image']['name'];
+	$img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+	$img_ex_lc = strtolower($img_ex);
 
-	$insert_pro = "INSERT INTO sanpham( `Tensp`, `Tacgia`, `Minhhoa`, `Dichgia`, `Loaibia`, `Sotrang`, `Giasp`, `Giamgia`, `Giamoi`, `Idloai`, `Idnph`, `Mota`, `Img`, `StatusSP`) 
-	VALUES ('$add_pro_name', '$add_pro_author', '$add_pro_illu', '$add_pro_trans', '$add_pro_cover', '$add_pro_pages', '$add_pro_price','$add_pro_sale','$add_pro_newprice','$add_pro_cat', '$add_pro_pub', '$add_pro_des', '$image_name' , '1');";
+	$allowed_exs = array("jpg", "jpeg", "png");
+	if (in_array($img_ex_lc, $allowed_exs)) {
+		$new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+		$img_upload_path = '../product-img/' . $new_img_name;
+		move_uploaded_file($tmp_name, $img_upload_path);
 
-	if ($conn->query($insert_pro)) {
-		echo "<script>alert('Thêm sách mới thành công!');window.location='../products.php'</script>";
+		$insert_pro = "INSERT INTO sanpham( `Tensp`, `Tacgia`, `Minhhoa`, `Dichgia`, `Loaibia`, `Sotrang`, `Giasp`, `Giamgia`, `Giamoi`, `Idloai`, `Idnph`, `Mota`, `Img`, `StatusSP`) 
+		VALUES ('$add_pro_name', '$add_pro_author', '$add_pro_illu', '$add_pro_trans', '$add_pro_cover', '$add_pro_pages', '$add_pro_price','$add_pro_sale','$add_pro_newprice','$add_pro_cat', '$add_pro_pub', '$add_pro_des', '$new_img_name' , '1');";
+
+		if ($conn->query($insert_pro)) {
+			echo "<script>alert('Thêm sách mới thành công!');window.location='../products.php'</script>";
+		} else {
+			echo "<script>alert('Thêm sách mới thất bại!');window.location='../products.php'</script>";
+		}
 	} else {
-		echo "<script>alert('Thêm sách mới thất bại!');window.location='../products.php'</script>";
+		echo "<script>alert('Sai định dạng file!');window.location='../products.php'</script>";
 	}
 }
 
@@ -243,7 +264,7 @@ if (isset($_GET['hd_upstatus']) and isset($_SESSION['usernameadmin'])) {
 	$status_new = $status + 1;
 	$upstatus_query = "UPDATE hoadon SET StatusHD = '$status_new' WHERE Idhd = '$upstatus'";
 	if ($status_new == '3') {
-		$finish_date = date( "Y-m-d" );
+		$finish_date = date("Y-m-d");
 		$finish = "UPDATE hoadon SET
             	Ngaynhan = '$finish_date'
         		where Idhd = '$upstatus'";
