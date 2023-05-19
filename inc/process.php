@@ -2,6 +2,12 @@
 require_once('db.php');
 session_start();
 
+$cus_id = '';
+
+if(isset($_SESSION['customer'])){
+	$cus_id = $_SESSION['customer'];
+}
+
 //////////////////////// REGISTER //////////////////////
 if (isset($_POST['register'])) {
 	$user_yourname = $_POST['name'];
@@ -35,8 +41,6 @@ if (isset($_POST['register'])) {
 		}
 	}
 }
-
-$cus_id = $_SESSION['customer'];
 
 //////////////////////// EDIT USER //////////////////////
 if (isset($_POST['edit_user'])) {
