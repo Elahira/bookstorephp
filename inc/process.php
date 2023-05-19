@@ -12,21 +12,27 @@ if (isset($_POST['register'])) {
 	$user_permission = "2";
 	$user_status = "1";
 
-	$query = "INSERT INTO taikhoan (Username,Password,Idrole,StatusTK) VALUES ('$user_username','$user_password','$user_permission','$user_status');";
+	$querycheck_acc = "SELECT * FROM taikhoan where Username = '$user_username'";
+	$runcheck_acc = $conn->query($querycheck_acc);
+	if ($runcheck_acc->num_rows > 0) {
+		echo "<script>alert('Tên tài khoản này đã được sử dụng, xin hãy chọn tên tài khoản khác!');window.location='../login.php'</script>";
+	} else {
+		$query = "INSERT INTO taikhoan (Username,Password,Idrole,StatusTK) VALUES ('$user_username','$user_password','$user_permission','$user_status');";
 
-	if ($conn->query($query)) {
-		$query = "SELECT Idtk FROM taikhoan WHERE Username='$user_username'";
-		$runcheck = $conn->query($query);
-		$rowcheck = $runcheck->fetch_array();
-		$user_id = $rowcheck['Idtk'];
-		$query_id = "INSERT INTO users (Ten,Sdt,Mail,Idtk) VALUES ('$user_yourname','$user_phone','$user_email','$user_id')";
-		if ($conn->query($query_id)) {
-			echo "<script>alert('Đăng ký thành công!');window.location='../login.php'</script>";
+		if ($conn->query($query)) {
+			$query = "SELECT Idtk FROM taikhoan WHERE Username='$user_username'";
+			$runcheck = $conn->query($query);
+			$rowcheck = $runcheck->fetch_array();
+			$user_id = $rowcheck['Idtk'];
+			$query_id = "INSERT INTO users (Ten,Sdt,Mail,Idtk) VALUES ('$user_yourname','$user_phone','$user_email','$user_id')";
+			if ($conn->query($query_id)) {
+				echo "<script>alert('Đăng ký thành công!');window.location='../login.php'</script>";
+			} else {
+				echo "<script>alert('Đăng ký thất bại!');window.location='../login.php'</script>";
+			}
 		} else {
 			echo "<script>alert('Đăng ký thất bại!');window.location='../login.php'</script>";
 		}
-	} else {
-		echo "<script>alert('Đăng ký thất bại!');window.location='../login.php'</script>";
 	}
 }
 
@@ -192,7 +198,7 @@ if (isset($_POST['checkout_bank'])) {
 		$querynew = "INSERT INTO `hoadon` (`Idhd`, `Ngaymua`, `Ngaynhan`, `Idtk`, `Ghichu`, `StatusHD`) VALUES (NULL, '$buydate', '$buydate', '$cus_id', '$bank_note', '1');";
 
 		$run_neworder = $conn->query($querynew);
-		
+
 		$query_new_order = "SELECT max(Idhd) FROM `hoadon`";
 		$run_order = $conn->query($query_new_order);
 		$row = $run_order->fetch_array();
@@ -219,12 +225,12 @@ if (isset($_POST['checkout_bank'])) {
 		$bank_num = $row_bank['Sotk'];
 		$bank_acc = $row_bank['Tentk'];
 
-		$bank_note .= '\nĐã thanh toán online \nNgân hàng: '.$bank_name.'\nSố tài khoản: '.$bank_num.'\nTên tài khoản: '.$bank_acc;
+		$bank_note .= '\nĐã thanh toán online \nNgân hàng: ' . $bank_name . '\nSố tài khoản: ' . $bank_num . '\nTên tài khoản: ' . $bank_acc;
 
 		$querynew = "INSERT INTO `hoadon` (`Idhd`, `Ngaymua`, `Ngaynhan`, `Idtk`, `Ghichu`, `StatusHD`) VALUES (NULL, '$buydate', '$buydate', '$cus_id', '$bank_note', '1');";
 
 		$run_neworder = $conn->query($querynew);
-		
+
 		$query_new_order = "SELECT max(Idhd) FROM `hoadon`";
 		$run_order = $conn->query($query_new_order);
 		$row = $run_order->fetch_array();
