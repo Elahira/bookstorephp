@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 19, 2023 lúc 08:45 AM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.1.17
+-- Thời gian đã tạo: Th5 19, 2023 lúc 07:35 PM
+-- Phiên bản máy phục vụ: 10.4.27-MariaDB
+-- Phiên bản PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -222,7 +222,8 @@ INSERT INTO `sanpham` (`Idsp`, `Tensp`, `Tacgia`, `Minhhoa`, `Dichgia`, `Loaibia
 (40, 'Dược Sư Tự Sự (Manga) - Tập 4', 'Natsu Hyuuga, Touco Shino, Itsuki Nanao, Nekokurage', '', 'Hide', 'Bìa mềm', 194, 47, 10, 42.3, 1, 'duocsu4_manga.jpg', 'Sau lần về quê rồi trở lại hậu cung, mỗi khi có chuyện phiền toái xảy ra, Miêu Miêu lại bị đủ các bên nhờ vả. Một lời uỷ thác mới của Nhâm Thị có liên hệ với thủ phạm gây ra vụ đầu độc bất thành Lí Thụ phi ở yến tiệc ngoài trời và hé lộ chân tướng của toàn bộ sự việc đó...!?\r\n\r\nTập 4 này là phần kết của hồi truyện về hậu cung, gói gọn toàn bộ nội dung cho đến hết tập 1 của tiểu thuyết nguyên tác!!\r\n\r\n* WINGS BOOKS - Thương hiệu sách trẻ của NXB Kim Đồng hân hạnh gửi đến các bạn độc giả phiên bản chuyển thể manga đặc sắc của bộ light-novel siêu ăn khách DƯỢC SƯ TỰ SỰ!', 2, 1),
 (41, 'Diệt Slime Suốt 300 Năm, Tôi Levelmax Lúc Nào Chẳng Hay - Tập 12', 'Morita Kisetsu', 'Benio', 'Mai', 'Bìa mềm', 408, 149, 20, 119.2, 2, 'slime300ep12.png', 'Diệt Slime Suốt 300 Năm, Tôi Levelmax Lúc Nào Chẳng Hay - Tập 12\r\n\r\nDiệt slime suốt 300 năm, cuối cùng thì tôi cũng gặp được UFO rồi!?\r\n\r\nNhưng nghĩ lại, tôi vẫn nhìn thấy các hồn ma mỗi ngày đó thôi, vậy nên cũng không có gì đặc biệt cho lắm. Thế nhưng vẫn thật tuyệt vời khi được thấy những cô con gái yêu của mình náo động vì chuyện đó. Và đúng như dự đoán, chân tướng thực sự của chiếc UFO này chính là…!\r\n\r\nBên cạnh đó, trong tập này, tôi cũng sẽ tạo ra các món ăn mới từ gạo, đi tham quan các địa điểm tâm linh cùng các ác linh, và còn ra khơi tìm bạn của Slime Thông thái nữa.\r\n\r\nCuối truyện sẽ là trận chiến trường học đầy hỗn loạn của Raika trong ngoại truyện “Học viện Nữ sinh Rồng Đỏ”!', 1, 1),
 (42, 'Mình Sẽ Tìm Cậu Vào Đêm Trăng Rằm', 'Yozora Fuyuno', '', 'Satoukibi', 'Bìa Mềm', 248, 109, 20, 87.2, 12, 'demtrang.jpg', 'Từ ngày không còn cha mẹ ở bên, tôi đã trở nên vô cảm với thế giới này. Mỗi ngày tôi đều say mê vẽ tranh, nhưng các bức tranh của tôi chỉ là tranh đen trắng, hoàn toàn không có một chút sắc màu. Bỗng một ngày có một người con gái rất đẹp, mang theo bầu không khí kỳ lạ xuất hiện. Dáng vẻ cô ấy lặng yên mỉm cười trước bức tranh mà tôi vẽ khiến tôi dần dần bị thu hút. Tuy nhiên thế giới trong mắt cô ấy đã hoàn toàn mất đi mọi màu sắc, thêm nữa số phận của cô ấy còn được định sẵn là “Càng hạnh phúc, cái chết sẽ càng cận kề”.\r\n“Tớ không muốn mất cậu…” Để có thể khiến thế giới của cô ấy bừng sáng trở lại, tôi đã đưa ra một quyết định quan trọng…\r\n\r\nTrích dẫn trong sách:\r\n\r\n“Giữa một đời dài rộng nhưng rất đỗi bình thường và một đời ngắn ngủi nhưng ngập tràn hạnh phúc, cậu sẽ chọn cái nào?”', 1, 1),
-(43, 'Dược Sư Tự Sự (Manga) - Tập 5', 'Natsu Hyuuga (Hero Bunko/Shufunotomosha), Touco Shino, Itsuki Nanao, Nekokurage', '', 'Thảo Aki', 'Bìa mềm', 176, 47, 10, 42.3, 1, 'duocsu5_manga.jpg', 'Sau khi bị đuổi khỏi hậu cung một lần, Miêu Miêu được Nhâm Thị trực tiếp thuê về làm việc ở ngoại đình. Những lời nhờ vả giải mã các điều bí ẩn kích thích trí tò mò của Miêu Miêu tăng lên so với trước đây, lại còn có người đem đến các yêu cầu phiền nhiễu khác. Phải chăng thám tử lừng danh Miêu Miêu đã ra đời...!?\r\n\r\nTập thứ 5 khai màn một chương truyện mới!', 2, 1);
+(43, 'Dược Sư Tự Sự (Manga) - Tập 5', 'Natsu Hyuuga (Hero Bunko/Shufunotomosha), Touco Shino, Itsuki Nanao, Nekokurage', '', 'Thảo Aki', 'Bìa mềm', 176, 47, 10, 42.3, 1, 'duocsu5_manga.jpg', 'Sau khi bị đuổi khỏi hậu cung một lần, Miêu Miêu được Nhâm Thị trực tiếp thuê về làm việc ở ngoại đình. Những lời nhờ vả giải mã các điều bí ẩn kích thích trí tò mò của Miêu Miêu tăng lên so với trước đây, lại còn có người đem đến các yêu cầu phiền nhiễu khác. Phải chăng thám tử lừng danh Miêu Miêu đã ra đời...!?\r\n\r\nTập thứ 5 khai màn một chương truyện mới!', 2, 1),
+(44, 'Tuổi Trẻ Đáng Giá Bao Nhiêu (Tái Bản 2021)', 'Rosie Nguyễn', '', '', 'Bìa mềm', 291, 90, 20, 72, 3, 'IMG-6467b12451bc07.29191458.jpg', '“Bạn hối tiếc vì không nắm bắt lấy một cơ hội nào đó, chẳng có ai phải mất ngủ.\r\n\r\nBạn trải qua những ngày tháng nhạt nhẽo với công việc bạn căm ghét, người ta chẳng hề bận lòng.\r\n\r\nBạn có chết mòn nơi xó tường với những ước mơ dang dở, đó không phải là việc của họ.\r\n\r\nSuy cho cùng, quyết định là ở bạn. Muốn có điều gì hay không là tùy bạn.\r\n\r\nNên hãy làm những điều bạn thích. Hãy đi theo tiếng nói trái tim. Hãy sống theo cách bạn cho là mình nên sống.\r\n\r\nVì sau tất cả, chẳng ai quan tâm.”\r\n\r\n“Tôi đã đọc quyển sách này một cách thích thú. Có nhiều kiến thức và kinh nghiệm hữu ích, những điều mới mẻ ngay cả với người gần trung niên như tôi.\r\n\r\nTuổi trẻ đáng giá bao nhiêu? được tác giả chia làm 3 phần: HỌC, LÀM, ĐI.\r\n\r\nNhưng tôi thấy cuốn sách còn thể hiện một phần thứ tư nữa, đó là ĐỌC.\r\n\r\nHãy đọc sách, nếu bạn đọc sách một cách bền bỉ, sẽ đến lúc bạn bị thôi thúc không ngừng bởi ý muốn viết nên cuốn sách của riêng mình.\r\n\r\nNếu tôi còn ở tuổi đôi mươi, hẳn là tôi sẽ đọc Tuổi trẻ đáng giá bao nhiêu? nhiều hơn một lần.”\r\n\r\n- Đặng Nguyễn Đông Vy, tác giả, nhà báo', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -440,7 +441,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `Idsp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `Idsp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT cho bảng `taikhoan`
