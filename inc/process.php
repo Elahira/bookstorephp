@@ -3,9 +3,6 @@ require_once('db.php');
 session_start();
 
 //////////////////////// REGISTER //////////////////////
-
-$cus_id = $_SESSION['customer'];
-
 if (isset($_POST['register'])) {
 	$user_yourname = $_POST['name'];
 	$user_email = $_POST['email'];
@@ -32,6 +29,8 @@ if (isset($_POST['register'])) {
 		echo "<script>alert('Đăng ký thất bại!');window.location='../login.php'</script>";
 	}
 }
+
+$cus_id = $_SESSION['customer'];
 
 //////////////////////// EDIT USER //////////////////////
 if (isset($_POST['edit_user'])) {
