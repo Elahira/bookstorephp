@@ -27,6 +27,7 @@ LIMIT $start, $limit";
 
 $querypage = "SELECT * FROM theloai tl
 join phanloai pl on pl.Idpl = tl.Idpl
+where CONCAT(Idloai,Tenloai,Tenphanloai) LIKE '%$searchkey%' 
 order by Idloai asc";
 
 $run_page = $conn->query($querypage);

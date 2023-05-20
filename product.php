@@ -102,7 +102,8 @@ if (isset($_GET['id'])) {
                                 <input id="img-sp" value="<?php echo $pro_img ?>" hidden>
                                 <div class="col-lg-6">
                                     <div class="product-details-des mt-md-34 mt-sm-34">
-                                        <h3><a href="product.php?id=<?php echo $pro_id ?>" id="name-sp"><?php echo $pro_name ?></a></h3>
+                                        <h3><a href="product.php?id=<?php echo $pro_id ?>"><?php echo $pro_name ?></a></h3>
+                                        <input type="text" id="name-sp" value="<?php echo $pro_name ?>" hidden>
                                         <div class="ratings">
                                             <span class="good"><i class="fa fa-star"></i></span>
                                             <span class="good"><i class="fa fa-star"></i></span>
@@ -466,10 +467,10 @@ if (isset($_GET['id'])) {
                         var newVal = parseFloat(oldValue) + 1;
                     } else {
                         // Don't allow decrementing below zero
-                        if (oldValue > 0) {
+                        if (oldValue > 1) {
                             var newVal = parseFloat(oldValue) - 1;
                         } else {
-                            newVal = 0;
+                            newVal = 1;
                         }
                     }
                     $button.parent().find('input').val(newVal);

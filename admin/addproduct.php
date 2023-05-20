@@ -62,7 +62,7 @@
 
                                     <div class="form-group">
                                         <label for="products">Số trang:*</label>
-                                        <input type="text" class="form-control" name="add-pro-pages">
+                                        <input type="number" class="form-control" name="add-pro-pages">
                                     </div>
 
                                     <div class="form-group">
@@ -113,7 +113,7 @@
 
                                     <div class="form-group">
                                         <label for="products">Giá:*</label>
-                                        <input type="text" class="form-control" name="add-pro-price" required>
+                                        <input type="number" class="form-control" name="add-pro-price" required>
                                     </div>
 
                                     <div class="form-group">

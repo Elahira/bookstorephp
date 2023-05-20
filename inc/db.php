@@ -1,5 +1,4 @@
 <?php
-ob_start();
 define("Host",'127.0.0.1');
 define("User",'root');
 define("Pass",'');

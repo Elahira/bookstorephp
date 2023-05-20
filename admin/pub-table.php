@@ -24,6 +24,7 @@ order by Idnph asc
 LIMIT $start, $limit";
 
 $querypage = "SELECT * FROM nhaphathanh 
+where CONCAT(Idnph,Tennph) LIKE '%$searchkey%'
 order by Idnph asc";
 
 $run_page = $conn->query($querypage);

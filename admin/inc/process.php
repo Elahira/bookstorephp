@@ -191,31 +191,34 @@ if (isset($_POST['edit-product'])) {
 	$pro_des = $_POST['e-pro-des'];
 
 	$tmp_name = $_FILES['image']['tmp_name'];
-	$img_name = $_FILES['image']['name']; 
-	$img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-	$img_ex_lc = strtolower($img_ex);
 
-	$allowed_exs = array("jpg", "jpeg", "png");
-	if (in_array($img_ex_lc, $allowed_exs)) {
-		$new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
-		$img_upload_path = '../product-img/' . $new_img_name;
-		move_uploaded_file($tmp_name, $img_upload_path);
+	if ($tmp_name != '') {
+		$img_name = $_FILES['image']['name'];
+		$img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+		$img_ex_lc = strtolower($img_ex);
 
-		if ($tmp_name != "") {
-			
+		$allowed_exs = array("jpg", "jpeg", "png");
+		if (in_array($img_ex_lc, $allowed_exs)) {
+			$new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+			$img_upload_path = '../product-img/' . $new_img_name;
+			move_uploaded_file($tmp_name, $img_upload_path);
+
+
+
 			$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des', `Img`='$new_img_name' WHERE `Idsp` = '$pro_id';";
+
+			if ($conn->query($update_query)) {
+				echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
+			} else {
+				echo "<script>alert('Sửa thất bại!');window.location='../products.php'</script>";
+			}
 		} else {
-			$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des' WHERE `Idsp` = '$pro_id';";
-		}
-		if ($conn->query($update_query)) {
-			echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
-		} else {
-			echo "<script>alert('Sửa thất bại!');window.location='../products.php'</script>";
+			echo "<script>alert('Sai định dạng file!');window.location='../products.php'</script>";
 		}
 	} else {
-		echo "<script>alert('Sai định dạng file!');window.location='../products.php'</script>";
+		$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des' WHERE `Idsp` = '$pro_id';";
+		echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
 	}
-	
 }
 //////////////////////// ADD PRODUCT //////////////////////
 

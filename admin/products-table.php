@@ -27,6 +27,7 @@ LIMIT $start, $limit";
 $querypage = "SELECT * from sanpham sp
 LEFT JOIN theloai tl on tl.Idloai = sp.Idloai
 LEFT JOIN nhaphathanh nph on nph.Idnph = sp.Idnph
+where CONCAT(Idsp,Tensp,Tacgia,Minhhoa,Dichgia,Tennph,Tenloai,Giasp,Giamgia,Giamoi,Loaibia,Sotrang) LIKE '%$searchkey%'
 order by sp.Idsp asc";
 
 $run_page = $conn->query($querypage);
