@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="single-input-item">
                                         <label for="phone">Số điện thoại</label>
-                                        <input type="text" name="phone" placeholder="Nhập số điện thoại" required />
+                                        <input type="number" name="phone" placeholder="Nhập số điện thoại" required />
                                     </div>
                                     <div class="single-input-item">
                                         <label for="username">Tài khoản</label>
