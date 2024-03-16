@@ -85,7 +85,7 @@
 
                                             <div class="form-group">
                                                 <label for="products">Số trang:*</label>
-                                                <input type="text" value="<?php echo $pro_pages ?>" class="form-control" name="e-pro-pages">
+                                                <input type="number" value="<?php echo $pro_pages ?>" class="form-control" name="e-pro-pages">
                                             </div>
 
                                             <div class="form-group">
@@ -145,7 +145,7 @@
 
                                             <div class="form-group">
                                                 <label for="product">Giá:*</label>
-                                                <input type="text" value="<?php echo $pro_price ?>" class="form-control" name="e-pro-price" required>
+                                                <input type="number" value="<?php echo $pro_price ?>" class="form-control" name="e-pro-price" required>
                                             </div>
 
                                             <div class="form-group">

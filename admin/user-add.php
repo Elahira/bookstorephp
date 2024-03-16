@@ -48,7 +48,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label" for="val-phoneus">Số điện thoại <span class="text-danger">*</span> </label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="val-phoneus" name="phone" placeholder="19008080" required>
+                                            <input type="number" class="form-control" id="val-phoneus" name="phone" placeholder="19008080" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
