@@ -217,7 +217,11 @@ if (isset($_POST['edit-product'])) {
 		}
 	} else {
 		$update_query = "UPDATE sanpham SET `Tensp`='$pro_name', `Tacgia`='$pro_author', `Minhhoa`='$pro_illu', `Dichgia`='$pro_trans', `Loaibia`='$pro_cover', `Sotrang`='$pro_pages', `Giasp`='$pro_price', `Giamgia`='$pro_sale', `Giamoi`='$pro_newprice', `Idloai`='$pro_cat', `Idnph`='$pro_pub', `Mota`='$pro_des' WHERE `Idsp` = '$pro_id';";
-		echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
+		if ($conn->query($update_query)) {
+			echo "<script>alert('Sửa thành công!');window.location='../products.php'</script>";
+		} else {
+			echo "<script>alert('Sửa thất bại!');window.location='../products.php'</script>";
+		}
 	}
 }
 //////////////////////// ADD PRODUCT //////////////////////
